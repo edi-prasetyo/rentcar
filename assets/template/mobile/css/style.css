@@ -1,0 +1,299 @@
+/* List card */
+
+.list-card .count-number {
+	margin: 4px 0 0 0;
+	display: inline-block;
+}
+
+.list-card a,
+.list-card h6 {
+	color: inherit;
+
+	white-space: normal;
+	font-size: 15px;
+	text-overflow: ellipsis;
+}
+
+.list-card a:hover {
+	color: #0091bc;
+}
+
+.list-card .star {
+	right: 8px;
+	bottom: 8px;
+}
+
+.list-card .star .badge {
+	font-size: 11px;
+	padding: 5px 5px;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.list-card .member-plan {
+	left: 8px;
+	top: 8px;
+}
+
+.list-card .member-plan .badge {
+	font-size: 11px;
+	padding: 5px 5px;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.list-card .list-card-image {
+	position: relative;
+}
+
+.list-card .favourite-heart {
+	right: 8px;
+	top: 8px;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.list-card .favourite-heart i {
+	background: #fff;
+	width: 23px;
+	height: 23px;
+	display: inline-block;
+	text-align: center;
+	font-size: 15px;
+	line-height: 24px;
+	border-radius: 50px;
+}
+
+.list-card.d-flex .list-card-image {
+	width: 130px;
+	height: 140px;
+	min-width: 130px;
+	max-width: 130px;
+}
+
+.list-card.d-flex .list-card-image .item-img {
+	height: 140px;
+	object-fit: cover;
+}
+
+.list-card .list-card-body p.text-gray {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 12px;
+}
+
+.list-card .p-3 {
+	overflow: hidden;
+}
+
+.list-card.d-flex .list-card-body span.float-right.text-black-50 {
+	display: none;
+}
+
+.img-frame img {
+	/* width: 100%; */
+	height: 130px;
+	object-fit: cover;
+}
+.img-profile img {
+	width: 100%;
+	height: 90px;
+	overflow: hidden;
+	border-radius: 15px;
+	object-fit: cover;
+}
+
+.rating-stars .feather-star {
+	font-size: 10px;
+	background: #000000;
+	color: #fff;
+	padding: 2px;
+	text-shadow: 0px 0px 1px #d2b128;
+	border-radius: 5px;
+}
+
+.rating-stars .feather-star.star_active {
+	background: #f5cd25;
+}
+/* Menu */
+
+.carbook-menu-fotter {
+	padding: 0px !important;
+}
+
+.carbook-menu-fotter .row {
+	margin: 0px;
+}
+
+.carbook-menu-fotter .col {
+	padding: 0px;
+}
+
+.carbook-menu-fotter .col a {
+	padding: 5px;
+	display: block;
+}
+
+.carbook-menu-fotter .col a p {
+	font-size: 19px;
+}
+
+.carbook-menu-fotter .col.selected a {
+	border-top: 2px solid #004bbd;
+	color: #004bbd;
+	background: #f8f9fa;
+}
+
+.carbook-menu-fotter .col.selected p {
+	color: #004bbd;
+}
+
+/* HOME PAGE STYLES */
+.boot-elemant-bg {
+	height: 300px;
+
+	/* Create the parallax scrolling effect */
+	/* background-attachment: fixed; */
+	background-position: center;
+	background-repeat: no-repeat;
+	/* background-size: cover; */
+	background-size: 500px auto;
+	background-color: black;
+}
+.boot-elemant-bg img {
+	width: 100%;
+}
+/* --- Hero --- */
+.hero {
+	position: relative;
+}
+/*===== hero-svg ======*/
+.hero-svg {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 10px;
+	fill: #fff;
+}
+.productcat {
+	margin-top: -50px;
+	/* position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto; */
+}
+.profilecat {
+	margin-top: -70px;
+}
+/* TEST */
+.test {
+	color: rgb(0, 80, 184);
+}
+
+/* RATING */
+.rating-stars .ri-star-line.star_active {
+	color: #f5cd25;
+}
+
+/* BTN Order */
+.btn-order-block {
+	display: block;
+	width: 100%;
+	border: none;
+	background-color: #0573bd;
+	padding: 17px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	color: #fff;
+	text-decoration: none;
+}
+.btn-order-block a:hover {
+	text-decoration: none;
+	color: #fff;
+}
+
+.error-wrapper {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.error-wrapper .title {
+	font-size: 32px;
+	font-weight: 700;
+	color: #000;
+}
+
+.error-wrapper .info {
+	font-size: 14px;
+}
+
+.home-btn,
+.home-btn:focus,
+.home-btn:hover,
+.home-btn:visited {
+	text-decoration: none;
+	font-size: 14px;
+	color: #06cf9d;
+	padding: 17px 77px;
+	border: 1px solid #06cf9d;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	display: block;
+	margin: 20px 0;
+	width: max-content;
+	background-color: transparent;
+	outline: 0;
+}
+
+.man-icon {
+	display: inline-block;
+	height: 100px;
+	width: 118px;
+	margin-bottom: 16px;
+}
+
+/* Point list Style */
+.list-wrapper {
+	position: relative;
+}
+.list-item-wrapper {
+	margin-top: 10px;
+	position: relative;
+}
+.list-bullet {
+	float: left;
+	margin-right: 20px;
+	background: #499eff;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
+	border-radius: 100px;
+	font-weight: 700;
+	color: #fff;
+	text-align: center;
+}
+.list-item {
+	display: table-row;
+	vertical-align: middle;
+}
+.list-title {
+	font-weight: 700;
+}
+.list-text {
+	font-weight: 400;
+}
+.red-line {
+	background: #333;
+	z-index: -1;
+	width: 1px;
+	height: 70%;
+	position: absolute;
+	left: 15px;
+}
+
+/* CSS Animation Success */
