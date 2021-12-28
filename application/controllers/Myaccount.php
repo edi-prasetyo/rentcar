@@ -105,4 +105,73 @@ class Myaccount extends CI_Controller
         ];
         $this->load->view('front/layout/wrapp', $data);
     }
+    // Update Profile
+    public function update_profile()
+    {
+        $user_id = $this->session->userdata('id');
+        $user = $this->user_model->detail($user_id);
+        // var_dump($user);
+        // die;
+        $this->form_validation->set_rules(
+            'name',
+            'Nama',
+            'required',
+            array('required'                  => '%s Harus Diisi')
+        );
+        if ($this->form_validation->run() === FALSE) {
+            //End Validasi
+            $data = [
+                'title'                         => 'Edit Profile',
+                'user'                          => $user,
+                'content'                       => 'front/myaccount/update'
+            ];
+            $this->load->view('front/layout/wrapp', $data, FALSE);
+            //Masuk Database
+        } else {
+            $data  = [
+                'id'                            => $user_id,
+                'name'                          => $this->input->post('name'),
+                'email'                         => $this->input->post('email'),
+                'user_phone'                    => $this->input->post('user_phone'),
+                'user_address'                  => $this->input->post('user_address'),
+                'date_updated'                  => date('Y-m-d H:i:s')
+            ];
+            $this->user_model->update($data);
+            $this->session->set_flashdata('message', 'Data telah di Update');
+            redirect(base_url('myaccount/index'), 'refresh');
+        }
+    }
+    // Update Password
+    public function update_password()
+    {
+        $user_id = $this->session->userdata('id');
+        $user = $this->user_model->detail($user_id);
+        $this->form_validation->set_rules(
+            'password1',
+            'Password',
+            'required|trim|min_length[3]|matches[password2]',
+            [
+                'matches'     => 'Password tidak sama',
+                'min_length'   => 'Password Min 3 karakter'
+            ]
+        );
+        $this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == false) {
+            $data = [
+                'title'         => 'Update Password',
+                'user'          => $user,
+                'content'       => 'front/myaccount/update_password'
+            ];
+            $this->load->view('front/layout/wrapp', $data, FALSE);
+        } else {
+            $data = [
+                'id'                => $user_id,
+                'password'          => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+            ];
+            $this->user_model->update($data);
+            $this->session->set_flashdata('message', 'Data Berhasil di Update');
+            redirect('myaccount/index');
+        }
+    }
 }

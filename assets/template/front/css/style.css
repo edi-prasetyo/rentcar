@@ -1106,3 +1106,14 @@ footer p {
 	margin-top: 26px;
 	margin-bottom: 15px;
 }
+.product-button :hover {
+	background-color: #ff5722;
+	color: #ffffff;
+}
+.arrow-click {
+	font-size: 20px;
+}
+.arrow-click :hover {
+	color: #ffffff;
+	padding-left: 40px;
+}

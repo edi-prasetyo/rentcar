@@ -6,14 +6,14 @@
                     <div class="col-md-3">
                         <img class="img-fluid" src="<?php echo base_url('assets/img/avatars/' . $user->user_image); ?>">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div><i class="fa fa-user"></i> <span class="font-weight-bold"><?php echo $user->name; ?></span></div>
                         <div><i class="fa fa-envelope"></i> <span class="font-weight-bold"><?php echo $user->email; ?></span></div>
                         <div><i class="fa fa-phone"></i> <span class="font-weight-bold"><?php echo $user->user_phone; ?></span></div>
-                        <?php echo $user->id; ?>
                     </div>
-                    <div class="col-md-3">
-                        <a href="" class="btn btn-primary btn-block">Edit Profile</a>
+                    <div class="col-md-4">
+                        <a href="<?php echo base_url('myaccount/update_profile'); ?>" class="btn btn-primary btn-block">Edit Profile</a>
+                        <a href="<?php echo base_url('myaccount/update_password'); ?>" class="btn btn-success btn-block">Edit Password</a>
                         <a href="<?php echo base_url('auth/logout'); ?>" class="btn btn-danger btn-block">Logout</a>
                     </div>
                 </div>

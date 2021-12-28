@@ -16,17 +16,23 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('daily'); ?>" class="text-muted text-decoration-none">
-                        <div class="card shadow-sm">
-                            <div class="card-body"><i class="fas fa-calendar-alt"></i> Rental Harian
+                    <a href="<?php echo base_url('daily'); ?>" class="text-muted text-decoration-none product-button">
+                        <div class="card shadow-sm product-button">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div><i class="fas fa-calendar-alt"></i> Rental Harian</div>
+                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
+
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('hourly'); ?>" class="text-muted text-decoration-none">
+                    <a href="<?php echo base_url('hourly'); ?>" class="text-muted text-decoration-none product-button">
                         <div class="card shadow-sm">
-                            <div class="card-body"> <i class="far fa-clock"></i> Rental Per Jam
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div><i class="far fa-clock"></i> Rental Per Jam</div>
+                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
+
                             </div>
                         </div>
                     </a>

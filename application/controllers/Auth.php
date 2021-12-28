@@ -9,6 +9,7 @@ class Auth extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('pengaturan_model');
 		$this->load->model('user_model');
+		$this->load->model('meta_model');
 	}
 
 	public function index()
@@ -175,6 +176,7 @@ class Auth extends CI_Controller
 	}
 	private function _sendEmail($token, $type)
 	{
+		$meta = $this->meta_model->get_meta();
 		$email_daftar = $this->pengaturan_model->email_register();
 		$config = [
 
@@ -190,7 +192,7 @@ class Auth extends CI_Controller
 		$this->load->library('email', $config);
 		$this->email->initialize($config);
 		$this->email->set_newline("\r\n");
-		$this->email->from("$email_daftar->smtp_user", 'Atrans Express');
+		$this->email->from("$email_daftar->smtp_user", $meta->title);
 		$this->email->to($this->input->post('real_email'));
 
 		if ($type == 'verify') {
