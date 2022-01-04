@@ -334,7 +334,7 @@ class Daily extends CI_Controller
     private function _sendEmail($insert_id)
     {
         $email_order = $this->pengaturan_model->email_order();
-        $transaksi  = $this->transaksi_model->detail_transaksi($insert_id);
+        $transaksi  = $this->transaksi_model->last_transaksi($insert_id);
         $meta = $this->meta_model->get_meta();
 
         $config = [
