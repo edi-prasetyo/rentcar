@@ -99,7 +99,5 @@
                 </div>
             </div>
         <?php endforeach; ?>
-
     </div> <!-- row.// -->
-
 </div>
