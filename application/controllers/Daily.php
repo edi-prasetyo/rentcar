@@ -351,7 +351,7 @@ class Daily extends CI_Controller
         $this->email->initialize($config);
         $this->email->set_newline("\r\n");
         $this->email->from("$email_order->smtp_user", "Order", "$meta->title");
-        $this->email->to($this->input->post('user_email'));
+        $this->email->to($this->input->post('passenger_email'));
         $this->email->cc("$email_order->cc_email");
         $this->email->bcc("$email_order->bcc_email");
 
@@ -371,10 +371,10 @@ class Daily extends CI_Controller
 
         if ($this->email->send()) {
             return true;
-        } else {
-            echo $this->email->print_debugger();
-            die;
-        }
+        } //else {
+        //     echo $this->email->print_debugger();
+        //     die;
+        // }
     }
 
 
