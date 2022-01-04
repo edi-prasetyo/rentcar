@@ -384,6 +384,9 @@ class transaksi extends CI_Controller
     $transaksi = $this->transaksi_model->detail($id);
     $kota_id = $transaksi->kota_id;
     $driver = $this->user_model->pilih_driver($kota_id);
+
+
+
     $this->form_validation->set_rules(
       'driver_id',
       'Driver ID',
@@ -401,19 +404,29 @@ class transaksi extends CI_Controller
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
     } else {
+
       $driver_id = $this->input->post('driver_id');
-      $data  = [
-        'id'                      => $id,
-        'stage'                   => 2,
-        'status'                  => 'Dikonfirmasi',
-        'driver_id'               => $driver_id,
-      ];
-      $this->transaksi_model->update($data);
-      $this->driver_name($id);
-      $this->session->set_flashdata('message', 'Driver telah di update');
-      redirect(base_url('admin/transaksi'), 'refresh');
+      $saldo_driver = $this->user_model->detail_driver($driver_id);
+
+      if ($saldo_driver->saldo_driver <= 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-warning">Saldo Driver Tidak Mencukupi</div>');
+        redirect(base_url('admin/transaksi/pilih_driver/' . $id), 'refresh');
+      } else {
+        $data  = [
+          'id'                      => $id,
+          'stage'                   => 2,
+          'status'                  => 'Dikonfirmasi',
+          'driver_id'               => $driver_id,
+        ];
+        $this->transaksi_model->update($data);
+        $this->driver_name($id);
+        $this->session->set_flashdata('message', 'Driver telah di update');
+        redirect(base_url('admin/transaksi'), 'refresh');
+      }
     }
   }
+
+
   public function driver_name($id)
   {
     $transaksi = $this->transaksi_model->detail($id);

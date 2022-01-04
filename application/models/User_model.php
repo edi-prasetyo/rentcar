@@ -168,6 +168,14 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
+  public function detail_driver($driver_id)
+  {
+    $this->db->select('*');
+    $this->db->from('user');
+    $this->db->where('user.id', $driver_id);
+    $query = $this->db->get();
+    return $query->row();
+  }
   public function detail_counter($counter_id)
   {
     $this->db->select('*');

@@ -50,9 +50,18 @@ if ($this->session->flashdata('message')) {
 
         <div class="card bg-primary my-3">
             <div class="card-body text-white">
-                <img width="20%" src="<?php echo base_url('assets/img/bank/' . $bank->bank_logo); ?>" class="img-fluid mb-2">
-                <h5><?php echo $bank->bank_account; ?></h5>
-                <h3><?php echo $bank->bank_number; ?></h3>
+                <?php foreach ($bank as $bank) : ?>
+                    <div class="row border-bottom">
+                        <div class="col-3"> <img src="<?php echo base_url('assets/img/bank/' . $bank->bank_logo); ?>" class="img-fluid mb-2">
+                        </div>
+                        <div class="col-9 text-right">
+                            <h3><?php echo $bank->bank_number; ?></h3>
+                            <h6><?php echo $bank->bank_account; ?></h6>
+                        </div>
+
+                    </div>
+                <?php endforeach; ?>
+
             </div>
         </div>
 

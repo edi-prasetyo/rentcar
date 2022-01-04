@@ -327,7 +327,7 @@ class Transaksi_model extends CI_Model
     $this->db->select('*');
     $this->db->from('transaksi');
     $this->db->where(['driver_id' => $user_id, 'stage' => 2]);
-    $this->db->limit(1);
+    // $this->db->limit(1);
     $this->db->order_by('transaksi.id', 'DESC');
     $query = $this->db->get();
     return $query->result();

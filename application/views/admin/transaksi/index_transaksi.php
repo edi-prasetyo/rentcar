@@ -2,6 +2,7 @@
 //Notifikasi
 if ($this->session->flashdata('message')) {
     echo $this->session->flashdata('message');
+    unset($_SESSION['message']);
 }
 echo validation_errors('<div class="alert alert-warning">', '</div>');
 

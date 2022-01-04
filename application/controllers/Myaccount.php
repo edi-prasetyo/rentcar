@@ -14,6 +14,8 @@ class Myaccount extends CI_Controller
         $this->load->model('mobil_model');
         $this->load->model('user_model');
         $this->load->model('point_model');
+        $this->load->model('bank_model');
+
         $user_id = $this->session->userdata('id');
         if ($user_id == null) {
             redirect('auth');
@@ -96,10 +98,12 @@ class Myaccount extends CI_Controller
         $user_id = $this->session->userdata('id');
         $user = $this->user_model->detail($user_id);
         $detail_transaksi_saya = $this->transaksi_model->detail_transaksi_saya($user_id, $id);
+        $bank = $this->bank_model->get_allbank();
         $data = [
             'title'                 => 'My Account',
             'user'                  => $user,
             'detail_transaksi'      => $detail_transaksi_saya,
+            'bank'                  => $bank,
             'pagination'            => $this->pagination->create_links(),
             'content'               => 'front/myaccount/detail_transaksi'
         ];

@@ -27,100 +27,102 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-        <li class="nav-item">
-          <a href="<?php echo base_url(); ?>admin/dashboard" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?php echo base_url(); ?>admin/transaksi" class="nav-link">
-            <i class="nav-icon fas fa-receipt"></i>
-            <p>
-              Transaksi
-              <?php if (count($transaksi_unread) == 0) : ?>
-              <?php else : ?>
-                <span class="right badge badge-danger">
-                  <?php echo count($transaksi_unread); ?>
-                </span>
-              <?php endif; ?>
+        <?php if ($user->role_id == 1) : ?>
 
-            </p>
-          </a>
-        </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>admin/dashboard" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>admin/transaksi" class="nav-link">
+              <i class="nav-icon fas fa-receipt"></i>
+              <p>
+                Transaksi
+                <?php if (count($transaksi_unread) == 0) : ?>
+                <?php else : ?>
+                  <span class="right badge badge-danger">
+                    <?php echo count($transaksi_unread); ?>
+                  </span>
+                <?php endif; ?>
 
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-copy"></i>
-            <p>
-              Master
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/mobil" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Mobil</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/provinsi" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Provinsi</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/bank" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Bank</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/product" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Product</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/persentase" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Persentase</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/nilaitopup" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Setting Nilai Topup</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/ketentuan" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Ketentuan</p>
-              </a>
-            </li>
-          </ul>
-        </li>
+              </p>
+            </a>
+          </li>
 
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-wallet"></i>
-            <p>
-              Wallet
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/topup" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Top Up</p>
-              </a>
-            </li>
-            <!-- <li class="nav-item">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Master
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/mobil" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Mobil</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/provinsi" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Provinsi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/bank" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bank</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/product" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/persentase" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Persentase</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/nilaitopup" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Setting Nilai Topup</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/ketentuan" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ketentuan</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-wallet"></i>
+              <p>
+                Wallet
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/topup" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Top Up</p>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
               <a href="<?php echo base_url(); ?>admin/withdraw" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Withdraw</p>
@@ -129,126 +131,168 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
 
 
 
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-user-friends"></i>
-            <p>
-              Data Pengguna
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/user" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Admin</p>
-              </a>
-            </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-friends"></i>
+              <p>
+                Data Pengguna
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/user" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin</p>
+                </a>
+              </li>
 
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/counter" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Counter</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/driver" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Driver</p>
-              </a>
-            </li>
-            <!-- <li class="nav-item">
-              <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Agen</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/layout/boxed.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Product Type</p>
-              </a>
-            </li> -->
-          </ul>
-        </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/counter" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Counter</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/driver" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Driver</p>
+                </a>
+              </li>
 
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-user-ninja"></i>
-            <p>
-              Akun
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?php echo base_url('admin/profile'); ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Profile</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('admin/profile/update'); ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Update</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('admin/profile/password'); ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Ubah Password</p>
-              </a>
-            </li>
+            </ul>
+          </li>
 
-          </ul>
-        </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-ninja"></i>
+              <p>
+                Akun
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/profile'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/profile/update'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Update</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/profile/password'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
 
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Settings
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <!-- <li class="nav-item">
-              <a href="<?php echo base_url('admin/galery'); ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Slider Home</p>
-              </a>
-            </li> -->
-            <li class="nav-item">
-              <a href="<?php echo base_url('admin/meta'); ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Profile Situs</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('admin/meta/logo'); ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Logo Situs</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('admin/meta/favicon'); ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Favicon</p>
-              </a>
-            </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Settings
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/meta'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Profile Situs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/meta/logo'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Logo Situs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/meta/favicon'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Favicon</p>
+                </a>
+              </li>
 
 
-          </ul>
-        </li>
+            </ul>
+          </li>
 
-        <!-- <li class="nav-item">
-          <a href="<?php echo base_url(); ?>admin/pengaturan" class="nav-link">
-            <i class="far fa-envelope nav-icon"></i>
-            <p>Pengaturan Email</p>
-          </a>
-        </li> -->
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>admin/pengaturan" class="nav-link">
+              <i class="far fa-envelope nav-icon"></i>
+              <p>Pengaturan Email</p>
+            </a>
+          </li>
+
+        <?php elseif ($user->role_id == 2) : ?>
+
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>admin/dashboard" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>admin/transaksi" class="nav-link">
+              <i class="nav-icon fas fa-receipt"></i>
+              <p>
+                Transaksi
+                <?php if (count($transaksi_unread) == 0) : ?>
+                <?php else : ?>
+                  <span class="right badge badge-danger">
+                    <?php echo count($transaksi_unread); ?>
+                  </span>
+                <?php endif; ?>
+
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-ninja"></i>
+              <p>
+                Akun
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/profile'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/profile/update'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Update</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url('admin/profile/password'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+        <?php else : ?>
+
+        <?php endif; ?>
 
     </nav>
     <!-- /.sidebar-menu -->

@@ -48,12 +48,6 @@ class Hourly extends CI_Controller
             }
         }
 
-
-
-        // $kota_id = $this->input->post('kota_id');
-        // $tanggal_sewa = $this->input->post('tanggal_sewa');
-        // $jam_sewa = $this->input->post('jam_sewa');
-
         $paket_sewa = $this->paket_model->search_city($kota_id);
         $kota_name = '';
 
@@ -293,12 +287,58 @@ class Hourly extends CI_Controller
                 'date_created'                          => date('Y-m-d H:i:s')
             ];
             $insert_id = $this->transaksi_model->create($data);
+            $this->_sendEmail($insert_id, 'order');
             $this->sukses($insert_id);
             $this->update_point($insert_id);
             $this->session->set_flashdata('message', 'Data telah ditambahkan');
             redirect(base_url('hourly/sukses/' . $insert_id), 'refresh');
         }
     }
+
+    private function _sendEmail($insert_id)
+    {
+        $email_order = $this->pengaturan_model->email_order();
+        $transaksi  = $this->transaksi_model->detail_transaksi($insert_id);
+        $meta = $this->meta_model->get_meta();
+
+        $config = [
+            'protocol'     => "$email_order->protocol",
+            'smtp_host'   => "$email_order->smtp_host",
+            'smtp_port'   => $email_order->smtp_port,
+            'smtp_user'   => "$email_order->smtp_user",
+            'smtp_pass'   => "$email_order->smtp_pass",
+            'mailtype'     => 'html',
+            'charset'     => 'utf-8',
+        ];
+
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+        $this->email->from("$email_order->smtp_user", "Order", "$meta->title");
+        $this->email->to($this->input->post('user_email'));
+        $this->email->cc("$email_order->cc_email");
+        $this->email->bcc("$email_order->bcc_email");
+
+        $this->email->subject('Order ' . $transaksi->kode_transaksi . '');
+        $this->email->message('
+        Rental              : ' . $meta->title . '<br>
+        Order ID            : ' . $transaksi->order_id . '<br>
+        Mobil               : ' . $transaksi->mobil_name . '<br>
+        Alamat Jemput       : ' . $transaksi->alamat_jemput . '<br>
+        Tanggal Jemput      : ' . $transaksi->tanggal_jemput . '<br>
+        Jam Jemput          : ' . $transaksi->jam_jemput . '<br>
+        Paket               : ' . $transaksi->paket_name . '<br>
+        Permintaan Khusus   : ' . $transaksi->permintaan_khusus . '<br>
+        Total Pembayaran    : ' . number_format($transaksi->grand_total, 0, ",", ".") . '<br>
+        Pembayaran          : ' . $transaksi->pembayaran . '
+        ');
+
+        if ($this->email->send()) {
+            return true;
+        }
+    }
+
+
     // Update Data Point jika point di gunakan
     public function update_point($insert_id)
     {

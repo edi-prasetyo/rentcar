@@ -1,12 +1,16 @@
 <div class="col-md-7">
     <div class="card">
+        <?php
+        //Notifikasi
+        if ($this->session->flashdata('message')) {
+            echo $this->session->flashdata('message');
+            unset($_SESSION['message']);
+        }
+        echo validation_errors('<div class="alert alert-warning">', '</div>');
+
+        ?>
         <div class="card-header">Pilih Driver </div>
         <div class="card-body">
-
-            <?php echo form_open('admin/transaksi/select_alldriver/' . $transaksi->id); ?>
-           
-            <button type="submit" class="btn btn-success">Kirim</button>
-            <?php echo form_close(); ?>
 
             <?php echo form_open('admin/transaksi/pilih_driver/' . $transaksi->id); ?>
             <div class="form-group">
