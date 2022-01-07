@@ -1,6 +1,6 @@
 <?php
 //Proteksi Halaman Driver
-if ($this->session->userdata('role_id') == 5) {
+if ($this->session->userdata('id')) {
     is_login();
     //Gabungan Semua layout
     require_once('header.php');
@@ -8,5 +8,5 @@ if ($this->session->userdata('role_id') == 5) {
     require_once('content.php');
     require_once('footer.php');
 } else {
-    redirect('auth');
+    redirect('login');
 }

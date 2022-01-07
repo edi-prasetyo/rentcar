@@ -76,7 +76,7 @@
                             <a class="btn btn-danger btn-sm" href="<?php echo base_url('admin/driver/banned/' . $data->id); ?>"><i class="fas fa-times"></i></a>
 
                         <?php endif; ?>
-                        <a href="<?php echo base_url('admin/kurir/detail/' . $data->id); ?>" class="btn btn-info btn-sm" target="blank"> <i class="fas fa-external-link-alt"></i> Lihat</a>
+                        <a href="<?php echo base_url('admin/driver/detail/' . $data->id); ?>" class="btn btn-info btn-sm" target="blank"> <i class="fas fa-external-link-alt"></i> Lihat</a>
                     </td>
                 </tr>
 

@@ -295,7 +295,8 @@ class Daily extends CI_Controller
                 'grand_total'                           => $grand_total,
                 'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
                 'pembayaran'                            => $this->input->post('pembayaran'),
-                'ketentuan_desc'                            => $this->input->post('ketentuan_desc'),
+                'status_pembayaran'                     => $this->input->post('pembayaran'),
+                'ketentuan_desc'                        => "Belum Dibayar",
                 'paket_desc'                            => $this->input->post('paket_desc'),
                 'order_type'                            => 'Daily',
                 'status'                                => 'Pending',
@@ -350,13 +351,18 @@ class Daily extends CI_Controller
         $this->load->library('email', $config);
         $this->email->initialize($config);
         $this->email->set_newline("\r\n");
-        $this->email->from("$email_order->smtp_user", "Order", "$meta->title");
+        $this->email->from("$email_order->smtp_user", ' Order ', "$meta->title");
         $this->email->to($this->input->post('passenger_email'));
         $this->email->cc("$email_order->cc_email");
         $this->email->bcc("$email_order->bcc_email");
 
-        $this->email->subject('Order ' . $transaksi->kode_transaksi . '');
+        $this->email->subject('Order ' . $meta->title . '' . $transaksi->kode_transaksi . '');
         $this->email->message('
+        <b>Informasi Customer</b><br>
+        Nama                : ' . $transaksi->passenger_name . '<br>
+        No. HP              : ' . $transaksi->passenger_phone . '<br>
+        Email               : ' . $transaksi->passenger_email . '<br>
+        <b>Informasi Pemesanan Sewa Mobil</b><br>
         Rental              : ' . $meta->title . '<br>
         Order ID            : ' . $transaksi->order_id . '<br>
         Mobil               : ' . $transaksi->mobil_name . '<br>
@@ -366,7 +372,12 @@ class Daily extends CI_Controller
         Paket               : ' . $transaksi->paket_name . '<br>
         Permintaan Khusus   : ' . $transaksi->permintaan_khusus . '<br>
         Total Pembayaran    : ' . number_format($transaksi->grand_total, 0, ",", ".") . '<br>
-        Pembayaran          : ' . $transaksi->pembayaran . '
+        Pembayaran          : ' . $transaksi->pembayaran . '<br>
+        Status Pembayaran   : ' . $transaksi->status_pembayaran . '<br>
+        <b>Ketentuan Sewa :</b><br>
+        ' . $transaksi->ketentuan_desc . '<br>
+        <b>Batas Area Penggunaan </b>
+        ' . $transaksi->paket_desc . '
         ');
 
         if ($this->email->send()) {

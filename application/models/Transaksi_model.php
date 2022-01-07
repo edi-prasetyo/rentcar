@@ -139,6 +139,30 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
+  public function transaksi_detail_driver($id)
+  {
+    $this->db->select('transaksi.*, product.product_name, user.name, user.user_address, user.user_phone');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.driver_id', 'LEFT');
+    $this->db->join('product', 'product.id = transaksi.product_id', 'LEFT');
+    //End Join
+    $this->db->where('transaksi.id', $id);
+    $query = $this->db->get();
+    return $query->row();
+  }
+  public function transaksi_detail_drivermyaccount($id)
+  {
+    $this->db->select('transaksi.*, product.product_name, user.name, user.user_address, user.user_phone');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.driver_id', 'LEFT');
+    $this->db->join('product', 'product.id = transaksi.product_id', 'LEFT');
+    //End Join
+    $this->db->where('md5(transaksi.id)', $id);
+    $query = $this->db->get();
+    return $query->row();
+  }
   public function transaksi_detail($id)
   {
     $this->db->select('transaksi.*, user.user_code, user.name');

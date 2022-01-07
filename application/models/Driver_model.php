@@ -30,26 +30,24 @@ class Driver_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function get_driver($limit, $start, $search, $search_email, $search_kota)
+  public function get_alldriver($limit, $start, $search, $search_email, $search_kota)
   {
     $this->db->select('*');
     $this->db->from('driver');
-    $this->db->like('name', $search);
+    $this->db->like('driver_name', $search);
     $this->db->like('email', $search_email);
-    $this->db->like('search_kota', $search_kota);
+    $this->db->like('kota_id', $search_kota);
     $this->db->limit($limit, $start);
     $this->db->order_by('driver.id', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
 
-  public function total_row_driver($search, $search_email, $search_kota)
+  public function total_row_driver($search)
   {
     $this->db->select('*');
     $this->db->from('driver');
     $this->db->like('driver_name', $search);
-    $this->db->like('email', $search_email);
-    $this->db->like('search_kota', $search_kota);
     $this->db->order_by('driver.id', 'ASC');
     $query = $this->db->get();
     return $query->result();

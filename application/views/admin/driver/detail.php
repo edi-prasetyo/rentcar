@@ -26,7 +26,7 @@
                         <b>Email</b> <span class="float-right"><?php echo $main_agen->email; ?></span>
                     </li>
                     <li class="list-group-item">
-                        <b>Main Agen ID</b> <span class="float-right"><?php echo $main_agen->user_code; ?></span>
+                        <b>Driver ID</b> <span class="float-right"><?php echo $main_agen->user_code; ?></span>
                     </li>
                     <li class="list-group-item">
                         <b>Alamat</b> <span class="float-right"><?php echo $main_agen->user_address; ?></span>

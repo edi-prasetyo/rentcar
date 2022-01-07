@@ -100,6 +100,35 @@ $meta           = $this->meta_model->get_meta();
                     Order ID Anda Adalah <?php echo $detail_transaksi->order_id; ?>
                 </div>
             <?php endif; ?>
+
+            <?php if ($detail_transaksi->driver_id == 0 || $detail_transaksi->status == "Selesai") : ?>
+            <?php else : ?>
+                <div class="card">
+                    <div class="card-header">
+                        Info Driver
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nama Driver</th>
+                                    <th scope="col">Nomor Hp</th>
+                                    <th scope="col">Status Order</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?php echo $transaksi_driver->name; ?></td>
+                                    <td><?php echo $transaksi_driver->user_phone; ?></td>
+                                    <td><?php echo $transaksi_driver->status; ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <br>
             <a class="btn btn-primary" href="<?php echo base_url(); ?>">Kembali Ke Home</a>
             <a class="btn btn-success" href="<?php echo base_url('myaccount'); ?>">Halaman Akun Saya</a>

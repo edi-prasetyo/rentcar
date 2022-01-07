@@ -17,6 +17,7 @@ class Transaksi extends CI_Controller
         $this->load->model('user_model');
         $this->load->model('saldo_model');
         $this->load->model('point_model');
+        $this->load->model('pengaturan_model');
     }
     //Index
     public function index()
@@ -141,8 +142,238 @@ class Transaksi extends CI_Controller
         $this->selesai_order($id);
         $this->update_status_driver($user_id);
         $this->add_point_customer($id);
+        $this->_sendEmail($id);
         $this->session->set_flashdata('message', 'Anda telah Menyelesaikan Order');
         redirect($_SERVER['HTTP_REFERER']);
+    }
+    private function _sendEmail($id)
+    {
+        $email_order = $this->pengaturan_model->email_order();
+        $transaksi  = $this->transaksi_model->transaksi_detail($id);
+        $meta = $this->meta_model->get_meta();
+
+        $config = [
+            'protocol'     => "$email_order->protocol",
+            'smtp_host'   => "$email_order->smtp_host",
+            'smtp_port'   => $email_order->smtp_port,
+            'smtp_user'   => "$email_order->smtp_user",
+            'smtp_pass'   => "$email_order->smtp_pass",
+            'mailtype'     => 'html',
+            'charset'     => 'utf-8',
+        ];
+
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+        $this->email->from("$email_order->smtp_user", ' INVOICE ', "$meta->title");
+        $this->email->to($this->input->post('passenger_email'));
+        $this->email->cc("$email_order->cc_email");
+        $this->email->bcc("$email_order->bcc_email");
+
+        $this->email->subject('INVOICE ' . $meta->title . '' . $transaksi->kode_transaksi . '');
+        $this->email->message(
+            '
+          
+            
+            <!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <title>
+
+    </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        #outlook a {
+            padding: 0;
+        }
+        .ReadMsgBody {
+            width: 100%;
+        }
+        .ExternalClass {
+            width: 100%;
+        }
+        .ExternalClass * {
+            line-height: 100%;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table,
+        td {
+            border-collapse: collapse;
+        }
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+        p {
+            display: block;
+            margin: 13px 0;
+        }
+    </style>
+    <style type="text/css">
+        @media only screen and (max-width:480px) {
+            @-ms-viewport {
+                width: 320px;
+            }
+            @viewport {
+                width: 320px;
+            }
+        }
+    </style>
+    <style type="text/css">
+        @media only screen and (min-width:480px) {
+            .mj-column-per-100 {
+                width: 100% !important;
+            }
+        }
+    </style>
+    <style type="text/css">
+    </style>
+</head>
+<body style="background-color:#f9f9f9;">
+    <div style="background-color:#f9f9f9;">
+        <div style="background:#f9f9f9;background-color:#f9f9f9;Margin:0px auto;max-width:600px;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#f9f9f9;background-color:#f9f9f9;width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="border-bottom:#333957 solid 5px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+               
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="background:#fff;background-color:#fff;Margin:0px auto;max-width:600px;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fff;background-color:#fff;width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="border:#dddddd solid 1px;border-top:0px;direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
+                            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:bottom;width:100%;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:bottom;" width="100%">
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width:64px;">
+                                                            <img height="auto" src="' . base_url('assets/img/logo/' . $meta->logo) . '" style="border:0;display:block;outline:none;text-decoration:none;width:100%;" width="64" />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                            <div style="font-family:Helvetica Neue,Arial,sans-serif;font-size:24px;font-weight:bold;line-height:22px;text-align:center;color:#525252;">
+                                                INVOICE<br>
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                            <div style="font-family:Helvetica Neue,Arial,sans-serif;font-size:14px;line-height:22px;text-align:left;color:#525252;">
+                                                <span style="float:left;">
+                                                    <b>Customer</b> <br>
+                                                    Nama   : " ' . $transaksi->passenger_name . ' "<br>
+                                                No. Hp : ' . $transaksi->passenger_phone . ' <br>
+                                                Email  : ' . $transaksi->passenger_email . '<br>
+                                                    
+                                                </span>
+                                                <span style="float:right;text-align: right;">
+                                                    Tanggal : "' . $transaksi->created_at . '"<br>
+                                                    Order ID : "' . $transaksi->order_id . '"<br>
+                                                    Status Pembayaran : "' . $transaksi->status_pembayaran . '"
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  
+                                    <tr>
+                                        <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                            <table 0="[object Object]" 1="[object Object]" 2="[object Object]" border="0" style="color:#000;font-family:Helvetica Neue,Arial,sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:100%;">
+                                                <tr style="border-bottom:1px solid #ecedee;text-align:left;">
+                                                    <th style="padding: 0 15px 10px 0;">Produk</th>
+                                                    <th style="padding: 0 15px;">Durasi</th>
+                                                    <th style="padding: 0 0 0 15px;" align="right">Harga</th>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 15px 5px 0;">
+                                                    "' . $transaksi->mobil_name . '"
+                                                    <br>"' . $transaksi->paket_name . '", Jakarta</td>
+                                                    <td style="padding: 0 15px;">"' . $transaksi->lama_sewa . '" Hari</td>
+                                                    <td style="padding: 0 0 0 15px;" align="right">Rp. "' . $transaksi->start_price . '"</td>
+                                                </tr>
+                                               
+                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 0 15px 5px 0;">Diskon Point</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px;" align="right">"' . $transaksi->diskon_point . '"</td>
+                                                </tr>
+                                                <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
+                                                    <td style="padding: 5px 15px 5px 0; font-weight:bold">TOTAL</td>
+                                                    <td style="padding: 0 15px;"></td>
+                                                    <td style="padding: 0 0 0 15px; font-weight:bold" align="right">Rp. "' . $transaksi->grand_total . '"</td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+
+                                            <div style="font-family:Helvetica Neue,Arial,sans-serif;font-size:14px;line-height:20px;text-align:left;color:#525252;">
+                                                Terima Kasih,<br><br><br>
+                                                Admin<br>
+                                                <br>
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+            
+            
+            
+            
+            
+            
+            '
+        );
+
+        if ($this->email->send()) {
+            return true;
+        } //else {
+        //     echo $this->email->print_debugger();
+        //     die;
+        // }
     }
     public function add_point_customer($id)
     {

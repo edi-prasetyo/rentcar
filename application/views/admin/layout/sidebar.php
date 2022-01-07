@@ -150,9 +150,9 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
               </li>
 
               <li class="nav-item">
-                <a href="<?php echo base_url(); ?>admin/counter" class="nav-link">
+                <a href="<?php echo base_url(); ?>admin/customer" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Counter</p>
+                  <p>Customer</p>
                 </a>
               </li>
               <li class="nav-item">
