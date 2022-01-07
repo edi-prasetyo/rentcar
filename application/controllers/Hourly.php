@@ -281,7 +281,7 @@ class Hourly extends CI_Controller
                 'grand_total'                           => $grand_total,
                 'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
                 'pembayaran'                            => $this->input->post('pembayaran'),
-                'ketentuan_desc'                        => "Belum Dibayar",
+                'status_pembayaran'                     => "Belum Dibayar",
                 'ketentuan_desc'                        => $this->input->post('ketentuan_desc'),
                 'order_type'                            => 'Hourly',
                 'status'                                => 'Pending',

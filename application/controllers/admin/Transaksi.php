@@ -354,6 +354,7 @@ class transaksi extends CI_Controller
     $data = [
       'id'                => $id,
       'stage'             => 4,
+      'status_pembayaran' => 'Lunas'
     ];
     $this->transaksi_model->update($data);
     $this->selesai_order($id);
