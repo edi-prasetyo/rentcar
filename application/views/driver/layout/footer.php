@@ -6,7 +6,7 @@ $meta      = $this->meta_model->get_meta();
 ?>
 
 
-<div class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
+<div class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow mt-5">
    <div class="row">
       <div class="col <?php if ($this->uri->segment(1) == "") {
                            echo 'selected text-info';

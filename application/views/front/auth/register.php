@@ -62,7 +62,7 @@ $meta = $this->meta_model->get_meta();
                         <input type="password" class="form-control" name="password2" placeholder="Repeat Password">
                     </div>
                 </div>
-                
+
                 <div class="form-group row">
                     <label class="col-md-4 text-md-right"></label>
                     <div class="col-md-8">

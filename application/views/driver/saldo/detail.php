@@ -1,0 +1,2 @@
+<td> <span class="text-success"> Rp. <?php echo number_format($saldo->pemasukan, 0, ",", "."); ?></span></td>
+<td> <span class="text-danger"> Rp. <?php echo number_format($saldo->pengeluaran, 0, ",", "."); ?></span></td>

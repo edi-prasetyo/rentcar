@@ -1,63 +1,57 @@
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title"><?php echo $title; ?></h3>
+<nav class="site-header bg-white sticky-top py-1 shadow-sm">
+    <div class="container py-2 d-flex justify-content-between align-items-center">
+        <a style="text-decoration:none;" class="text-dark text-left" href="javascript:history.back()"><i style="font-size: 25px;" class="ri-arrow-left-line"></i></a>
+        <span class="text-dark text-center font-weight-bold">
+            <?php echo $title; ?>
+        </span>
+        <div style="color:transparent;"></div>
+    </div>
+</nav>
+<div class="container my-3 mb-5">
+    <?php foreach ($saldo as $saldo) : ?>
+        <a class="text-decoration-none text-muted" href="<?php echo base_url('driver/saldo/detail/' . $saldo->id); ?>">
+            <div class="card my-2 shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <div class="row">
+                        <div class="col-6">
+                            <?php echo date('d/m/Y', strtotime($saldo->date_created)); ?>
+                        </div>
+                        <div class="col-6 text-right">
+                            <?php if ($saldo->pengeluaran == 0) : ?>
+                                <span class="text-success"> + Rp. <?php echo number_format($saldo->pemasukan, 0, ",", "."); ?></span>
+                            <?php else : ?>
+                                <span class="text-danger"> - Rp. <?php echo number_format($saldo->pengeluaran, 0, ",", "."); ?></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <?php if ($saldo->pengeluaran == 0) : ?>
+                                <i class="ri-arrow-up-s-fill text-success"></i>
+                            <?php else : ?>
+                                <i class="ri-arrow-down-s-fill text-danger"></i>
+                            <?php endif; ?>
 
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        </div>
+                        <div class="col-5">
 
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
+                            <?php echo $saldo->keterangan; ?>
+                        </div>
+                        <div class="col-5 text-right">
+                            Rp. <?php echo number_format($saldo->total_saldo, 0, ",", "."); ?>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-                <table class="table text-nowrap">
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Keterangan</th>
-                            <th>Transaksi</th>
+        </a>
+    <?php endforeach; ?>
 
-                            <th>Top Up</th>
-                            <th>Potongan</th>
-                            <th>Saldo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($saldo as $saldo) : ?>
-                            <tr>
-                                <td> <?php echo date('d/m/Y', strtotime($saldo->date_created)); ?></td>
-                                <td> <?php echo $saldo->keterangan; ?></td>
-                                <td> Rp. <?php echo number_format($saldo->transaksi, 0, ",", "."); ?></td>
-                                <td> <span class="text-success"> Rp. <?php echo number_format($saldo->pemasukan, 0, ",", "."); ?></span></td>
-                                <td> <span class="text-danger"> Rp. <?php echo number_format($saldo->pengeluaran, 0, ",", "."); ?></span></td>
-                                <td> Rp. <?php echo number_format($saldo->total_saldo, 0, ",", "."); ?></td>
-
-
-                            </tr>
-                        <?php endforeach; ?>
-
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer bg-white border-top">
-                <ul class="pagination m-0">
-                    <div class="pagination col-md-12 text-center">
-                        <?php if (isset($pagination)) {
-                            echo $pagination;
-                        } ?>
-                    </div>
-                </ul>
-            </div>
-        </div>
+    <div class="pagination col-md-12 text-center my-3 mb-5">
+        <?php if (isset($pagination)) {
+            echo $pagination;
+        } ?>
     </div>
+
 </div>
-<!-- /.row -->

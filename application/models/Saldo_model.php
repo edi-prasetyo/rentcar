@@ -79,6 +79,14 @@ class Saldo_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function get_my_saldo_detail($user_id, $id)
+    {
+        $this->db->select('*');
+        $this->db->from('saldo');
+        $this->db->where(['saldo.user_id' => $user_id, 'saldo.id' => $id]);
+        $query = $this->db->get();
+        return $query->row();
+    }
     public function get_row_mysaldo_mainagen($user_id)
     {
         $this->db->select('saldo.*, user.name, user_code');

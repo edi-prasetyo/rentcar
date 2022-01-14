@@ -135,6 +135,7 @@ class Auth extends CI_Controller
 				'min_length' 	=> 'Password Min 3 karakter'
 			]
 		);
+		$this->form_validation->set_rules('user_phone', 'Nomor Whatsapp', 'required|trim|min_length[1]');
 		$this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
 
 		if ($this->form_validation->run() == false) {
@@ -145,12 +146,38 @@ class Auth extends CI_Controller
 			$this->load->view('front/layout/wrapp', $data, FALSE);
 		} else {
 			$email = $this->input->post('real_email', true);
+			$user_phone = $this->input->post('user_phone');
+			$phone = str_replace(' ', '', $user_phone);
+			$phone = str_replace('-', '', $user_phone);
+
+			// Ubah 0 menjadi 62
+			// kadang ada penulisan no hp 0811 239 345
+			$phone = str_replace(" ", "", $phone);
+			// kadang ada penulisan no hp (0274) 778787
+			$phone = str_replace("(", "", $phone);
+			// kadang ada penulisan no hp (0274) 778787
+			$phone = str_replace(")", "", $phone);
+			// kadang ada penulisan no hp 0811.239.345
+			$phone = str_replace(".", "", $phone);
+
+			// cek apakah no hp mengandung karakter + dan 0-9
+			if (!preg_match('/[^+0-9]/', trim($phone))) {
+				// cek apakah no hp karakter 1-3 adalah +62
+				if (substr(trim($phone), 0, 3) == '62') {
+					$hp = trim($phone);
+				}
+				// cek apakah no hp karakter 1 adalah 0
+				elseif (substr(trim($phone), 0, 1) == '0') {
+					$hp = '62' . substr(trim($phone), 1);
+				}
+			}
+
 			$data = [
 				'user_title'	=> $this->input->post('user_title'),
 				'name' 			=> htmlspecialchars($this->input->post('name', true)),
 				'email' 		=> htmlspecialchars($email),
 				'user_image' 	=> 'default.jpg',
-				'user_phone'	=> $this->input->post('user_phone'),
+				'user_phone'	=> $hp,
 				'password'		=> password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
 				'role_id'		=> 6,
 				'is_active'		=> 1,

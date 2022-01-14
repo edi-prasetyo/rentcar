@@ -55,4 +55,19 @@ class Saldo extends CI_Controller
         ];
         $this->load->view('driver/layout/wrapp', $data, FALSE);
     }
+    public function detail($id)
+    {
+        $user_id    = $this->session->userdata('id');
+
+        $saldo = $this->saldo_model->get_my_saldo_detail($id, $user_id);
+        var_dump($user_id);
+        die;
+        $data = [
+            'title'                 => 'Laporan Saldo Driver',
+            'saldo'                 => $saldo,
+            'pagination'            => $this->pagination->create_links(),
+            'content'               => 'driver/saldo/detail'
+        ];
+        $this->load->view('driver/layout/wrapp', $data, FALSE);
+    }
 }

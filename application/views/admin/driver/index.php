@@ -38,6 +38,8 @@
                     <th>No</th>
                     <th>ID Driver</th>
                     <th>Nama</th>
+                    <th>No. Hp</th>
+                    <th>Saldo</th>
                     <th>Role</th>
                     <th>Status</th>
                     <th>Locked</th>
@@ -45,11 +47,13 @@
                 </tr>
             </thead>
             <?php $no = 1;
-            foreach ($main_agen as $data) { ?>
+            foreach ($driver as $data) { ?>
                 <tr>
                     <td><?php echo $no; ?></td>
                     <td><?php echo $data->user_code; ?></td>
                     <td><?php echo $data->name; ?></td>
+                    <td><?php echo $data->user_phone; ?></td>
+                    <td><?php echo $data->saldo_driver; ?></td>
                     <td><?php echo $data->role; ?></td>
                     <td>
                         <?php if ($data->is_active == 1) : ?>
