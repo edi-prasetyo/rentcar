@@ -191,6 +191,10 @@ class Transaksi_model extends CI_Model
     $insert_id = $this->db->insert_id();
     return $insert_id;
   }
+  public function create_log($data)
+  {
+    $this->db->insert('transaksi_log', $data);
+  }
   public function last_transaksi($insert_id)
   {
     $this->db->select('*');

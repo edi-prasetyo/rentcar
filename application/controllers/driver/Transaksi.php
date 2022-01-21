@@ -52,7 +52,12 @@ class Transaksi extends CI_Controller
         ];
         $this->transaksi_model->update($data);
         $this->dalam_perjalanan($id);
+        $this->transaksi_log($id, $driver_name, $user_id);
+
         $this->potong_saldo_driver($transaksi);
+
+        // $this->tambah_saldo_transfer_driver($transaksi);
+
         $this->session->set_flashdata('message', 'Order di terima');
         redirect($_SERVER['HTTP_REFERER']);
     }
@@ -75,16 +80,81 @@ class Transaksi extends CI_Controller
         ];
         $this->user_model->update($data);
         $this->create_saldo_driver($user_id, $potong_saldo, $transaksi, $saldo_driver);
+        if ($transaksi->pembayaran == 'Cash') {
+        } else {
+            $this->tambah_saldo_transfer_driver($transaksi);
+        }
     }
+    // Tambah Saldo Driver
+    public function tambah_saldo_transfer_driver($transaksi)
+    {
+        $user_id = $this->session->userdata('id');
+        $user = $this->user_model->user_detail($user_id);
+        $penambahan = $transaksi->total_price - $transaksi->diskon_point;
+
+        $saldo_driver = $user->saldo_driver + $penambahan;
+
+        $data = [
+            'id'                => $user_id,
+            'saldo_driver'      => $saldo_driver,
+        ];
+        $this->user_model->update($data);
+        $this->create_saldo_driver_fromtransfer($user_id, $penambahan, $transaksi, $saldo_driver);
+    }
+
     // Create Riwayat Saldo Driver
     public function create_saldo_driver($user_id, $potong_saldo, $transaksi, $saldo_driver)
     {
+        $tambah_saldo = $transaksi->diskon_point;
+
         $data = [
             'user_id'       => $user_id,
             'pemasukan'     => 0,
             'pengeluaran'   => $potong_saldo,
             'transaksi'     => $transaksi->total_price,
             'keterangan'    => $transaksi->order_id,
+            'total_saldo'   => $saldo_driver,
+            'user_type'     => $user_id,
+            'date_created'                      => date('Y-m-d H:i:s')
+        ];
+        $this->saldo_model->create($data);
+    }
+    // Create Riwayat Saldo Driver
+    public function create_saldo_driver_fromtransfer($user_id, $penambahan, $transaksi, $saldo_driver)
+    {
+
+
+        $data = [
+            'user_id'       => $user_id,
+            'pemasukan'     => $penambahan,
+            'pengeluaran'   => 0,
+            'transaksi'     => $transaksi->total_price,
+            'keterangan'    => $transaksi->order_id,
+            'total_saldo'   => $saldo_driver,
+            'user_type'     => $user_id,
+            'date_created'                      => date('Y-m-d H:i:s')
+        ];
+        $this->saldo_model->create($data);
+    }
+    // Create Riwayat Saldo Driver
+    public function add_saldo_point_driver($user_id, $tambah_saldo, $transaksi, $saldo_driver)
+    {
+        $user_id = $this->session->userdata('id');
+        $user = $this->user_model->user_detail($user_id);
+
+        $persentase = $this->persentase_model->get_persentase();
+        $penambahan = $persentase->potong_saldo;
+
+        $tambah_saldo = $transaksi->diskon_point;
+        $persentase = ($penambahan / 100) * $transaksi->total_price;
+        $saldo_driver = $user->saldo_driver + $tambah_saldo - $persentase;
+
+        $data = [
+            'user_id'       => $user_id,
+            'pemasukan'     => $tambah_saldo,
+            'pengeluaran'   => 0,
+            'transaksi'     => $transaksi->total_price,
+            'keterangan'    => 'diskon Point ' . $transaksi->order_id,
             'total_saldo'   => $saldo_driver,
             'user_type'     => $user_id,
             'date_created'                      => date('Y-m-d H:i:s')
@@ -115,14 +185,33 @@ class Transaksi extends CI_Controller
         $this->transaksi_model->update($data);
         $this->update_status_driver($user_id);
         $this->order_ditolak($id);
+        $this->transaksi_log($id, $driver_name, $user_id);
         $this->session->set_flashdata('message', 'Anda telah menolak Order');
         redirect($_SERVER['HTTP_REFERER']);
+    }
+    public function transaksi_log($id, $driver_name, $user_id)
+    {
+        $transaksi = $this->transaksi_model->transaksi_detail($id);
+        $data = [
+            'transaksi_id'      => $id,
+            'order_id'          => $transaksi->order_id,
+            'user_id'           => $user_id,
+            'driver_name'       => $driver_name,
+            'status'            => $transaksi->status,
+            'created_at'        => date('Y-m-d H:i:s'),
+            'updated_at'        => date('Y-m-d H:i:s')
+
+        ];
+        $this->transaksi_model->create_log($data);
     }
     public function order_ditolak($id)
     {
         is_login();
         $data = [
             'id'                => $id,
+            'driver_id'         => 0,
+            'driver_name'       => '',
+
             'status'             => 'Ditolak Pengemudi',
         ];
         $this->transaksi_model->update($data);
@@ -133,19 +222,36 @@ class Transaksi extends CI_Controller
     {
 
         $user_id = $this->session->userdata('id');
+        $transaksi = $this->transaksi_model->transaksi_detail($id);
         is_login();
-        $data = [
-            'id'                => $id,
-            'stage'             => 4,
-            'status_pembayaran' => 'Lunas'
-        ];
-        $this->transaksi_model->update($data);
-        $this->selesai_order($id);
-        $this->update_status_driver($user_id);
-        $this->add_point_customer($id);
-        $this->_sendEmail($id);
-        $this->session->set_flashdata('message', 'Anda telah Menyelesaikan Order');
-        redirect($_SERVER['HTTP_REFERER']);
+        if ($transaksi->diskon_point == 0) {
+            $data = [
+                'id'                => $id,
+                'stage'             => 4,
+                'status_pembayaran' => 'Lunas'
+            ];
+            $this->transaksi_model->update($data);
+            $this->selesai_order($id);
+            $this->update_status_driver($user_id);
+            $this->add_point_customer($id);
+            $this->_sendEmail($id);
+            $this->session->set_flashdata('message', 'Anda telah Menyelesaikan Order');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $data = [
+                'id'                => $id,
+                'stage'             => 4,
+                'status_pembayaran' => 'Lunas'
+            ];
+            $this->transaksi_model->update($data);
+            $this->selesai_order($id);
+            $this->update_status_driver($user_id);
+            $this->add_point_customer($id);
+            $this->add_point_driver($id);
+            $this->_sendEmail($id);
+            $this->session->set_flashdata('message', 'Anda telah Menyelesaikan Order');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
     }
     private function _sendEmail($id)
     {
@@ -365,8 +471,7 @@ class Transaksi extends CI_Controller
             
             
             
-            
-            '
+                  '
         );
 
         if ($this->email->send()) {
@@ -376,10 +481,45 @@ class Transaksi extends CI_Controller
         //     die;
         // }
     }
+    public function add_point_driver($id)
+    {
+        $transaksi = $this->transaksi_model->transaksi_detail($id);
+        $driver_id = $this->session->userdata('id');
+        $driver = $this->user_model->detail_driver($driver_id);
+        $tambah_saldo = $driver->saldo_driver + $transaksi->diskon_point;
+
+        $add_saldo = $transaksi->diskon_point;
+
+        $data = [
+            'id'                => $this->session->userdata('id'),
+            'saldo_driver'      => $tambah_saldo,
+        ];
+        $this->user_model->update($data);
+        $this->create_saldo($add_saldo, $transaksi);
+    }
+    public function create_saldo($add_saldo, $transaksi)
+    {
+        $user_id = $this->session->userdata('id');
+        $driver = $this->user_model->user_detail($user_id);
+        $saldo_driver = $driver->saldo_driver;
+
+        $data = [
+            'user_id'       => $user_id,
+            'pemasukan'     => $add_saldo,
+            'pengeluaran'   => 0,
+            'transaksi'     => $transaksi->total_price,
+            'keterangan'    => $transaksi->order_id,
+            'total_saldo'   => $saldo_driver,
+            'user_type'     => $user_id,
+            'date_created'                      => date('Y-m-d H:i:s')
+        ];
+        $this->saldo_model->create($data);
+    }
     public function add_point_customer($id)
     {
-        $date           = date("Y-m-d");
-        $transaksi = $this->transaksi_model->transaksi_detail($id);
+        $date               = date("Y-m-d");
+        $transaksi          = $this->transaksi_model->transaksi_detail($id);
+
         $data = [
             'user_id'       => $transaksi->user_id,
             'product_id'    => $transaksi->product_id,
@@ -394,8 +534,8 @@ class Transaksi extends CI_Controller
     {
         is_login();
         $data = [
-            'id'                => $id,
-            'status'             => 'Selesai',
+            'id'                    => $id,
+            'status'                => 'Selesai',
         ];
         $this->transaksi_model->update($data);
     }
