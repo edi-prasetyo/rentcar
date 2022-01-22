@@ -99,7 +99,7 @@ $user = $this->user_model->user_detail($user_id); ?>
                         <div class="card-body">
 
 
-                            <?php echo substr($data->alamat_jemput, 0, 30); ?>..<br>
+                            <?php echo $data->alamat_jemput; ?><br>
                             <?php echo $data->mobil_name; ?><br>
                             <small><?php echo $data->paket_name; ?></small><br>
                             <?php if ($data->diskon_point == 0) : ?>
