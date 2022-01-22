@@ -44,7 +44,7 @@ $user = $this->user_model->user_detail($user_id); ?>
         <?php foreach ($transaksi_driver_onroad as $data) : ?>
             <div class="card alert alert-success">
                 <div class="card-body">
-                    <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?><br>
+                    <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?> <?php echo $data->jam_jemput; ?><br>
                     <span class="font-italic"> Alamat Penjemputan</span> <br>
                     <p><?php echo $data->alamat_jemput; ?></p>
 
@@ -52,6 +52,9 @@ $user = $this->user_model->user_detail($user_id); ?>
                     <a href="https://maps.google.com/?q=<?php echo $data->alamat_jemput; ?>" class="btn btn-info btn-block">Buka Google Maps</a>
 
                     <div class="card-body text-center">
+                        <?php echo $data->jam_jemput; ?><br>
+                        <?php echo $data->mobil_name; ?><br>
+                        <small><?php echo $data->paket_name; ?></small><br>
                         <h3 class="font-weight-bold"> Rp <?php echo number_format($data->grand_total, 0, ",", "."); ?> </h3>
                         <span class="text-muted">
                             <?php if ($data->product_id == 1) : ?>
@@ -62,6 +65,7 @@ $user = $this->user_model->user_detail($user_id); ?>
                     <div class="row">
 
                         <div class="col-12">
+                            <?php echo $data->passenger_name; ?><br>
                             <a href="https://wa.me/<?php echo $data->passenger_phone; ?>" class="btn btn btn-outline-success btn-block mb-2"><i class="ri-whatsapp-line"></i> Chat Customer</a>
                         </div>
                         <div class="col-12">
@@ -95,9 +99,9 @@ $user = $this->user_model->user_detail($user_id); ?>
                     <div class="card my-3 shadow border-0">
                         <div class="card-header bg-white">
                             <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?>
+                            <i class="ri-time-line"></i> <?php echo $data->jam_jemput; ?>
                         </div>
                         <div class="card-body">
-
 
                             <?php echo $data->alamat_jemput; ?><br>
                             <?php echo $data->mobil_name; ?><br>
