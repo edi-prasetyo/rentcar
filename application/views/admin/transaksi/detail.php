@@ -64,11 +64,12 @@
                     <tbody>
                         <tr>
                             <td>
-                                <?php echo $transaksi->mobil_name; ?><br>
-                                <?php echo $transaksi->paket_name; ?>
+                                <?php echo $transaksi->mobil_name; ?> <br>
+                                <?php echo $transaksi->paket_name; ?> - <?php echo $transaksi->kota_name; ?>
                             </td>
                             <td><?php echo $transaksi->lama_sewa; ?> Hari<br>
-                                <?php echo $transaksi->kota_name; ?>
+                                <?php echo $transaksi->jumlah_mobil; ?> Unit
+
                             </td>
                             <td>Rp. <?php echo number_format($transaksi->start_price, 0, ",", "."); ?></td>
                             <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>

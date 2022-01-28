@@ -105,7 +105,6 @@ class Transaksi extends CI_Controller
     // Create Riwayat Saldo Driver
     public function create_saldo_driver($user_id, $potong_saldo, $transaksi, $saldo_driver)
     {
-        $tambah_saldo = $transaksi->diskon_point;
 
         $data = [
             'user_id'       => $user_id,
@@ -113,6 +112,7 @@ class Transaksi extends CI_Controller
             'pengeluaran'   => $potong_saldo,
             'transaksi'     => $transaksi->total_price,
             'keterangan'    => $transaksi->order_id,
+            'reason'        => 'Pemotongan Fee Untuk Order ID' . $transaksi->order_id,
             'total_saldo'   => $saldo_driver,
             'user_type'     => $user_id,
             'date_created'                      => date('Y-m-d H:i:s')
@@ -130,6 +130,7 @@ class Transaksi extends CI_Controller
             'pengeluaran'   => 0,
             'transaksi'     => $transaksi->total_price,
             'keterangan'    => $transaksi->order_id,
+            'reason'        => 'Penambahan Order dengan pembayaran Transfer Dengan Order ID ' . $transaksi->order_id,
             'total_saldo'   => $saldo_driver,
             'user_type'     => $user_id,
             'date_created'                      => date('Y-m-d H:i:s')
@@ -154,7 +155,8 @@ class Transaksi extends CI_Controller
             'pemasukan'     => $tambah_saldo,
             'pengeluaran'   => 0,
             'transaksi'     => $transaksi->total_price,
-            'keterangan'    => 'diskon Point ' . $transaksi->order_id,
+            'keterangan'    => $transaksi->order_id,
+            'reason'        => 'Pengembalian Diskon Point Untuk Order ID' . $transaksi->order_id,
             'total_saldo'   => $saldo_driver,
             'user_type'     => $user_id,
             'date_created'                      => date('Y-m-d H:i:s')
@@ -509,6 +511,7 @@ class Transaksi extends CI_Controller
             'pengeluaran'   => 0,
             'transaksi'     => $transaksi->total_price,
             'keterangan'    => $transaksi->order_id,
+            'reason'        => 'Pengembalian Diskon Point Untuk Order ID' . $transaksi->order_id,
             'total_saldo'   => $saldo_driver,
             'user_type'     => $user_id,
             'date_created'                      => date('Y-m-d H:i:s')

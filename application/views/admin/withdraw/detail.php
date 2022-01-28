@@ -1,9 +1,16 @@
 <?php $meta = $this->meta_model->get_meta(); ?>
 <!-- Main content -->
 <div class="card">
+
     <div class="card-header">
-        <img src="<?php echo base_url('assets/img/logo/' . $meta->logo); ?>"><br>
-        Kode Top Up : <strong><?php echo $withdraw->code_withdraw; ?></strong>
+        <div class="row">
+            <h3 class="col-3">
+                <img class="img-fluid" src="<?php echo base_url('assets/img/logo/' . $meta->logo); ?>">
+            </h3>
+            <div class="col-9 text-right">
+                Kode Top Up : <strong><?php echo $withdraw->code_withdraw; ?></strong>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <!-- title row -->

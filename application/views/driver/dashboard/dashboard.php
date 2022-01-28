@@ -9,7 +9,6 @@ $user = $this->user_model->user_detail($user_id); ?>
         </a>
     </div>
 </nav>
-
 <section class="mb-5 my-3">
     <div class="col-md-7 mx-auto">
         <div class="row">
@@ -35,11 +34,9 @@ $user = $this->user_model->user_detail($user_id); ?>
             </div>
         </div>
     </div>
-
     <div class="col-md-7 mx-auto mb-3">
         <button class="btn btn-primary btn-block" onClick="window.location.href=window.location.href"><i class="fa fa-redo-alt mr-3"></i> Refresh Page</button>
     </div>
-
     <div class="col-md-7 mx-auto">
         <?php foreach ($transaksi_driver_onroad as $data) : ?>
             <div class="card alert alert-success">
@@ -47,10 +44,7 @@ $user = $this->user_model->user_detail($user_id); ?>
                     <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?> - Jam : <?php echo $data->jam_jemput; ?><br>
                     <span class="font-italic"> Alamat Penjemputan</span> <br>
                     <p><?php echo $data->alamat_jemput; ?></p>
-
-
                     <a href="https://maps.google.com/?q=<?php echo $data->alamat_jemput; ?>" class="btn btn-info btn-block">Buka Google Maps</a>
-
                     <div class="card-body text-center">
                         Nama Customer : <?php echo $data->passenger_name; ?><br>
                         <?php echo $data->mobil_name; ?><br>
@@ -63,9 +57,7 @@ $user = $this->user_model->user_detail($user_id); ?>
                     <?php endif; ?>
                     </div>
                     <div class="row">
-
                         <div class="col-12">
-
                             <a href="https://wa.me/<?php echo $data->passenger_phone; ?>" class="btn btn btn-outline-success btn-block mb-2"><i class="ri-whatsapp-line"></i> Chat Customer</a>
                         </div>
                         <div class="col-12">
@@ -74,10 +66,8 @@ $user = $this->user_model->user_detail($user_id); ?>
                     </div>
                 </div>
             </div>
-
         <?php endforeach; ?>
     </div>
-
     <?php if ($transaksi_driver == Null && $transaksi_driver_onroad == Null) : ?>
         <div class="col-md-7 mx-auto">
             <div class="card">
@@ -91,10 +81,8 @@ $user = $this->user_model->user_detail($user_id); ?>
             </div>
         </div>
     <?php else : ?>
-
         <div class="col-md-7 mx-auto">
             <?php foreach ($transaksi_driver as $data) : ?>
-
                 <?php if ($data->order_type == "Daily" || $data->order_type == "Hourly") : ?>
                     <div class="card my-3 shadow border-0">
                         <div class="card-header bg-white">
@@ -102,7 +90,6 @@ $user = $this->user_model->user_detail($user_id); ?>
                             <i class="ri-time-line"></i> <?php echo $data->jam_jemput; ?>
                         </div>
                         <div class="card-body">
-
                             <?php echo $data->alamat_jemput; ?><br>
                             <?php echo $data->mobil_name; ?><br>
                             <small><?php echo $data->paket_name; ?></small><br>

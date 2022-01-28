@@ -122,12 +122,12 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
                   <p>Top Up</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-              <a href="<?php echo base_url(); ?>admin/withdraw" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Withdraw</p>
-              </a>
-            </li> -->
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/withdraw" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Withdraw</p>
+                </a>
+              </li>
 
 
 

@@ -1,7 +1,10 @@
 <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5><?php echo $title; ?></h5>
-        <!-- <a href="<?php echo base_url(); ?>" class="btn btn-info right">Daftarkan Akun Counter</a> -->
+    <div class="card-header">
+        <h5 class="card-title"><?php echo $title; ?></h5>
+        <div class="card-tools">
+            <a href="<?php echo base_url('admin/user/create'); ?>" class="btn btn-info right">Tambah Admin</a>
+
+        </div>
     </div>
 
     <?php

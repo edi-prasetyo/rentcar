@@ -47,6 +47,7 @@ if ($this->session->flashdata('message')) {
             </div>
         <?php endif; ?>
 
+        <a class="btn btn-info btn-block" href="<?php echo base_url('driver/withdraw'); ?>">Tarik Saldo</a>
 
         <div class="card bg-primary my-3">
             <div class="card-body text-white">

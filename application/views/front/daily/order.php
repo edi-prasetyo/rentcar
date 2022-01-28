@@ -16,6 +16,7 @@ $user           = $this->user_model->user_detail($id);
                     <div class="col-md-7">
                         <?php echo $kota_name; ?> - <?php echo $mobil_name; ?> - <?php echo $paket_name; ?> <br>
                         <h3 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h3>
+                        <!-- <input type="text" name="grand_total" id="total" size="7" value="" readonly> -->
 
                         <!-- <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" value="1" onchange="total()"> -->
                     </div>
@@ -70,6 +71,7 @@ $user           = $this->user_model->user_detail($id);
                     <input type="hidden" name="order_point" value="<?php echo $order_point; ?>">
                     <input type="hidden" name="ketentuan_desc" value="<?php echo $ketentuan_desc; ?>">
                     <input type="hidden" name="paket_desc" value="<?php echo $paket_desc; ?>">
+                    <input type="hidden" name="jumlah_mobil" value="1">
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Discount Point<span class="text-danger">*</span>
@@ -84,7 +86,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Lama Sewa<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="lama_sewa" value="" required>
+                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()" required>
                                 <option value="">-- Lama Sewa --</option>
                                 <option value='1'> 1 hari</option>
                                 <option value='2'> 2 Hari</option>
@@ -94,20 +96,7 @@ $user           = $this->user_model->user_detail($id);
                             <div class="invalid-feedback">Pilih Lama Sewa.</div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Jumlah Mobil<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-8">
-                            <select class="form-control" name="jumlah_mobil" value="" required>
-                                <option value="">-- Jumlah Mobil --</option>
-                                <option value='1'> 1 Mobil</option>
-                                <option value='2'> 2 Mobil</option>
-                                <option value='3'> 3 Mobil</option>
-                                <option value='4'> 4 Mobil</option>
-                            </select>
-                            <div class="invalid-feedback">Pilih Jumlah Mobil.</div>
-                        </div>
-                    </div>
+
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Nama Lengkap<span class="text-danger">*</span>
@@ -238,6 +227,15 @@ $user           = $this->user_model->user_detail($id);
     }
 </script>
 
+<script type="text/javascript">
+    function total() {
+        var vphp = <?php echo $paket_price; ?> * parseInt(document.getElementById('lama_sewa').value);
+
+        var jumlah_harga = vphp;
+
+        document.getElementById('total').value = jumlah_harga;
+    }
+</script>
 
 <!-- <script>
     var bilangan = 23456789;

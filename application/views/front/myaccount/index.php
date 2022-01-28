@@ -34,6 +34,11 @@
 
                     </li>
                 </a>
+                <a href="<?php echo base_url(''); ?>" class="text-decoration-none">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Pesan Sewa Mobil
+                    </li>
+                </a>
             </ul>
         </div>
     </div>

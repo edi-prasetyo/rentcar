@@ -208,7 +208,8 @@ class Driver extends CI_Controller
             $data  = [
                 'user_id'                   => $id,
                 'pemasukan'                 => $fix_pemasukan,
-                'keterangan'                => $keterangan . ' - ' . $code_topup,
+                'keterangan'                => $code_topup,
+                'reason'                    => $keterangan,
                 'transaksi'                 => 0,
                 'pengeluaran'               => 0,
                 'total_saldo'               => $total_saldo,
@@ -274,7 +275,8 @@ class Driver extends CI_Controller
             $data  = [
                 'user_id'                   => $id,
                 'pemasukan'                 => 0,
-                'keterangan'                => $this->input->post('keterangan'),
+                'keterangan'                => 'top up manual',
+                'reason'                    => $this->input->post('keterangan'),
                 'transaksi'                 => 0,
                 'pengeluaran'               => $fix_pengeluaran,
                 'total_saldo'               => $total_saldo,

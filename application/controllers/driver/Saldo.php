@@ -57,13 +57,12 @@ class Saldo extends CI_Controller
     }
     public function detail($id)
     {
-        $user_id    = $this->session->userdata('id');
-
-        $saldo = $this->saldo_model->get_my_saldo_detail($id, $user_id);
-        var_dump($user_id);
-        die;
+        // $user_id    = $this->session->userdata('id');
+        $saldo = $this->saldo_model->get_my_saldo_detail($id);
+        // var_dump($saldo);
+        // die;
         $data = [
-            'title'                 => 'Laporan Saldo Driver',
+            'title'                 => 'Detail Saldo',
             'saldo'                 => $saldo,
             'pagination'            => $this->pagination->create_links(),
             'content'               => 'driver/saldo/detail'

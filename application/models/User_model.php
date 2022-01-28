@@ -26,6 +26,7 @@ class User_model extends CI_Model
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
     // End Join
     $this->db->where('role_id', 1);
+    $this->db->or_where('role_id', 2);
     $this->db->order_by('id', 'DESC');
     $query = $this->db->get();
     return $query->result();

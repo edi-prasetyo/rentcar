@@ -186,12 +186,12 @@ class topup extends CI_Controller
         ];
         $this->user_model->update($data);
         $this->update_topup($driver_id, $id);
-        $this->create_saldo_topup($driver_id, $nominal, $tambah_saldo);
+        $this->create_saldo_topup($driver_id, $nominal, $tambah_saldo, $topup);
         $this->session->set_flashdata('message', 'Data telah di Update');
         redirect(base_url('admin/topup'), 'refresh');
     }
     // Create Saldo Topup
-    public function create_saldo_topup($driver_id, $nominal, $tambah_saldo)
+    public function create_saldo_topup($driver_id, $nominal, $tambah_saldo, $topup)
     {
         $data = [
             'user_id'               => $driver_id,
@@ -201,6 +201,7 @@ class topup extends CI_Controller
             'total_saldo'           => $tambah_saldo,
             'user_type'             => 'Driver',
             'keterangan'            => 'Top Up Saldo',
+            'reason'                => 'Top Up saldo Kode Topup ' . $topup->code_topup,
             'date_created'          => date('Y-m-d H:i:s')
 
         ];

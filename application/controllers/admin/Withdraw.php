@@ -162,6 +162,7 @@ class withdraw extends CI_Controller
                     'foto_struk'                    => $upload_data['uploads']['file_name'],
                 ];
                 $this->withdraw_model->update($data);
+                // $this->create_laporan_saldo($withdraw);
                 $this->session->set_flashdata('message', 'Data telah di Update');
                 redirect(base_url('admin/withdraw'), 'refresh');
             }
@@ -174,6 +175,28 @@ class withdraw extends CI_Controller
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }
+    // Create Laporan Saldo
+    // public function create_laporan_saldo($withdraw)
+    // {
+    //     $driver_id = $withdraw->user_id;
+    //     $driver_detail = $this->user_model->detail($driver_id);
+    //     $saldo_driver = $driver_detail->saldo_driver;
+    //     $pengeluaran    = $withdraw->nominal_withdraw;
+
+    //     $data = [
+    //         'user_id'               => $driver_id,
+    //         'pemasukan'             => 0,
+    //         'transaksi'             => 0,
+    //         'pengeluaran'           => $pengeluaran,
+    //         'total_saldo'           => $saldo_driver,
+    //         'user_type'             => 'Driver',
+    //         'keterangan'            => 'Tarik Saldo',
+    //         'reason'                => 'Tarik Saldo ' . $withdraw->code_withdraw,
+    //         'date_created'          => date('Y-m-d H:i:s')
+
+    //     ];
+    //     $this->saldo_model->create($data);
+    // }
 
     // Decline
     public function decline($id)
