@@ -532,38 +532,38 @@ class Mobil extends CI_Controller
     $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect($_SERVER['HTTP_REFERER']);
   }
-  public function update_dropoff($id)
-  {
-    $paket = $this->paket_model->detail_paket($id);
-    $this->form_validation->set_rules(
-      'paket_price',
-      'Harga Paket',
-      'required',
-      [
-        'required'                        => 'Nama Paket harus di isi',
-      ]
-    );
-    if ($this->form_validation->run() == false) {
+  // public function update_dropoff($id)
+  // {
+  //   $paket = $this->paket_model->detail_paket($id);
+  //   $this->form_validation->set_rules(
+  //     'paket_price',
+  //     'Harga Paket',
+  //     'required',
+  //     [
+  //       'required'                        => 'Nama Paket harus di isi',
+  //     ]
+  //   );
+  //   if ($this->form_validation->run() == false) {
 
-      //End Validasi
-      $data = [
-        'title'                         => 'Update Paket ',
-        'paket'                         => $paket,
-        'content'                       => 'admin/daily/update_paket'
-      ];
-      $this->load->view('admin/layout/wrapp', $data, FALSE);
-      //Masuk Database
-    } else {
-      $data  = [
-        'id'                                  => $id,
-        'paket_price'                         => $this->input->post('paket_price'),
-        'paket_point'                         => $this->input->post('paket_point'),
-        'paket_desc'                          => $this->input->post('paket_desc'),
-        'updated_at'                          => date('Y-m-d H:i:s')
-      ];
-      $this->paket_model->update($data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah diubah</div>');
-      redirect($_SERVER['HTTP_REFERER']);
-    }
-  }
+  //     //End Validasi
+  //     $data = [
+  //       'title'                         => 'Update Paket ',
+  //       'paket'                         => $paket,
+  //       'content'                       => 'admin/daily/update_paket'
+  //     ];
+  //     $this->load->view('admin/layout/wrapp', $data, FALSE);
+  //     //Masuk Database
+  //   } else {
+  //     $data  = [
+  //       'id'                                  => $id,
+  //       'paket_price'                         => $this->input->post('paket_price'),
+  //       'paket_point'                         => $this->input->post('paket_point'),
+  //       'paket_desc'                          => $this->input->post('paket_desc'),
+  //       'updated_at'                          => date('Y-m-d H:i:s')
+  //     ];
+  //     $this->paket_model->update($data);
+  //     $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah diubah</div>');
+  //     redirect($_SERVER['HTTP_REFERER']);
+  //   }
+  // }
 }
