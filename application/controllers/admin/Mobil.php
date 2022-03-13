@@ -92,7 +92,7 @@ class Mobil extends CI_Controller
           'mobil_tahun'         => $this->input->post('mobil_tahun'),
           'mobil_harga'         => $this->input->post('mobil_harga'),
           'mobil_gambar'        => $upload_data['uploads']['file_name'],
-          'image_url'           => base_url('assets/image/mobil/' . $upload_data['uploads']['file_name']),
+          'image_url'           => base_url('assets/img/mobil/' . $upload_data['uploads']['file_name']),
           'mobil_keywords'      => $this->input->post('mobil_keywords'),
           'date_created'        => date('Y-m-d H:i:s')
         );
@@ -191,7 +191,7 @@ class Mobil extends CI_Controller
             'mobil_tahun'         => $i->post('mobil_tahun'),
             'mobil_harga'         => $i->post('mobil_harga'),
             'mobil_gambar'        => $upload_data['uploads']['file_name'],
-            'image_url'           => base_url('assets/image/mobil/' . $upload_data['uploads']['file_name']),
+            'image_url'           => base_url('assets/img/mobil/' . $upload_data['uploads']['file_name']),
             'mobil_keywords'      => $i->post('mobil_keywords'),
             'date_updated'        => date('Y-m-d H:i:s')
           );
