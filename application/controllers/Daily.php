@@ -279,7 +279,7 @@ class Daily extends CI_Controller
                 'passenger_phone'                       => $this->input->post('passenger_phone'),
                 'passenger_email'                       => $this->input->post('passenger_email'),
                 'mobil_name'                            => $this->input->post('mobil_name'),
-                'mobil_id'                            => $mobil_id,
+                'mobil_id'                              => $mobil_id,
                 'paket_name'                            => $this->input->post('paket_name'),
                 'paket_id'                              => $paket_id,
                 'kota_name'                             => $this->input->post('kota_name'),
@@ -323,8 +323,8 @@ class Daily extends CI_Controller
             $result = array();
             foreach ($id as $key) {
                 $result[] = array(
-                    'id' => $key->id,
-                    'point_status' => $status,
+                    'id'            => $key->id,
+                    'point_status'  => $status,
                 );
             }
             $this->db->update_batch('point', $result, 'id');

@@ -43,11 +43,11 @@ class Mobil extends CI_Controller
 
     if ($valid->run()) {
 
-      $config['upload_path']          = './assets/img/mobil/';
-      $config['allowed_types']        = 'gif|jpg|png|jpeg|webp';
-      $config['max_size']             = 5000000000000; //Dalam Kilobyte
-      $config['max_width']            = 5000000000000; //Lebar (pixel)
-      $config['max_height']           = 5000000000000; //tinggi (pixel)
+      $config['upload_path']              = './assets/img/mobil/';
+      $config['allowed_types']            = 'gif|jpg|png|jpeg|webp';
+      $config['max_size']                 = 5000000000000; //Dalam Kilobyte
+      $config['max_width']                = 5000000000000; //Lebar (pixel)
+      $config['max_height']               = 5000000000000; //tinggi (pixel)
       $config['remove_spaces']            = TRUE;
       $config['encrypt_name']             = TRUE;
       $this->load->library('upload', $config);
@@ -412,6 +412,127 @@ class Mobil extends CI_Controller
     redirect($_SERVER['HTTP_REFERER']);
   }
   public function update_paket($id)
+  {
+    $paket = $this->paket_model->detail_paket($id);
+    $this->form_validation->set_rules(
+      'paket_price',
+      'Harga Paket',
+      'required',
+      [
+        'required'                        => 'Nama Paket harus di isi',
+      ]
+    );
+    if ($this->form_validation->run() == false) {
+
+      //End Validasi
+      $data = [
+        'title'                         => 'Update Paket ',
+        'paket'                         => $paket,
+        'content'                       => 'admin/daily/update_paket'
+      ];
+      $this->load->view('admin/layout/wrapp', $data, FALSE);
+      //Masuk Database
+    } else {
+      $data  = [
+        'id'                                  => $id,
+        'paket_price'                         => $this->input->post('paket_price'),
+        'paket_point'                         => $this->input->post('paket_point'),
+        'paket_desc'                          => $this->input->post('paket_desc'),
+        'updated_at'                          => date('Y-m-d H:i:s')
+      ];
+      $this->paket_model->update($data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah diubah</div>');
+      redirect($_SERVER['HTTP_REFERER']);
+    }
+  }
+
+  // Drop Off
+  public function dropoff($mobil_id)
+  {
+    $kota       = $this->kota_model->get_allkota();
+    $mobil      = $this->mobil_model->detail_mobil($mobil_id);
+    $data = [
+      'title'       => 'Paket dropoff',
+      'kota'        => $kota,
+      'mobil_id'    => $mobil_id,
+      'mobil'       => $mobil,
+      'content'     => 'admin/dropoff/index'
+    ];
+    $this->load->view('admin/layout/wrapp', $data, FALSE);
+  }
+
+  public function create_dropoff($mobil_id = false, $kota_id = false)
+  {
+
+    $mobil            = $this->mobil_model->detail_mobil($mobil_id);
+    $kota             = $this->kota_model->detail($kota_id);
+    $dropoff          = $this->dropoff_model->paket_daily($mobil_id, $kota_id);
+    $ketentuan        = $this->ketentuan_model->get_ketentuan();
+    // var_dump($kota->id, $mobil->id);
+    // die;
+
+
+    $this->form_validation->set_rules(
+      'paket_name',
+      'Nama Paket',
+      'required',
+      [
+        'required'                        => 'Nama Paket harus di isi',
+      ]
+    );
+    if ($this->form_validation->run() == false) {
+
+      //End Validasi
+      $data = [
+        'title'                         => 'Tambah Paket ' . $mobil->mobil_name,
+        'kota'                          => $kota,
+        'mobil'                         => $mobil,
+        'ketentuan'                     => $ketentuan,
+        'dropoff'                   => $dropoff,
+        'content'                       => 'admin/daily/create'
+      ];
+      $this->load->view('admin/layout/wrapp', $data, FALSE);
+      //Masuk Database
+    } else {
+      $data  = [
+        'mobil_id'                            => $mobil->id,
+        'kota_id'                             => $kota->id,
+        'ketentuan_id'                        => $this->input->post('ketentuan_id'),
+        'paket_name'                          => $this->input->post('paket_name'),
+        'paket_type'                          => 'Daily',
+        'paket_price'                         => $this->input->post('paket_price'),
+        'paket_point'                         => $this->input->post('paket_point'),
+        'paket_status'                        => $this->input->post('paket_status'),
+        'paket_desc'                          => $this->input->post('paket_desc'),
+        'created_at'                          => date('Y-m-d H:i:s')
+      ];
+      $this->paket_model->create($data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data Produk telah ditambahkan</div>');
+      redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    //End Masuk Database
+    $data = [
+      'title'                             => 'Tambah Paket ' . $mobil->mobil_name,
+      'mobil'                             => $mobil,
+      'ketentuan'                         => $ketentuan,
+      'content'                           => 'admin/daily/create'
+    ];
+    $this->load->view('admin/layout/wrapp', $data, FALSE);
+  }
+  public function delete_dropoff($id)
+  {
+    //Proteksi delete
+    is_login();
+
+    $paket = $this->paket_model->detail_paket($id);
+    //End Hapus Gambar
+    $data = array('id'   => $paket->id);
+    $this->paket_model->delete($data);
+    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
+    redirect($_SERVER['HTTP_REFERER']);
+  }
+  public function update_dropoff($id)
   {
     $paket = $this->paket_model->detail_paket($id);
     $this->form_validation->set_rules(
