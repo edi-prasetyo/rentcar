@@ -1,0 +1,83 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Airport_model extends CI_Model
+{
+    //load database
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
+    public function get_allairport()
+    {
+        $this->db->select('*');
+        $this->db->from('airport');
+        $this->db->order_by('id', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_airport($limit, $start)
+    {
+        $this->db->select('*');
+        $this->db->from('airport');
+        $this->db->limit($limit, $start);
+        $this->db->order_by('id', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function total_row()
+    {
+        $this->db->select('*');
+        $this->db->from('airport');
+        $this->db->order_by('id', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function detail($kota_id)
+    {
+        $this->db->select('*');
+        $this->db->from('kota');
+        $this->db->where('id', $kota_id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function detail_airport($id)
+    {
+        $this->db->select('*');
+        $this->db->from('kota');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function detail_encrypt($kota_id)
+    {
+        $this->db->select('*');
+        $this->db->from('kota');
+        $this->db->where('md5(id)', $kota_id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+
+    // Create
+    public function create($data)
+    {
+        $this->db->insert('airport', $data);
+    }
+    // Update
+    public function update($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('airport', $data);
+    }
+    //
+    //Delete Data
+    public function delete($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->delete('airport', $data);
+    }
+}

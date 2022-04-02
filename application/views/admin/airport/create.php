@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-7">
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <?php echo $title; ?>
+            </div>
+            <div class="card-body">
+
+
+                <div class="text-center">
+                    <?php
+
+                    if (isset($errors_upload)) {
+                        echo '<div class="alert alert-warning">' . $error_upload . '</div>';
+                    }
+                    ?>
+                </div>
+                <?php
+                echo form_open_multipart('admin/airport/create/');
+                ?>
+
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Nama Bandara <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="airport_name" placeholder="Nama Bandara" value="<?php echo set_value('airport_name'); ?>">
+                        <?php echo form_error('airport_name', '<small class="text-danger">', '</small>'); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Kode Bandara <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="airport_code" placeholder="Kode Bandara" value="<?php echo set_value('airport_code'); ?>">
+                        <?php echo form_error('airport_code', '<small class="text-danger">', '</small>'); ?>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            Publish
+                        </button>
+                    </div>
+                </div>
+
+                <?php echo form_close() ?>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

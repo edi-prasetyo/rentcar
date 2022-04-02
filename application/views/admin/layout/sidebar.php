@@ -75,6 +75,12 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/airport" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bandara</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?php echo base_url(); ?>admin/bank" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bank</p>

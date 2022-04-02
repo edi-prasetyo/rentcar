@@ -20,7 +20,6 @@ class Kota_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
     public function get_array_kota($provinsi_id)
     {
 
@@ -29,6 +28,24 @@ class Kota_model extends CI_Model
         $this->db->where(['provinsi_id' => $provinsi_id]);
         $query = $this->db->get();
         return $query->result();
+    }
+    public function get_kota_asal($kota_asal)
+    {
+
+        $this->db->select('*');
+        $this->db->from('kota');
+        $this->db->where('id', $kota_asal);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function get_kota_tujuan($kota_tujuan)
+    {
+
+        $this->db->select('*');
+        $this->db->from('kota');
+        $this->db->where('id', $kota_tujuan);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     public function get_kota($limit, $start)
@@ -77,6 +94,23 @@ class Kota_model extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
+    public function kota_asal_encrypt($kota_asal)
+    {
+        $this->db->select('*');
+        $this->db->from('kota');
+        $this->db->where('md5(id)', $kota_asal);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function kota_tujuan_encrypt($kota_tujuan)
+    {
+        $this->db->select('*');
+        $this->db->from('kota');
+        $this->db->where('md5(id)', $kota_tujuan);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     public function kota_by_provinsi($provinsi_id)
     {
         $this->db->select('*');

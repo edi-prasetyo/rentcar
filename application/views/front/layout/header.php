@@ -29,7 +29,7 @@ $meta = $this->meta_model->get_meta();
 
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/front/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/front/css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/fontawesome5/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/fontawesome6/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="<?php echo base_url(''); ?>assets/template/front/css/component-chosen.css">
     <link rel="stylesheet" href="<?php echo base_url(''); ?>assets/template/front/css/bootstrap-datetimepicker.css" />

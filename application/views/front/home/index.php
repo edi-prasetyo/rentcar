@@ -19,7 +19,7 @@
                     <a href="<?php echo base_url('daily'); ?>" class="text-muted text-decoration-none product-button">
                         <div class="card shadow-sm product-button">
                             <div class="card-body d-flex justify-content-between align-items-center">
-                                <div><i class="fas fa-calendar-alt"></i> Rental Harian</div>
+                                <div><i class="fa-solid fa-calendar-day"></i> Rental Harian</div>
                                 <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
 
                             </div>
@@ -27,10 +27,10 @@
                     </a>
                 </div>
                 <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('hourly'); ?>" class="text-muted text-decoration-none product-button">
+                    <a href="<?php echo base_url('dropoff'); ?>" class="text-muted text-decoration-none product-button">
                         <div class="card shadow-sm">
                             <div class="card-body d-flex justify-content-between align-items-center">
-                                <div><i class="far fa-clock"></i> Rental Per Jam</div>
+                                <div><i class="fa-solid fa-car-side"></i> Rental Drop Off</div>
                                 <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
 
                             </div>
@@ -38,21 +38,27 @@
                     </a>
                 </div>
                 <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('transaksi'); ?>" class="text-muted text-decoration-none">
+                    <a href="<?php echo base_url('airport'); ?>" class="text-muted text-decoration-none product-button">
                         <div class="card shadow-sm">
-                            <div class="card-body"> <i class="fas fa-taxi"></i> Rental Online
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div><i class="fa-solid fa-plane-departure"></i> Rental Bandara</div>
+                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
+
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('transaksi/dropoff'); ?>" class="text-muted text-decoration-none">
+                    <a href="<?php echo base_url('transaksi'); ?>" class="text-muted text-decoration-none product-button">
                         <div class="card shadow-sm">
-                            <div class="card-body"> <i class="fas fa-map-marker-alt"></i> Rental Drop Off
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div> <i class="fa-solid fa-car-rear"></i> Rental Online</div>
+                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
                             </div>
                         </div>
                     </a>
                 </div>
+
 
             </div>
         </div>

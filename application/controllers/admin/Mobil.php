@@ -11,7 +11,7 @@ class Mobil extends CI_Controller
     $this->load->model('hourly_model');
     $this->load->model('daily_model');
     $this->load->model('kota_model');
-    $this->load->model('paket_model');
+    $this->load->model('dropoff_model');
     $this->load->model('ketentuan_model');
   }
   //listing data mobil
@@ -354,11 +354,11 @@ class Mobil extends CI_Controller
 
 
     $this->form_validation->set_rules(
-      'paket_name',
-      'Nama Paket',
+      'paket_price',
+      'Harga Paket',
       'required',
       [
-        'required'                        => 'Nama Paket harus di isi',
+        'required'                        => 'Harga Paket harus di isi',
       ]
     );
     if ($this->form_validation->run() == false) {
@@ -453,11 +453,14 @@ class Mobil extends CI_Controller
   {
     $kota       = $this->kota_model->get_allkota();
     $mobil      = $this->mobil_model->detail_mobil($mobil_id);
+    $paket_dropoff = $this->dropoff_model->paket_dropoff($mobil_id);
     $data = [
       'title'       => 'Paket dropoff',
-      'kota'        => $kota,
+      // 'kota'        => $kota,
+      'paket_dropoff' => $paket_dropoff,
       'mobil_id'    => $mobil_id,
       'mobil'       => $mobil,
+      'kota'        => $kota,
       'content'     => 'admin/dropoff/index'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
@@ -467,19 +470,21 @@ class Mobil extends CI_Controller
   {
 
     $mobil            = $this->mobil_model->detail_mobil($mobil_id);
+    $listkota         = $this->kota_model->get_allkota();
     $kota             = $this->kota_model->detail($kota_id);
-    $dropoff          = $this->dropoff_model->paket_daily($mobil_id, $kota_id);
+    $dropoff          = $this->dropoff_model->dropoff_mobil($mobil_id, $kota_id);
     $ketentuan        = $this->ketentuan_model->get_ketentuan();
+
     // var_dump($kota->id, $mobil->id);
     // die;
 
 
     $this->form_validation->set_rules(
-      'paket_name',
-      'Nama Paket',
+      'paket_price',
+      'Harga Paket',
       'required',
       [
-        'required'                        => 'Nama Paket harus di isi',
+        'required'                        => 'Harga Paket harus di isi',
       ]
     );
     if ($this->form_validation->run() == false) {
@@ -487,40 +492,60 @@ class Mobil extends CI_Controller
       //End Validasi
       $data = [
         'title'                         => 'Tambah Paket ' . $mobil->mobil_name,
+        'listkota'                      => $listkota,
         'kota'                          => $kota,
         'mobil'                         => $mobil,
         'ketentuan'                     => $ketentuan,
-        'dropoff'                   => $dropoff,
-        'content'                       => 'admin/daily/create'
+        'dropoff'                       => $dropoff,
+        'content'                       => 'admin/dropoff/create'
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
       //Masuk Database
     } else {
+
+      $kota_asal = $kota->id;
+      $kota_tujuan = $this->input->post('kota_tujuan');
+
       $data  = [
         'mobil_id'                            => $mobil->id,
-        'kota_id'                             => $kota->id,
+        'kota_asal'                           => $kota_asal,
+        'kota_tujuan'                         => $kota_tujuan,
         'ketentuan_id'                        => $this->input->post('ketentuan_id'),
-        'paket_name'                          => $this->input->post('paket_name'),
-        'paket_type'                          => 'Daily',
+        'paket_type'                          => 'Drop Off',
         'paket_price'                         => $this->input->post('paket_price'),
         'paket_point'                         => $this->input->post('paket_point'),
         'paket_status'                        => $this->input->post('paket_status'),
         'paket_desc'                          => $this->input->post('paket_desc'),
         'created_at'                          => date('Y-m-d H:i:s')
       ];
-      $this->paket_model->create($data);
+      $insert_id = $this->dropoff_model->create($data);
+      $this->update_nama_kota($kota_asal, $kota_tujuan, $insert_id);
       $this->session->set_flashdata('message', '<div class="alert alert-success">Data Produk telah ditambahkan</div>');
-      redirect($_SERVER['HTTP_REFERER']);
+      redirect(base_url('admin/mobil/dropoff/' . $mobil_id . '/' . $kota_id), 'refresh');
     }
 
     //End Masuk Database
     $data = [
       'title'                             => 'Tambah Paket ' . $mobil->mobil_name,
+      'kota'                              => $kota,
       'mobil'                             => $mobil,
       'ketentuan'                         => $ketentuan,
-      'content'                           => 'admin/daily/create'
+      'content'                           => 'admin/dropoff/create'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
+  }
+  public function update_nama_kota($kota_asal, $kota_tujuan, $insert_id)
+  {
+    $kota_asal = $this->kota_model->get_kota_asal($kota_asal);
+    $kota_tujuan = $this->kota_model->get_kota_tujuan($kota_tujuan);
+
+    $data  = [
+      'id'                                  => $insert_id,
+      'kota_asal_name'                         => $kota_asal->kota_name,
+      'kota_tujuan_name'                         => $kota_tujuan->kota_name,
+      'updated_at'                          => date('Y-m-d H:i:s')
+    ];
+    $this->dropoff_model->update($data);
   }
   public function delete_dropoff($id)
   {
