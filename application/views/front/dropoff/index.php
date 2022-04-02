@@ -94,10 +94,10 @@
     <div class="row">
         <div class="col-md-6">
             <div class="booking-cta">
-                <h1>Sewa Mobil Harian</h1>
-                <p>Sewa mobil harian adalah Layanan Sewa Mobil yang bisa anda gunakan untuk jangka waktu harian. ada banyak pilihan mobil dan juga pilihan kota yang tersedia.
+                <h1>Sewa Mobil Drop Off</h1>
+                <p>Sewa mobil Drop off adalah Layanan Sewa Mobil Antar jemput untuk tujuan dalam dan luar kota.
                 <p>
-                    Kami menyediakan 4 paket untuk sewa harian mulai dari 12 jam dalam kota, 18 jam dalam kota, 12 jam dalam kota dan 24 jam luar kota.Harga sudah termasuk driver, diluar biaya BBM, Toll Parkir dan Uang makan driver.
+                    Untuk layanan drop off kami hanya melayani untuk antar saja atau jemput saja
                 </p>
                 </p>
             </div>
