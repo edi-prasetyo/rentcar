@@ -60,7 +60,19 @@ class Airport_model extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
-
+    public function paket_airport($mobil_id)
+    {
+        $this->db->select('paket_airport.*, mobil.mobil_name, kota.kota_name');
+        $this->db->from('paket_airport');
+        // Join
+        $this->db->join('mobil', 'mobil.id = paket_airport.mobil_id', 'LEFT');
+        $this->db->join('kota', 'kota.id = paket_airport.kota_id', 'LEFT');
+        // End Join
+        $this->db->where('mobil_id', $mobil_id);
+        $this->db->order_by('id', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function search_city($airport_id, $kota_id)
     {
         $this->db->select('paket_airport.*, mobil.mobil_name, mobil.mobil_gambar, mobil.mobil_penumpang, mobil.mobil_bagasi');

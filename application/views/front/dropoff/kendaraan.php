@@ -100,12 +100,16 @@
                 <div class="card">
                     <img src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" class="card-img-top" alt="...">
                     <div class="card-body text-center">
-                        <h4><?php echo $data->mobil_name; ?></h4>
-                        <h4><?php echo $data->paket_price; ?></h4>
-                        <i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?>
-                        <?php echo form_open('daily/paket/' . $kota_asal . '/' . md5($data->mobil_id), array('method' => 'get')); ?>
+                        <div class="badge badge-success"><?php echo number_format($data->paket_point, 0, ",", "."); ?> Point</div>
+                        <h5><?php echo $data->mobil_name; ?></h5>
+                        <h4>Rp. <?php echo number_format($data->paket_price, 0, ",", "."); ?></h4>
+                        <?php echo form_open('dropoff/order/', array('method' => 'get')); ?>
                         <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
                         <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
+                        <input type="text" name="kota_asal" value="<?php echo $kota_asal; ?>">
+                        <input type="text" name="kota_tujuan" value="<?php echo $kota_tujuan; ?>">
+                        <input type="hidden" name="kota_asal_name" value="<?php echo $kota_asal_name; ?>">
+                        <input type="hidden" name="kota_tujuan_name" value="<?php echo $kota_tujuan_name; ?>">
                         <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                         <?php echo form_close(); ?>
                     </div>

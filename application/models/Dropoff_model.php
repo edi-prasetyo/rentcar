@@ -39,6 +39,19 @@ class Dropoff_model extends CI_Model
     return $query->row();
   }
 
+  //Detail paket
+  public function dropoff_detail($kota_asal, $kota_tujuan)
+  {
+    $this->db->select('paket_dropoff.*, ketentuan.ketentuan_desc');
+    $this->db->from('paket_dropoff');
+    // Join
+    $this->db->join('ketentuan', 'ketentuan.id = paket_dropoff.ketentuan_id', 'LEFT');
+    // End Join
+    $this->db->where(['md5(kota_asal)' => $kota_asal, 'md5(kota_tujuan)' => $kota_tujuan]);
+    $this->db->order_by('id', 'ASC');
+    $query = $this->db->get();
+    return $query->row();
+  }
 
   public function listpaket($mobil_id)
   {

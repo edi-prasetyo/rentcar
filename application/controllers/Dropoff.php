@@ -122,48 +122,6 @@ class Dropoff extends CI_Controller
         ];
         $this->load->view('front/layout/wrapp', $data);
     }
-    public function paket($kota_id = false, $mobil_id = false)
-    {
-        $tanggal_sewa = "";
-        if ($this->input->get('tanggal_sewa') != NULL) {
-            $tanggal_sewa = $this->input->get('tanggal_sewa');
-            $this->session->set_userdata(array("tanggal_sewa" => $tanggal_sewa));
-        } else {
-            if ($this->session->userdata('tanggal_sewa') != NULL) {
-                $tanggal_sewa = $this->session->userdata('tanggal_sewa');
-            }
-        }
-
-        $jam_sewa = "";
-        if ($this->input->get('jam_sewa') != NULL) {
-            $jam_sewa = $this->input->get('jam_sewa');
-            $this->session->set_userdata(array("jam_sewa" => $jam_sewa));
-        } else {
-            if ($this->session->userdata('jam_sewa') != NULL) {
-                $jam_sewa = $this->session->userdata('jam_sewa');
-            }
-        }
-
-        // $tanggal_sewa = $this->input->post('tanggal_sewa');
-        // $jam_sewa = $this->input->post('jam_sewa');
-
-        $mobil      = $this->mobil_model->detail_encrypt($mobil_id);
-        $kota       = $this->kota_model->detail_encrypt($kota_id);
-
-        $paket      = $this->paket_model->get_paket_dropoff($kota_id, $mobil_id);
-        // var_dump($paket);
-        // die;
-        $data = [
-            'title'         => 'Pilih Kendaraan',
-            'paket'         => $paket,
-            'mobil'         => $mobil,
-            'kota'          => $kota,
-            'tanggal_sewa'  =>  $tanggal_sewa,
-            'jam_sewa'      => $jam_sewa,
-            'content'       => 'front/dropoff/paket'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
-    }
     public function order()
     {
         $user_id = $this->session->userdata('id');
@@ -208,36 +166,47 @@ class Dropoff extends CI_Controller
                 $mobil_id = $this->session->userdata('mobil_id');
             }
         }
-        $kota_id = "";
-        if ($this->input->get('kota_id') != NULL) {
-            $kota_id = $this->input->get('kota_id');
-            $this->session->set_userdata(array("kota_id" => $kota_id));
+        $kota_asal = "";
+        if ($this->input->get('kota_asal') != NULL) {
+            $kota_asal = $this->input->get('kota_asal');
+            $this->session->set_userdata(array("kota_asal" => $kota_asal));
         } else {
-            if ($this->session->userdata('kota_id') != NULL) {
-                $kota_id = $this->session->userdata('kota_id');
+            if ($this->session->userdata('kota_asal') != NULL) {
+                $kota_asal = $this->session->userdata('kota_asal');
             }
         }
-        $kota_name = "";
-        if ($this->input->get('kota_name') != NULL) {
-            $kota_name = $this->input->get('kota_name');
-            $this->session->set_userdata(array("kota_name" => $kota_name));
+        $kota_tujuan = "";
+        if ($this->input->get('kota_tujuan') != NULL) {
+            $kota_tujuan = $this->input->get('kota_tujuan');
+            $this->session->set_userdata(array("kota_tujuan" => $kota_tujuan));
         } else {
-            if ($this->session->userdata('kota_name') != NULL) {
-                $kota_name = $this->session->userdata('kota_name');
+            if ($this->session->userdata('kota_tujuan') != NULL) {
+                $kota_tujuan = $this->session->userdata('kota_tujuan');
             }
         }
-        $paket_id = "";
-        if ($this->input->get('paket_id') != NULL) {
-            $paket_id = $this->input->get('paket_id');
-            $this->session->set_userdata(array("paket_id" => $paket_id));
+        $kota_asal_name = "";
+        if ($this->input->get('kota_asal_name') != NULL) {
+            $kota_asal_name = $this->input->get('kota_asal_name');
+            $this->session->set_userdata(array("kota_asal_name" => $kota_asal_name));
         } else {
-            if ($this->session->userdata('paket_id') != NULL) {
-                $paket_id = $this->session->userdata('paket_id');
+            if ($this->session->userdata('kota_asal_name') != NULL) {
+                $kota_asal_name = $this->session->userdata('kota_asal_name');
+            }
+        }
+        $kota_tujuan_name = "";
+        if ($this->input->get('kota_tujuan_name') != NULL) {
+            $kota_tujuan_name = $this->input->get('kota_tujuan_name');
+            $this->session->set_userdata(array("kota_tujuan_name" => $kota_tujuan_name));
+        } else {
+            if ($this->session->userdata('kota_tujuan_name') != NULL) {
+                $kota_tujuan_name = $this->session->userdata('kota_tujuan_name');
             }
         }
 
-        $paket = $this->paket_model->detail($paket_id);
-        $paket_name     = $paket->paket_name;
+        $paket = $this->dropoff_model->dropoff_detail($kota_asal, $kota_tujuan);
+
+
+
         $paket_price    = $paket->paket_price;
         $order_point    = $paket->paket_point;
         $ketentuan_desc = $paket->ketentuan_desc;
@@ -260,9 +229,10 @@ class Dropoff extends CI_Controller
                 'tanggal_sewa'      =>  $tanggal_sewa,
                 'jam_sewa'          => $jam_sewa,
                 'mobil_name'        => $mobil_name,
-                'kota_id'           => $kota_id,
-                'kota_name'         => $kota_name,
-                'paket_name'        => $paket_name,
+                'kota_asal'           => $kota_asal,
+                'kota_tujuan'         => $kota_tujuan,
+                'kota_tujuan_name'         => $kota_tujuan_name,
+                'kota_asal_name'         => $kota_asal_name,
                 'paket_price'       => $paket_price,
                 'order_point'       => $order_point,
                 'ketentuan_desc'    => $ketentuan_desc,
@@ -296,9 +266,10 @@ class Dropoff extends CI_Controller
                 'mobil_name'                            => $this->input->post('mobil_name'),
                 'mobil_id'                              => $mobil_id,
                 'paket_name'                            => $this->input->post('paket_name'),
-                'paket_id'                              => $paket_id,
-                'kota_name'                             => $this->input->post('kota_name'),
-                'kota_id'                               => $this->input->post('kota_id'),
+                'kota_name'                            => $this->input->post('kota_name'),
+
+                'origin'                               => $paket->kota_asal,
+                'destination'                               => $paket->kota_tujuan,
                 'alamat_jemput'                         => $this->input->post('alamat_jemput'),
                 'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
                 'jam_jemput'                            => $this->input->post('jam_jemput'),
@@ -320,7 +291,7 @@ class Dropoff extends CI_Controller
             $insert_id = $this->transaksi_model->create($data);
             $this->sukses($insert_id);
             $this->update_point($insert_id);
-            $this->_sendEmail($insert_id, 'order');
+            // $this->_sendEmail($insert_id, 'order');
             $this->session->set_flashdata('message', 'Data telah ditambahkan');
             redirect(base_url('dropoff/sukses/' . $insert_id), 'refresh');
         }
@@ -347,61 +318,61 @@ class Dropoff extends CI_Controller
     }
 
 
-    private function _sendEmail($insert_id)
-    {
-        $email_order = $this->pengaturan_model->email_order();
-        $transaksi  = $this->transaksi_model->last_transaksi($insert_id);
-        $meta = $this->meta_model->get_meta();
+    // private function _sendEmail($insert_id)
+    // {
+    //     $email_order = $this->pengaturan_model->email_order();
+    //     $transaksi  = $this->transaksi_model->last_transaksi($insert_id);
+    //     $meta = $this->meta_model->get_meta();
 
-        $config = [
-            'protocol'     => "$email_order->protocol",
-            'smtp_host'   => "$email_order->smtp_host",
-            'smtp_port'   => $email_order->smtp_port,
-            'smtp_user'   => "$email_order->smtp_user",
-            'smtp_pass'   => "$email_order->smtp_pass",
-            'mailtype'     => 'html',
-            'charset'     => 'utf-8',
-        ];
+    //     $config = [
+    //         'protocol'     => "$email_order->protocol",
+    //         'smtp_host'   => "$email_order->smtp_host",
+    //         'smtp_port'   => $email_order->smtp_port,
+    //         'smtp_user'   => "$email_order->smtp_user",
+    //         'smtp_pass'   => "$email_order->smtp_pass",
+    //         'mailtype'     => 'html',
+    //         'charset'     => 'utf-8',
+    //     ];
 
-        $this->load->library('email', $config);
-        $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-        $this->email->from("$email_order->smtp_user", ' Order ', "$meta->title");
-        $this->email->to($this->input->post('passenger_email'));
-        $this->email->cc("$email_order->cc_email");
-        $this->email->bcc("$email_order->bcc_email");
+    //     $this->load->library('email', $config);
+    //     $this->email->initialize($config);
+    //     $this->email->set_newline("\r\n");
+    //     $this->email->from("$email_order->smtp_user", ' Order ', "$meta->title");
+    //     $this->email->to($this->input->post('passenger_email'));
+    //     $this->email->cc("$email_order->cc_email");
+    //     $this->email->bcc("$email_order->bcc_email");
 
-        $this->email->subject('Order ' . $meta->title . '' . $transaksi->kode_transaksi . '');
-        $this->email->message('
-        <b>Informasi Customer</b><br>
-        Nama                : ' . $transaksi->passenger_name . '<br>
-        No. HP              : ' . $transaksi->passenger_phone . '<br>
-        Email               : ' . $transaksi->passenger_email . '<br>
-        <b>Informasi Pemesanan Sewa Mobil</b><br>
-        Rental              : ' . $meta->title . '<br>
-        Order ID            : ' . $transaksi->order_id . '<br>
-        Mobil               : ' . $transaksi->mobil_name . '<br>
-        Alamat Jemput       : ' . $transaksi->alamat_jemput . '<br>
-        Tanggal Jemput      : ' . $transaksi->tanggal_jemput . '<br>
-        Jam Jemput          : ' . $transaksi->jam_jemput . '<br>
-        Paket               : ' . $transaksi->paket_name . '<br>
-        Permintaan Khusus   : ' . $transaksi->permintaan_khusus . '<br>
-        Total Pembayaran    : ' . number_format($transaksi->grand_total, 0, ",", ".") . '<br>
-        Pembayaran          : ' . $transaksi->pembayaran . '<br>
-        Status Pembayaran   : ' . $transaksi->status_pembayaran . '<br>
-        <b>Ketentuan Sewa :</b><br>
-        ' . $transaksi->ketentuan_desc . '<br>
-        <b>Batas Area Penggunaan </b>
-        ' . $transaksi->paket_desc . '
-        ');
+    //     $this->email->subject('Order ' . $meta->title . '' . $transaksi->kode_transaksi . '');
+    //     $this->email->message('
+    //     <b>Informasi Customer</b><br>
+    //     Nama                : ' . $transaksi->passenger_name . '<br>
+    //     No. HP              : ' . $transaksi->passenger_phone . '<br>
+    //     Email               : ' . $transaksi->passenger_email . '<br>
+    //     <b>Informasi Pemesanan Sewa Mobil</b><br>
+    //     Rental              : ' . $meta->title . '<br>
+    //     Order ID            : ' . $transaksi->order_id . '<br>
+    //     Mobil               : ' . $transaksi->mobil_name . '<br>
+    //     Alamat Jemput       : ' . $transaksi->alamat_jemput . '<br>
+    //     Tanggal Jemput      : ' . $transaksi->tanggal_jemput . '<br>
+    //     Jam Jemput          : ' . $transaksi->jam_jemput . '<br>
+    //     Paket               : ' . $transaksi->paket_name . '<br>
+    //     Permintaan Khusus   : ' . $transaksi->permintaan_khusus . '<br>
+    //     Total Pembayaran    : ' . number_format($transaksi->grand_total, 0, ",", ".") . '<br>
+    //     Pembayaran          : ' . $transaksi->pembayaran . '<br>
+    //     Status Pembayaran   : ' . $transaksi->status_pembayaran . '<br>
+    //     <b>Ketentuan Sewa :</b><br>
+    //     ' . $transaksi->ketentuan_desc . '<br>
+    //     <b>Batas Area Penggunaan </b>
+    //     ' . $transaksi->paket_desc . '
+    //     ');
 
-        if ($this->email->send()) {
-            return true;
-        } //else {
-        //     echo $this->email->print_debugger();
-        //     die;
-        // }
-    }
+    //     if ($this->email->send()) {
+    //         return true;
+    //     } //else {
+    //     //     echo $this->email->print_debugger();
+    //     //     die;
+    //     // }
+    // }
 
 
     public function sukses($insert_id)
