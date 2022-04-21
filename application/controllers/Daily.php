@@ -514,8 +514,8 @@ class Daily extends CI_Controller
     public function sukses($insert_id)
     {
 
-        $id = $insert_id;
-        $transaksi = $this->transaksi_model->test_transaksi($id);
+        // $id = $insert_id;
+        $transaksi = $this->transaksi_model->test_transaksi($insert_id);
         $bank = $this->bank_model->get_allbank();
         $data = [
             'title'     => 'Order Sukses',
