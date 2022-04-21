@@ -121,6 +121,7 @@ class Berita extends CI_Controller
           'berita_title'            => $this->input->post('berita_title'),
           'berita_desc'             => $this->input->post('berita_desc'),
           'berita_gambar'           => $upload_data['uploads']['file_name'],
+          'image_url'           => base_url('assets/img/artikel/' . $upload_data['uploads']['file_name']),
           'berita_status'           => $this->input->post('berita_status'),
           'berita_keywords'         => $this->input->post('berita_keywords'),
           'date_created'            => time()
@@ -211,6 +212,7 @@ class Berita extends CI_Controller
             'berita_title'            => $this->input->post('berita_title'),
             'berita_desc'             => $this->input->post('berita_desc'),
             'berita_gambar'           => $upload_data['uploads']['file_name'],
+            'image_url'           => base_url('assets/img/artikel/' . $upload_data['uploads']['file_name']),
             'berita_status'           => $this->input->post('berita_status'),
             'berita_keywords'         => $this->input->post('berita_keywords'),
             'date_updated'            => time()

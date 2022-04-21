@@ -152,8 +152,7 @@ class Daily extends CI_Controller
     public function order()
     {
 
-        /* Endpoint */
-        $url = 'https://api.sewamobiloka.com/api/order/create_order';
+
 
         $user_id = $this->session->userdata('id');
         $total_pointku = $this->point_model->total_user_point($user_id);
@@ -270,6 +269,8 @@ class Daily extends CI_Controller
             $total_price = (int)$start_price * (int)$lama_sewa * (int)$jumlah_mobil;
             $grand_total = (int)$start_price * (int)$lama_sewa * (int)$jumlah_mobil - (int)$diskon_point;
 
+            /* Endpoint */
+            $url = 'https://api.sewamobiloka.com/api/order/create_order';
 
             $data  = [
                 'user_id'                               => $this->session->userdata('id'),
@@ -315,15 +316,15 @@ class Daily extends CI_Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
             $response = curl_exec($ch);
 
-            $insert_id = $data['order_id'];
+            // $insert_id = $data['order_id'];
 
-            $this->sukses($insert_id);
+            // $this->sukses($insert_id);
 
             if ($response !== false) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Transaksi Telah di Konfirmasi</div>');
-                redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
-                // var_dump($data['order_id']);
-                // die;
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
+                // redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
+                var_dump($response);
+                die;
             } else {
                 $this->session->set_flashdata('message', 'transaksi gagal di approved');
                 redirect(base_url('daily/404'), 'refresh');
