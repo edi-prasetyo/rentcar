@@ -40,8 +40,8 @@
                         <!-- <a href="<?php //echo base_url('product/detail/' . $product->id); 
                                         ?>" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Lihat</a> -->
                         <a href="<?php echo base_url('admin/product/update/' . $product->id); ?>" class="btn btn-success btn-sm"><i class="far fa-edit"></i> Edit</a>
-                        <!-- <?php //include "delete_product.php"; 
-                                ?> -->
+                        <?php include "delete_product.php";
+                        ?>
                     </td>
                 </tr>
 

@@ -51,4 +51,10 @@ class Product_model extends CI_Model
     $this->db->where('id', $data['id']);
     $this->db->update('product', $data);
   }
+  //Hapus Data Dari Database
+  public function delete($data)
+  {
+    $this->db->where('id', $data['id']);
+    $this->db->delete('product', $data);
+  }
 }

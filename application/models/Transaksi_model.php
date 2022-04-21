@@ -204,6 +204,15 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
+  public function test_transaksi($insert_id)
+  {
+    $this->db->select('*');
+    $this->db->from('transaksi');
+    $this->db->where('order_id', $insert_id);
+    $this->db->order_by('id');
+    $query = $this->db->get();
+    return $query->row();
+  }
 
   public function update($data)
   {

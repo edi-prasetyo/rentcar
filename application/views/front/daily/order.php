@@ -16,9 +16,6 @@ $user           = $this->user_model->user_detail($id);
                     <div class="col-md-7">
                         <?php echo $kota_name; ?> - <?php echo $mobil_name; ?> - <?php echo $paket_name; ?> <br>
                         <h3 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h3>
-                        <!-- <input type="text" name="grand_total" id="total" size="7" value="" readonly> -->
-
-                        <!-- <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" value="1" onchange="total()"> -->
                     </div>
                     <div class="col-md-5 text-right">
                         <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
@@ -210,6 +207,39 @@ $user           = $this->user_model->user_detail($id);
 
 
 
+
+
+<!-- <?php // echo form_open('daily/order'); 
+        ?>
+<div class="form-group row">
+    <label class="col-lg-4 col-form-label">
+    </label>
+    <div class="col-lg-8">
+        <button type="submit" class="btn btn-primary btn-block">Order Sekarang</button>
+    </div>
+</div>
+<?php //echo form_close(); 
+?> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript">
     function total() {
         var hargaSewa = <?php echo $paket_price; ?> * parseInt(document.getElementById('harga_sewa').value);
@@ -236,19 +266,3 @@ $user           = $this->user_model->user_detail($id);
         document.getElementById('total').value = jumlah_harga;
     }
 </script>
-
-<!-- <script>
-    var bilangan = 23456789;
-
-    var number_string = hargaSewa.toString(),
-        sisa = number_string.length % 3,
-        jumlah_harga = number_string.substr(0, sisa),
-        ribuan = number_string.substr(sisa).match(/\d{3}/g);
-
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        jumlah_harga += separator + ribuan.join('.');
-    }
-
-    document.write(jumlah_harga); 
-</script> -->

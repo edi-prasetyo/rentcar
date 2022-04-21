@@ -82,7 +82,7 @@ $meta           = $this->meta_model->get_meta();
                                 <?php endforeach; ?>
                             </div>
                             <div class="col-md-4">
-                                <a class="btn btn-success btn-block" href="https://wa.me/<?php echo $meta->whatsapp; ?>">Konfirmasi Pembayaran</a>
+                                <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
                             </div>
                         </div>
                     </div>
