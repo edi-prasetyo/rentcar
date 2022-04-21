@@ -321,7 +321,8 @@ class Daily extends CI_Controller
 
             if ($response !== false) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Transaksi Telah di Konfirmasi</div>');
-                redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
+                // redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
+                var_dump($data['order_id']);
                 die;
             } else {
                 $this->session->set_flashdata('message', 'transaksi gagal di approved');
