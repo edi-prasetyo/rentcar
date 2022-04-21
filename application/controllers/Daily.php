@@ -515,8 +515,6 @@ class Daily extends CI_Controller
 
         $id = $insert_id;
         $transaksi = $this->transaksi_model->test_transaksi($id);
-        var_dump($transaksi);
-        die;
         $bank = $this->bank_model->get_allbank();
         $data = [
             'title'     => 'Order Sukses',
