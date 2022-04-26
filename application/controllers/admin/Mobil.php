@@ -564,6 +564,7 @@ class Mobil extends CI_Controller
   // Drop Off
   public function airport($mobil_id)
   {
+    // $kota         = $this->kota_model->get_allkota();
     $airport       = $this->airport_model->get_allairport();
     $mobil      = $this->mobil_model->detail_mobil($mobil_id);
     $paket_airport = $this->airport_model->paket_airport($mobil_id);
@@ -574,21 +575,22 @@ class Mobil extends CI_Controller
       'mobil_id'    => $mobil_id,
       'mobil'       => $mobil,
       'airport'        => $airport,
-      'content'     => 'admin/mobil/index_airport'
+      'content'     => 'admin/airport/index_airport'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
 
-  public function create_airport($mobil_id = false, $kota_id = false)
+  public function create_airport($mobil_id = false, $airport_id = false)
   {
 
     $mobil            = $this->mobil_model->detail_mobil($mobil_id);
     $listkota         = $this->kota_model->get_allkota();
-    $kota             = $this->kota_model->detail($kota_id);
-    $dropoff          = $this->dropoff_model->dropoff_mobil($mobil_id, $kota_id);
+    $airport          = $this->airport_model->detail($airport_id);
+
+    $paket_airport    = $this->airport_model->airport_mobil($mobil_id, $airport_id);
     $ketentuan        = $this->ketentuan_model->get_ketentuan();
 
-    // var_dump($kota->id, $mobil->id);
+    // var_dump($airport);
     // die;
 
 
@@ -606,22 +608,22 @@ class Mobil extends CI_Controller
       $data = [
         'title'                         => 'Tambah Paket ' . $mobil->mobil_name,
         'listkota'                      => $listkota,
-        'kota'                          => $kota,
+        'airport'                          => $airport,
         'mobil'                         => $mobil,
         'ketentuan'                     => $ketentuan,
-        'dropoff'                       => $dropoff,
-        'content'                       => 'admin/dropoff/create'
+        'paket_airport'                       => $paket_airport,
+        'content'                       => 'admin/airport/create_airport'
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
       //Masuk Database
     } else {
 
-      $kota_asal = $kota->id;
+      // $kota_asal = $kota->id;
       $kota_tujuan = $this->input->post('kota_tujuan');
 
       $data  = [
         'mobil_id'                            => $mobil->id,
-        'kota_asal'                           => $kota_asal,
+        'airport_id'                           => $airport_id,
         'kota_tujuan'                         => $kota_tujuan,
         'ketentuan_id'                        => $this->input->post('ketentuan_id'),
         'paket_type'                          => 'Drop Off',
@@ -632,18 +634,18 @@ class Mobil extends CI_Controller
         'created_at'                          => date('Y-m-d H:i:s')
       ];
       $insert_id = $this->dropoff_model->create($data);
-      $this->update_nama_kota($kota_asal, $kota_tujuan, $insert_id);
+      // $this->update_nama_kota($kota_asal, $kota_tujuan, $insert_id);
       $this->session->set_flashdata('message', '<div class="alert alert-success">Data Produk telah ditambahkan</div>');
-      redirect(base_url('admin/mobil/dropoff/' . $mobil_id . '/' . $kota_id), 'refresh');
+      redirect(base_url('admin/mobil/dropoff/' . $mobil_id . '/' . $airport_id), 'refresh');
     }
 
     //End Masuk Database
     $data = [
       'title'                             => 'Tambah Paket ' . $mobil->mobil_name,
-      'kota'                              => $kota,
+      'airport'                              => $airport,
       'mobil'                             => $mobil,
       'ketentuan'                         => $ketentuan,
-      'content'                           => 'admin/dropoff/create'
+      'content'                           => 'admin/airport/create_airport'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }

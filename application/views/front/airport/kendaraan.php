@@ -1,13 +1,14 @@
 <div class="bg-primary">
     <div class="container my-2">
-        <?php echo form_open('dropoff/kendaraan/' . md5($kota_asal) . '/' . md5($kota_tujuan), array('method' => 'get', 'class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+        <?php echo form_open('airport/kendaraan/' . md5($airport_id) . '/' . md5($kota_id), array('method' => 'get', 'class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
-                    <label class="form-label text-white">Kota Asal</label>
-                    <select class="form-control form-control-chosen" name="kota_asal">
-                        <?php foreach ($kota as $data) : ?>
-                            <option value="<?php echo md5($data->id); ?>"><?php echo $data->kota_name; ?></option>
+                    <label class="form-label text-white">Bandara</label>
+                    <select class="form-control form-control-chosen" name="airport_id">
+                        <?php foreach ($airport as $data) : ?>
+                            <option value="<?php echo md5($data->id); ?>"><?php echo $data->airport_name; ?> <div class="text-muted"> <?php echo $data->airport_code; ?></div>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                     <span class="select-arrow"></span>
@@ -16,7 +17,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label class="form-label text-white">Kota Tujuan</label>
-                    <select class="form-control form-control-chosen" name="kota_tujuan">
+                    <select class="form-control form-control-chosen" name="kota_id">
                         <?php foreach ($kota as $data) : ?>
                             <option value="<?php echo md5($data->id); ?>"><?php echo $data->kota_name; ?></option>
                         <?php endforeach; ?>
@@ -89,13 +90,13 @@
     </div>
 </div>
 <div class="container my-5">
-    <h3><?php echo $kota_asal_name;
-        ?> - <?php echo $kota_tujuan_name;
+    <h3><?php echo $airport_name;
+        ?> - <?php echo $kota_name;
                 ?> </h3>
     <p><?php echo $tanggal_sewa; ?> <?php echo $jam_sewa; ?> </p>
     <div class="row">
 
-        <?php foreach ($paket_dropoff as $data) : ?>
+        <?php foreach ($paket_airport as $data) : ?>
             <div class="col-md-3 col-6 my-2">
                 <div class="card">
                     <img src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" class="card-img-top" alt="...">
@@ -103,9 +104,13 @@
                         <h4><?php echo $data->mobil_name; ?></h4>
                         <h4><?php echo $data->paket_price; ?></h4>
                         <i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?>
-                        <?php echo form_open('daily/paket/' . $kota_asal . '/' . md5($data->mobil_id), array('method' => 'get')); ?>
+                        <?php echo form_open('airport/order/', array('method' => 'get')); ?>
                         <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
                         <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
+                        <input type="hidden" name="airport_id" value="<?php echo $airport_id; ?>">
+                        <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
+                        <input type="hidden" name="airport_name" value="<?php echo $airport_name; ?>">
+                        <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
                         <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                         <?php echo form_close(); ?>
                     </div>

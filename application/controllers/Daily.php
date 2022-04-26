@@ -149,6 +149,198 @@ class Daily extends CI_Controller
         ];
         $this->load->view('front/layout/wrapp', $data);
     }
+    // public function order()
+    // {
+
+
+
+    //     $user_id = $this->session->userdata('id');
+    //     $total_pointku = $this->point_model->total_user_point($user_id);
+
+    //     $tanggal_sewa = "";
+    //     if ($this->input->get('tanggal_sewa') != NULL) {
+    //         $tanggal_sewa = $this->input->get('tanggal_sewa');
+    //         $this->session->set_userdata(array("tanggal_sewa" => $tanggal_sewa));
+    //     } else {
+    //         if ($this->session->userdata('tanggal_sewa') != NULL) {
+    //             $tanggal_sewa = $this->session->userdata('tanggal_sewa');
+    //         }
+    //     }
+
+    //     $jam_sewa = "";
+    //     if ($this->input->get('jam_sewa') != NULL) {
+    //         $jam_sewa = $this->input->get('jam_sewa');
+    //         $this->session->set_userdata(array("jam_sewa" => $jam_sewa));
+    //     } else {
+    //         if ($this->session->userdata('jam_sewa') != NULL) {
+    //             $jam_sewa = $this->session->userdata('jam_sewa');
+    //         }
+    //     }
+
+    //     $mobil_name = "";
+    //     if ($this->input->get('mobil_name') != NULL) {
+    //         $mobil_name = $this->input->get('mobil_name');
+    //         $this->session->set_userdata(array("mobil_name" => $mobil_name));
+    //     } else {
+    //         if ($this->session->userdata('mobil_name') != NULL) {
+    //             $mobil_name = $this->session->userdata('mobil_name');
+    //         }
+    //     }
+    //     $mobil_id = "";
+    //     if ($this->input->get('mobil_id') != NULL) {
+    //         $mobil_id = $this->input->get('mobil_id');
+    //         $this->session->set_userdata(array("mobil_id" => $mobil_id));
+    //     } else {
+    //         if ($this->session->userdata('mobil_id') != NULL) {
+    //             $mobil_id = $this->session->userdata('mobil_id');
+    //         }
+    //     }
+    //     $kota_id = "";
+    //     if ($this->input->get('kota_id') != NULL) {
+    //         $kota_id = $this->input->get('kota_id');
+    //         $this->session->set_userdata(array("kota_id" => $kota_id));
+    //     } else {
+    //         if ($this->session->userdata('kota_id') != NULL) {
+    //             $kota_id = $this->session->userdata('kota_id');
+    //         }
+    //     }
+    //     $kota_name = "";
+    //     if ($this->input->get('kota_name') != NULL) {
+    //         $kota_name = $this->input->get('kota_name');
+    //         $this->session->set_userdata(array("kota_name" => $kota_name));
+    //     } else {
+    //         if ($this->session->userdata('kota_name') != NULL) {
+    //             $kota_name = $this->session->userdata('kota_name');
+    //         }
+    //     }
+    //     $paket_id = "";
+    //     if ($this->input->get('paket_id') != NULL) {
+    //         $paket_id = $this->input->get('paket_id');
+    //         $this->session->set_userdata(array("paket_id" => $paket_id));
+    //     } else {
+    //         if ($this->session->userdata('paket_id') != NULL) {
+    //             $paket_id = $this->session->userdata('paket_id');
+    //         }
+    //     }
+
+    //     $paket = $this->paket_model->detail($paket_id);
+    //     $paket_name     = $paket->paket_name;
+    //     $paket_price    = $paket->paket_price;
+    //     $order_point    = $paket->paket_point;
+    //     $ketentuan_desc = $paket->ketentuan_desc;
+    //     $paket_desc     = $paket->paket_desc;
+
+
+
+    //     $this->form_validation->set_rules(
+    //         'passenger_name',
+    //         'Nama Penumpang',
+    //         'required',
+    //         array(
+    //             'required'                        => '%s Harus Diisi',
+    //         )
+    //     );
+    //     if ($this->form_validation->run() === FALSE) {
+
+    //         $data = [
+    //             'title'             => 'Pilih Kendaraan',
+    //             'tanggal_sewa'      =>  $tanggal_sewa,
+    //             'jam_sewa'          => $jam_sewa,
+    //             'mobil_name'        => $mobil_name,
+    //             'kota_id'           => $kota_id,
+    //             'kota_name'         => $kota_name,
+    //             'paket_name'        => $paket_name,
+    //             'paket_price'       => $paket_price,
+    //             'order_point'       => $order_point,
+    //             'ketentuan_desc'    => $ketentuan_desc,
+    //             'paket_desc'        => $paket_desc,
+    //             'total_pointku'     => $total_pointku,
+    //             'content'           => 'front/daily/order'
+    //         ];
+    //         $this->load->view('front/layout/wrapp', $data);
+    //     } else {
+
+    //         $order_id = 1234; //strtoupper(random_string('numeric', 7));
+    //         $kode_transaksi = 2344; //strtoupper(random_string('alnum', 7));
+    //         $start_price = $this->input->post('start_price');
+    //         $lama_sewa = $this->input->post('lama_sewa');
+    //         $jumlah_mobil = $this->input->post('jumlah_mobil');
+    //         $diskon_point = $this->input->post('diskon_point');
+    //         $total_price = (int) $start_price * (int) $lama_sewa * (int) $jumlah_mobil;
+    //         $grand_total = (int) $start_price * (int) $lama_sewa * (int) $jumlah_mobil - (int) $diskon_point;
+
+    //         /* Endpoint */
+    //         $url = 'https://api.sewamobiloka.com/api/order/create_order';
+
+    //         $data  = [
+    //             'user_id'                               => $this->session->userdata('id'),
+    //             'product_id'                            => 5,
+    //             'order_id'                              => $order_id,
+    //             'order_point'                              =>  $this->input->post('order_point'),
+    //             'kode_transaksi'                        => $kode_transaksi,
+    //             'passenger_name'                        => $this->input->post('passenger_name'),
+    //             'passenger_phone'                       => $this->input->post('passenger_phone'),
+    //             'passenger_email'                       => $this->input->post('passenger_email'),
+    //             'mobil_name'                            => $this->input->post('mobil_name'),
+    //             'mobil_id'                              => $mobil_id,
+    //             'paket_name'                            => $this->input->post('paket_name'),
+    //             'paket_id'                              => $paket_id,
+    //             'kota_name'                             => $this->input->post('kota_name'),
+    //             'kota_id'                               => $this->input->post('kota_id'),
+    //             'alamat_jemput'                         => $this->input->post('alamat_jemput'),
+    //             'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
+    //             'jam_jemput'                            => $this->input->post('jam_jemput'),
+    //             'lama_sewa'                             => $lama_sewa,
+    //             'jumlah_mobil'                          => $jumlah_mobil,
+    //             'start_price'                           => $start_price,
+    //             'total_price'                           => $total_price,
+    //             'diskon_point'                          => $diskon_point,
+    //             'grand_total'                           => $grand_total,
+    //             'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
+    //             'pembayaran'                            => 'Transfer',
+    //             'status_pembayaran'                     =>  'Pending',
+    //             'ketentuan_desc'                        => $this->input->post('ketentuan_desc'),
+    //             'paket_desc'                            => $this->input->post('paket_desc'),
+    //             'order_type'                            => 'Daily',
+    //             'status'                                => 'Pending',
+    //             'no_va'                                 => '',
+    //             'payment_channel'                          => 'VIRTUAL_ACCOUNT',
+    //             'payment_transaction_id'                          => '',
+    //             'date_created'                          => date('Y-m-d H:i:s')
+    //         ];
+
+
+    //         $ch = curl_init();
+    //         curl_setopt($ch, CURLOPT_URL, $url);
+    //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    //         $response = curl_exec($ch);
+
+    //         // $insert_id = $data['order_id'];
+
+    //         // $this->sukses($insert_id);
+
+    //         if ($response !== false) {
+    //             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
+    //             // redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
+    //             var_dump($response);
+    //             die;
+    //         } else {
+    //             $this->session->set_flashdata('message', 'transaksi gagal di approved');
+    //             redirect(base_url('daily/404'), 'refresh');
+    //         }
+    //         curl_close($ch);
+
+
+    //         // $this->update_point($insert_id);
+    //         // $this->_sendEmail($insert_id, 'order');
+    //         // $this->session->set_flashdata('message', 'Data telah ditambahkan');
+
+    //     }
+    // }
+
+
+
     public function order()
     {
 
@@ -266,8 +458,8 @@ class Daily extends CI_Controller
             $lama_sewa = $this->input->post('lama_sewa');
             $jumlah_mobil = $this->input->post('jumlah_mobil');
             $diskon_point = $this->input->post('diskon_point');
-            $total_price = (int)$start_price * (int)$lama_sewa * (int)$jumlah_mobil;
-            $grand_total = (int)$start_price * (int)$lama_sewa * (int)$jumlah_mobil - (int)$diskon_point;
+            $total_price = (int) $start_price * (int) $lama_sewa * (int) $jumlah_mobil;
+            $grand_total = (int) $start_price * (int) $lama_sewa * (int) $jumlah_mobil - (int) $diskon_point;
 
             /* Endpoint */
             $url = 'https://api.sewamobiloka.com/api/order/create_order';
@@ -275,38 +467,48 @@ class Daily extends CI_Controller
             $data  = [
                 'user_id'                               => $this->session->userdata('id'),
                 'product_id'                            => 5,
-                'order_id'                              => $order_id,
-                'order_point'                              =>  $this->input->post('order_point'),
-                'kode_transaksi'                        => $kode_transaksi,
-                'passenger_name'                        => $this->input->post('passenger_name'),
-                'passenger_phone'                       => $this->input->post('passenger_phone'),
-                'passenger_email'                       => $this->input->post('passenger_email'),
-                'mobil_name'                            => $this->input->post('mobil_name'),
-                'mobil_id'                              => $mobil_id,
-                'paket_name'                            => $this->input->post('paket_name'),
-                'paket_id'                              => $paket_id,
-                'kota_name'                             => $this->input->post('kota_name'),
+                'driver_name'                              => '',
+                'product_id'                        => 2,
+                'product_name'                        => 'Daily',
+                'order_id'                       => $order_id,
+                'order_point'                       => $this->input->post('order_point'),
+                'kode_transaksi'                            => $kode_transaksi,
+                'passenger_name'                              => $this->input->post('passenger_name'),
+                'passenger_phone'                            => $this->input->post('passenger_phone'),
+                'passenger_email'                              => $this->input->post('passenger_email'),
                 'kota_id'                               => $this->input->post('kota_id'),
-                'alamat_jemput'                         => $this->input->post('alamat_jemput'),
+                'kota_name'                             => $this->input->post('kota_name'),
+                'mobil_id'                         => $mobil_id,
+                'mobil_name'                        => $this->input->post('mobil_name'),
+                'paket_id'                            => $paket_id,
+                'paket_name'                             => $this->input->post('paket_name'),
+                $this->input->post('alamat_jemput'),
                 'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
-                'jam_jemput'                            => $this->input->post('jam_jemput'),
-                'lama_sewa'                             => $lama_sewa,
-                'jumlah_mobil'                          => $jumlah_mobil,
-                'start_price'                           => $start_price,
-                'total_price'                           => $total_price,
-                'diskon_point'                          => $diskon_point,
-                'grand_total'                           => $grand_total,
-                'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
-                'pembayaran'                            => $this->input->post('pembayaran'),
-                'status_pembayaran'                     =>  "Belum Dibayar",
-                'ketentuan_desc'                        => $this->input->post('ketentuan_desc'),
-                'paket_desc'                            => $this->input->post('paket_desc'),
-                'order_type'                            => 'Daily',
-                'status'                                => 'Pending',
-                'no_va'                                 => '',
+                'jam_jemput'                           => $this->input->post('jam_jemput'),
+                'permintaan_khusus'                          => $this->input->post('permintaan_khusus'),
+                'lama_sewa'                           => $this->input->post('lama_sewa'),
+                'jumlah_mobil'                     => $this->input->post('jumlah_mobil'),
+                'ketentuan_desc'                            => $this->input->post('ketentuan_desc'),
+                'paket_desc'                     =>  $this->input->post('paket_desc'),
+                'jarak'                        => 0,
+                'start_price'                            => 750000,
+                'total_price'                            => $total_price,
+                'diskon_point'                                => 5000,
+                'promo_amount'                          => 0,
+                'grand_total'                          => $grand_total,
+                'status'                          => 'Pending',
+                'status_read'                          => 0,
+                'order_type'                          => 'daily',
+                'pembayaran_id'                          => 0,
+                'pembayaran'                          => $this->input->post('pembayaran'),
+                'status_pembayaran'                          => 'Pending',
+                'no_va'                          => '',
                 'payment_channel'                          => 'VIRTUAL_ACCOUNT',
                 'payment_transaction_id'                          => '',
-                'date_created'                          => date('Y-m-d H:i:s')
+                'stage'                          => 1,
+                'date_created'                          => date('Y-m-d H:i:s'),
+                'date_updated'                          => date('Y-m-d H:i:s'),
+
             ];
 
 
@@ -318,13 +520,13 @@ class Daily extends CI_Controller
 
             // $insert_id = $data['order_id'];
 
-            // $this->sukses($insert_id);
+            $this->sukses($data);
 
             if ($response !== false) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
-                // redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
-                var_dump($response);
-                die;
+                redirect(base_url('daily/sukses/' . $data), 'refresh');
+                // var_dump($response);
+                // die;
             } else {
                 $this->session->set_flashdata('message', 'transaksi gagal di approved');
                 redirect(base_url('daily/404'), 'refresh');
@@ -339,8 +541,6 @@ class Daily extends CI_Controller
         }
     }
 
-
-
     // public function order()
     // {
     //     /* Transaction Detail */
@@ -349,72 +549,93 @@ class Daily extends CI_Controller
     //     /* Endpoint */
     //     $url = 'https://api.sewamobiloka.com/api/order/create_order';
 
+    //     $this->form_validation->set_rules(
+    //         'passenger_name',
+    //         'Nama Penumpang',
+    //         'required',
+    //         array(
+    //             'required'                        => '%s Harus Diisi',
+    //         )
+    //     );
+    //     if ($this->form_validation->run() === FALSE) {
 
-
-    //     $data  = [
-    //         'user_id'                               => 27,
-    //         'driver_id'                              => 28,
-    //         'driver_name'                              => 'Driver Tangerang',
-    //         'product_id'                        => 2,
-    //         'product_name'                        => 'test',
-    //         'order_id'                       => 12345,
-    //         'order_point'                       => 70000,
-    //         'kode_transaksi'                            => 'Tes123',
-    //         'passenger_name'                              => 'Axel',
-    //         'passenger_phone'                            => 12344,
-    //         'passenger_email'                              => 'axel@gmail.com',
-    //         'kota_id'                               => 5,
-    //         'kota_name'                             => 'Tangerang',
-    //         'mobil_id'                         => 6,
-    //         'mobil_name'                        => 'Toyota Innova',
-    //         'paket_id'                            => 1,
-    //         'paket_name'                             => '12 Jam Dalam Kota',
-    //         'alamat_jemput'                          => 'dsdasd',
-    //         'tanggal_jemput'                           => '23 maret 2022',
-    //         'jam_jemput'                           => '05.00',
-    //         'permintaan_khusus'                          => 'sadsadsa',
-    //         'lama_sewa'                           => 1,
-    //         'jumlah_mobil'                     => 1,
-    //         'ketentuan_desc'                            => 'dfsdfsd',
-    //         'paket_desc'                     =>  'dsfsdf',
-    //         'jarak'                        => 0,
-    //         'start_price'                            => 750000,
-    //         'total_price'                            => 75000,
-    //         'diskon_point'                                => 5000,
-    //         'promo_amount'                          => 0,
-    //         'grand_total'                          => 1000,
-    //         'status'                          => 'Pending',
-    //         'status_read'                          => 0,
-    //         'order_type'                          => 'daily',
-    //         'pembayaran_id'                          => 0,
-    //         'pembayaran'                          => 'transfer',
-    //         'status_pembayaran'                          => 'Pending',
-    //         'no_va'                          => '',
-    //         'payment_channel'                          => 'VIRTUAL_ACCOUNT',
-    //         'payment_transaction_id'                          => '',
-    //         'stage'                          => 1,
-    //         'date_created'                          => date('Y-m-d H:i:s'),
-    //         'date_updated'                          => date('Y-m-d H:i:s'),
-    //         'pembayaran'                          => 'Transfer',
-    //     ];
-
-    //     $ch = curl_init();
-    //     curl_setopt($ch, CURLOPT_URL, $url);
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-    //     $response = curl_exec($ch);
-
-    //     if ($response !== false) {
-    //         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Transaksi Telah di Konfirmasi</div>');
-    //         var_dump($data);
-    //         die;
+    //         $data = [
+    //             'title'             => 'Pilih Kendaraan',
+    //             'content'           => 'front/daily/order'
+    //         ];
+    //         $this->load->view('front/layout/wrapp', $data);
     //     } else {
-    //         $this->session->set_flashdata('message', 'transaksi gagal di approved');
-    //         redirect(base_url('daily/404'), 'refresh');
-    //     }
-    //     curl_close($ch);
-    // }
+    //         $start_price = 50000;
+    //         $lama_sewa = 2;
+    //         $jumlah_mobil = 1;
+    //         $diskon_point = 0;
+    //         $total_price = (int) $start_price * (int) $lama_sewa * (int) $jumlah_mobil;
+    //         $grand_total = (int) $start_price * (int) $lama_sewa * (int) $jumlah_mobil - (int) $diskon_point;
 
+    //         $data  = [
+    //             'user_id'                               => 27,
+    //             'driver_id'                              => 28,
+    //             'driver_name'                              => 'Driver Tangerang',
+    //             'product_id'                        => 2,
+    //             'product_name'                        => 'test',
+    //             'order_id'                       => 12345,
+    //             'order_point'                       => 70000,
+    //             'kode_transaksi'                            => 'Tes123',
+    //             'passenger_name'                              => $this->input->post('passenger_name'),
+    //             'passenger_phone'                            => 12344,
+    //             'passenger_email'                              => 'axel@gmail.com',
+    //             'kota_id'                               => 5,
+    //             'kota_name'                             => 'Tangerang',
+    //             'mobil_id'                         => 6,
+    //             'mobil_name'                        => 'Toyota Innova',
+    //             'paket_id'                            => 1,
+    //             'paket_name'                             => '12 Jam Dalam Kota',
+    //             'alamat_jemput'                          => 'dsdasd',
+    //             'tanggal_jemput'                           => '23 maret 2022',
+    //             'jam_jemput'                           => '05.00',
+    //             'permintaan_khusus'                          => 'sadsadsa',
+    //             'lama_sewa'                           => 1,
+    //             'jumlah_mobil'                     => 1,
+    //             'ketentuan_desc'                            => 'dfsdfsd',
+    //             'paket_desc'                     =>  'dsfsdf',
+    //             'jarak'                        => 0,
+    //             'start_price'                            => 750000,
+    //             'total_price'                            => $total_price,
+    //             'diskon_point'                                => 5000,
+    //             'promo_amount'                          => 0,
+    //             'grand_total'                          => $grand_total,
+    //             'status'                          => 'Pending',
+    //             'status_read'                          => 0,
+    //             'order_type'                          => 'daily',
+    //             'pembayaran_id'                          => 0,
+    //             'pembayaran'                          => 'transfer',
+    //             'status_pembayaran'                          => 'Pending',
+    //             'no_va'                          => '',
+    //             'payment_channel'                          => 'VIRTUAL_ACCOUNT',
+    //             'payment_transaction_id'                          => '',
+    //             'stage'                          => 1,
+    //             'date_created'                          => date('Y-m-d H:i:s'),
+    //             'date_updated'                          => date('Y-m-d H:i:s'),
+    //             'pembayaran'                          => 'Transfer',
+    //         ];
+
+    //         $ch = curl_init();
+    //         curl_setopt($ch, CURLOPT_URL, $url);
+    //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    //         $response = curl_exec($ch);
+
+    //         if ($response !== false) {
+    //             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Transaksi Telah di Konfirmasi</div>');
+    //             var_dump($response);
+    //             die;
+    //         } else {
+    //             $this->session->set_flashdata('message', 'transaksi gagal di approved');
+    //             redirect(base_url('daily/404'), 'refresh');
+    //         }
+    //         curl_close($ch);
+    //     }
+    // }
 
 
 
@@ -512,16 +733,30 @@ class Daily extends CI_Controller
     }
 
 
-    public function sukses($insert_id)
+    // public function sukses($insert_id)
+    // {
+
+
+    //     $transaksi = $this->transaksi_model->test_transaksi($insert_id);
+    //     $bank = $this->bank_model->get_allbank();
+    //     $data = [
+    //         'title'     => 'Order Sukses',
+    //         'transaksi' => $transaksi,
+    //         'bank'      => $bank,
+    //         'content'   => 'front/daily/sukses'
+    //     ];
+    //     $this->load->view('front/layout/wrapp', $data);
+    // }
+    public function sukses($data)
     {
 
-        // $id = $insert_id;
-        $transaksi = $this->transaksi_model->test_transaksi($insert_id);
+
+        // $transaksi = $this->transaksi_model->test_transaksi($insert_id);
         $bank = $this->bank_model->get_allbank();
         $data = [
             'title'     => 'Order Sukses',
-            'transaksi' => $transaksi,
-            'bank'      => $bank,
+            'transaksi' => $data,
+            // 'bank'      => $bank,
             'content'   => 'front/daily/sukses'
         ];
         $this->load->view('front/layout/wrapp', $data);

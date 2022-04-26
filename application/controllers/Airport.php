@@ -92,32 +92,34 @@ class Airport extends CI_Controller
             $this->kendaraan($airport_id, $kota_id);
         }
     }
-    public function kendaraan($kota_asal = false, $kota_tujuan = false)
+    public function kendaraan($airport_id = false, $kota_id = false)
     {
         $kota = $this->kota_model->get_allkota();
-        $kota_asal = $this->input->get('kota_asal');
-        $kota_tujuan = $this->input->get('kota_tujuan');
+        $airport = $this->airport_model->get_allairport();
+        $airport_id = $this->input->get('airport_id');
+        $kota_id = $this->input->get('kota_id');
         $tanggal_sewa = $this->input->get('tanggal_sewa');
         $jam_sewa = $this->input->get('jam_sewa');
-        $paket_dropoff = $this->dropoff_model->search_city($kota_asal, $kota_tujuan);
+        $paket_airport = $this->airport_model->search_city($airport_id, $kota_id);
 
-        $kota_asal_name = $this->kota_model->kota_asal_encrypt($kota_asal);
-        $kota_tujuan_name = $this->kota_model->kota_tujuan_encrypt($kota_tujuan);
+        $airport_name = $this->airport_model->airport_encrypt($airport_id);
+        $kota_name = $this->kota_model->kota_tujuan_encrypt($kota_id);
 
-        // var_dump($paket_dropoff);
+        // var_dump($airport_name);
         // die;
         //Validasi Berhasil
         $data = [
             'title'         => 'Pilih Kendaraan',
+            'airport'       => $airport,
             'kota'          => $kota,
-            'paket_dropoff'    => $paket_dropoff,
-            'kota_asal_name'     => $kota_asal_name->kota_name,
-            'kota_tujuan_name'   => $kota_tujuan_name->kota_name,
-            'kota_asal'     => $kota_asal,
-            'kota_tujuan'     => $kota_tujuan,
+            'paket_airport'    => $paket_airport,
+            'airport_name'     => $airport_name->airport_name,
+            'kota_name'   => $kota_name->kota_name,
+            'airport_id'     => $airport_id,
+            'kota_id'     => $kota_id,
             'tanggal_sewa'  => $tanggal_sewa,
             'jam_sewa'      => $jam_sewa,
-            'content'       => 'front/dropoff/kendaraan'
+            'content'       => 'front/airport/kendaraan'
         ];
         $this->load->view('front/layout/wrapp', $data);
     }
@@ -159,7 +161,7 @@ class Airport extends CI_Controller
             'kota'          => $kota,
             'tanggal_sewa'  =>  $tanggal_sewa,
             'jam_sewa'      => $jam_sewa,
-            'content'       => 'front/dropoff/paket'
+            'content'       => 'front/airport/paket'
         ];
         $this->load->view('front/layout/wrapp', $data);
     }
@@ -207,6 +209,15 @@ class Airport extends CI_Controller
                 $mobil_id = $this->session->userdata('mobil_id');
             }
         }
+        $airport_id = "";
+        if ($this->input->get('airport_id') != NULL) {
+            $airport_id = $this->input->get('airport_id');
+            $this->session->set_userdata(array("airport_id" => $airport_id));
+        } else {
+            if ($this->session->userdata('airport_id') != NULL) {
+                $airport_id = $this->session->userdata('airport_id');
+            }
+        }
         $kota_id = "";
         if ($this->input->get('kota_id') != NULL) {
             $kota_id = $this->input->get('kota_id');
@@ -214,6 +225,15 @@ class Airport extends CI_Controller
         } else {
             if ($this->session->userdata('kota_id') != NULL) {
                 $kota_id = $this->session->userdata('kota_id');
+            }
+        }
+        $airport_name = "";
+        if ($this->input->get('airport_name') != NULL) {
+            $airport_name = $this->input->get('airport_name');
+            $this->session->set_userdata(array("airport_name" => $airport_name));
+        } else {
+            if ($this->session->userdata('airport_name') != NULL) {
+                $airport_name = $this->session->userdata('airport_name');
             }
         }
         $kota_name = "";
@@ -225,18 +245,11 @@ class Airport extends CI_Controller
                 $kota_name = $this->session->userdata('kota_name');
             }
         }
-        $paket_id = "";
-        if ($this->input->get('paket_id') != NULL) {
-            $paket_id = $this->input->get('paket_id');
-            $this->session->set_userdata(array("paket_id" => $paket_id));
-        } else {
-            if ($this->session->userdata('paket_id') != NULL) {
-                $paket_id = $this->session->userdata('paket_id');
-            }
-        }
 
-        $paket = $this->paket_model->detail($paket_id);
-        $paket_name     = $paket->paket_name;
+        $paket = $this->airport_model->airport_detail($airport_id, $kota_id);
+        // var_dump($paket);
+        // die;
+        // $paket_name     = $paket->paket_name;
         $paket_price    = $paket->paket_price;
         $order_point    = $paket->paket_point;
         $ketentuan_desc = $paket->ketentuan_desc;
@@ -259,15 +272,17 @@ class Airport extends CI_Controller
                 'tanggal_sewa'      =>  $tanggal_sewa,
                 'jam_sewa'          => $jam_sewa,
                 'mobil_name'        => $mobil_name,
+                'airport_id'           => $airport_id,
                 'kota_id'           => $kota_id,
+                'airport_name'         => $airport_name,
                 'kota_name'         => $kota_name,
-                'paket_name'        => $paket_name,
+                // 'paket_name'        => $paket_name,
                 'paket_price'       => $paket_price,
                 'order_point'       => $order_point,
                 'ketentuan_desc'    => $ketentuan_desc,
                 'paket_desc'        => $paket_desc,
                 'total_pointku'     => $total_pointku,
-                'content'           => 'front/dropoff/order'
+                'content'           => 'front/airport/order'
             ];
             $this->load->view('front/layout/wrapp', $data);
         } else {
@@ -295,7 +310,7 @@ class Airport extends CI_Controller
                 'mobil_name'                            => $this->input->post('mobil_name'),
                 'mobil_id'                              => $mobil_id,
                 'paket_name'                            => $this->input->post('paket_name'),
-                'paket_id'                              => $paket_id,
+                // 'paket_id'                              => $paket_id,
                 'kota_name'                             => $this->input->post('kota_name'),
                 'kota_id'                               => $this->input->post('kota_id'),
                 'alamat_jemput'                         => $this->input->post('alamat_jemput'),

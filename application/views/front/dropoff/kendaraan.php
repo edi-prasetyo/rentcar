@@ -106,8 +106,8 @@
                         <?php echo form_open('dropoff/order/', array('method' => 'get')); ?>
                         <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
                         <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
-                        <input type="text" name="kota_asal" value="<?php echo $kota_asal; ?>">
-                        <input type="text" name="kota_tujuan" value="<?php echo $kota_tujuan; ?>">
+                        <input type="hidden" name="kota_asal" value="<?php echo $kota_asal; ?>">
+                        <input type="hidden" name="kota_tujuan" value="<?php echo $kota_tujuan; ?>">
                         <input type="hidden" name="kota_asal_name" value="<?php echo $kota_asal_name; ?>">
                         <input type="hidden" name="kota_tujuan_name" value="<?php echo $kota_tujuan_name; ?>">
                         <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>

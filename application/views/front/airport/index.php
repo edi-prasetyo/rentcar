@@ -1,6 +1,6 @@
 <div class="bg-primary">
     <div class="container my-2">
-        <?php echo form_open('dropoff/kendaraan/' . md5($airport_id) . '/' . md5($kota_id), array('method' => 'get', 'class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+        <?php echo form_open('airport/kendaraan/' . md5($airport_id) . '/' . md5($kota_id), array('method' => 'get', 'class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">

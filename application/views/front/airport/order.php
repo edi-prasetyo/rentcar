@@ -1,7 +1,7 @@
 <?php
-        $id             = $this->session->userdata('id');
-        $user           = $this->user_model->user_detail($id);
-        ?>
+$id             = $this->session->userdata('id');
+$user           = $this->user_model->user_detail($id);
+?>
 <div class="container my-5">
     <div class="col-md-7 mx-auto">
         <div class="text-center">
@@ -14,8 +14,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-7">
-                        <?php echo $kota_name; ?> - <?php echo $mobil_name; ?> - <?php echo $paket_name; ?> <br>
+                        <?php echo $airport_name; ?> - <?php echo $kota_name; ?> <?php echo $mobil_name; ?> <br>
                         <h3 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h3>
+                        <!-- <input type="text" name="grand_total" id="total" size="7" value="" readonly> -->
+
+                        <!-- <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" value="1" onchange="total()"> -->
                     </div>
                     <div class="col-md-5 text-right">
                         <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
@@ -59,11 +62,12 @@
                         }
                     </script>
 
-                    <?php echo form_open('daily/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+                    <?php echo form_open('dropoff/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
-                    <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
-                    <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
-                    <input type="hidden" name="paket_name" value="<?php echo $paket_name; ?>">
+                    <input type="hidden" name="airpot_name" value="<?php echo $airport_name; ?> - <?php echo $airport_name; ?>">
+                    <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?> - <?php echo $kota_name; ?>">
+
+
                     <input type="hidden" name="start_price" value="<?php echo $paket_price; ?>">
                     <input type="hidden" name="order_point" value="<?php echo $order_point; ?>">
                     <input type="hidden" name="ketentuan_desc" value="<?php echo $ketentuan_desc; ?>">
@@ -203,48 +207,6 @@
 
 
 </div>
-
-
-
-<!-- 
-<div class="container my-5">
-
-    <?php echo form_open('daily/order');
-    ?>
-
-    <div class="form-group row">
-        <label class="col-lg-4 col-form-label">Passenger Name <span class="text-success">* Optional</span>
-        </label>
-        <div class="col-lg-8">
-            <input type="text" class="form-control" name="passenger_name" placeholder="Nama Penumpang">
-
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-lg-4 col-form-label">
-        </label>
-        <div class="col-lg-8">
-            <button type="submit" class="btn btn-primary btn-block">Order Sekarang</button>
-        </div>
-    </div>
-    <?php echo form_close();
-    ?>
-</div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

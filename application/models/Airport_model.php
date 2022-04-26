@@ -36,11 +36,11 @@ class Airport_model extends CI_Model
         return $query->result();
     }
 
-    public function detail($kota_id)
+    public function detail($airport_id)
     {
         $this->db->select('*');
-        $this->db->from('kota');
-        $this->db->where('id', $kota_id);
+        $this->db->from('airport');
+        $this->db->where('id', $airport_id);
         $query = $this->db->get();
         return $query->row();
     }
@@ -73,6 +73,33 @@ class Airport_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function airport_mobil($mobil_id, $airport_id)
+    {
+        $this->db->select('paket_airport.*, mobil.mobil_name, kota.kota_name, airport.airport_name');
+        $this->db->from('paket_airport');
+        // Join
+        $this->db->join('mobil', 'mobil.id = paket_airport.mobil_id', 'LEFT');
+        $this->db->join('kota', 'kota.id = paket_airport.kota_id', 'LEFT');
+        $this->db->join('airport', 'airport.id = paket_airport.airport_id', 'LEFT');
+        // End Join
+        $this->db->where(['mobil_id' => $mobil_id, 'airport_id' => $airport_id]);
+        $this->db->order_by('id', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    //Detail paket
+    public function airport_detail($airport_id, $kota_id)
+    {
+        $this->db->select('paket_airport.*, ketentuan.ketentuan_desc');
+        $this->db->from('paket_airport');
+        // Join
+        $this->db->join('ketentuan', 'ketentuan.id = paket_airport.ketentuan_id', 'LEFT');
+        // End Join
+        $this->db->where(['md5(airport_id)' => $airport_id, 'md5(kota_id)' => $kota_id]);
+        $this->db->order_by('id', 'ASC');
+        $query = $this->db->get();
+        return $query->row();
+    }
     public function search_city($airport_id, $kota_id)
     {
         $this->db->select('paket_airport.*, mobil.mobil_name, mobil.mobil_gambar, mobil.mobil_penumpang, mobil.mobil_bagasi');
@@ -80,11 +107,20 @@ class Airport_model extends CI_Model
         // Joion
         $this->db->join('mobil', 'mobil.id = paket_airport.mobil_id', 'LEFT');
         $this->db->where('md5(airport_id)', $airport_id);
-        $this->db->where('md5(city_id)', $kota_id);
+        $this->db->where('md5(kota_id)', $kota_id);
         $this->db->order_by('paket_airport.id', 'ASC');
         $this->db->group_by('paket_airport.mobil_id');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function airport_encrypt($airport_id)
+    {
+        $this->db->select('*');
+        $this->db->from('airport');
+        $this->db->where('md5(id)', $airport_id);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     // Create
