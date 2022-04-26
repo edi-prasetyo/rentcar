@@ -755,8 +755,8 @@ class Daily extends CI_Controller
 
 
         $transaksi = $this->transaksi_model->test_transaksi($order_id);
-        var_dump($transaksi);
-        die;
+        // var_dump($transaksi);
+        // die;
         // $bank = $this->bank_model->get_allbank();
         $data = [
             'title'     => 'Order Sukses',

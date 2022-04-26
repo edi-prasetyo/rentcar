@@ -209,7 +209,6 @@ class Transaksi_model extends CI_Model
     $this->db->select('*');
     $this->db->from('transaksi');
     $this->db->where('order_id', $order_id);
-    $this->db->order_by('id');
     $query = $this->db->get();
     return $query->row();
   }
