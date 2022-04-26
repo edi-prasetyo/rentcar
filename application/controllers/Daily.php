@@ -519,15 +519,15 @@ class Daily extends CI_Controller
 
             // $insert_id = $data['order_id'];
 
-            $order_id = $data['order_id'];
-            // $id = $response['id'];
+            // $payment_url = $response['payment_url'];
+            $kode_transaksi = $data['kode_transaksi'];
             // $transaction = $this->transaksi_model->detail_transaksi_redirect($passenger_phone);
 
-            $this->sukses($order_id);
+            $this->sukses($kode_transaksi);
 
             if ($response !== false) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
-                redirect(base_url('daily/sukses/' . $order_id), 'refresh');
+                redirect(base_url('daily/sukses/' . $kode_transaksi), 'refresh');
                 // var_dump($order_id);
                 // die;
             } else {
@@ -750,11 +750,11 @@ class Daily extends CI_Controller
     //     ];
     //     $this->load->view('front/layout/wrapp', $data);
     // }
-    public function sukses($order_id)
+    public function sukses($kode_transaksi)
     {
 
 
-        $transaksi = $this->transaksi_model->test_transaksi($order_id);
+        $transaksi = $this->transaksi_model->test_transaksi($kode_transaksi);
         // var_dump($transaksi);
         // die;
         // $bank = $this->bank_model->get_allbank();
