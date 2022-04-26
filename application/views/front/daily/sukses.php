@@ -1,23 +1,23 @@
 <?php
-$id             = $this->session->userdata('id');
+$id             = $this->session->usertransaksi('id');
 $user           = $this->user_model->user_detail($id);
 $meta           = $this->meta_model->get_meta();
 ?>
 
-<?php if ($this->session->userdata('id') == $data->user_id) : ?>
+<?php if ($this->session->usertransaksi('id') == $transaksi->user_id) : ?>
     <section class="invoice bg-primary py-5">
         <div class="container">
             <div class="col-md-8 mx-auto">
                 <div class="row">
                     <div class="col-md-6">
                         <h6 class="text-white"> ID Order </h6>
-                        <h1 class="text-white"><b><?php echo $data->order_id; ?></b></h1>
+                        <h1 class="text-white"><b><?php echo $transaksi->order_id; ?></b></h1>
 
                     </div>
                     <div class="col-md-6 text-right">
-                        <h6 class="text-white"><b><?php echo $data->alamat_jemput; ?></b></h6>
-                        <h6 class="text-white"><b><?php echo $data->passenger_name; ?></b></h6>
-                        <h6 class="text-white"><b><?php echo $data->passenger_phone; ?></b></h6>
+                        <h6 class="text-white"><b><?php echo $transaksi->alamat_jemput; ?></b></h6>
+                        <h6 class="text-white"><b><?php echo $transaksi->passenger_name; ?></b></h6>
+                        <h6 class="text-white"><b><?php echo $transaksi->passenger_phone; ?></b></h6>
                     </div>
                 </div>
             </div>
@@ -32,16 +32,16 @@ $meta           = $this->meta_model->get_meta();
                     <div class="row">
                         <div class="col-md-6">
                             ORDER BERHASIL<br>
-                            <?php echo $data->mobil_name; ?><br>
-                            <?php echo $data->paket_name; ?><br>
-                            <?php echo $data->status; ?><br>
+                            <?php echo $transaksi->mobil_name; ?><br>
+                            <?php echo $transaksi->paket_name; ?><br>
+                            <?php echo $transaksi->status; ?><br>
 
 
                         </div>
                         <div class="col-md-6">
                             <div class="text-right"> Total Pembayaran</div>
                             <div class="display-4 text-right">
-                                Rp. <b><?php echo number_format($data->grand_total, 0, ",", "."); ?></b>
+                                Rp. <b><?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></b>
                             </div>
                         </div>
                     </div>
@@ -58,19 +58,21 @@ $meta           = $this->meta_model->get_meta();
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Total Harga
-                    <span class="font-weight-bold">Rp. <?php echo number_format($data->total_price, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Diskon Point
-                    <span class="font-weight-bold"><?php echo number_format($data->diskon_point, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold"><?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Grand Total
-                    <span class="font-weight-bold">Rp. <?php echo number_format($data->grand_total, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></span>
                 </li>
             </ul>
 
-            <?php if ($data->pembayaran == "Transfer") : ?>
+            <a href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
+
+            <!-- <?php if ($transaksi->pembayaran == "Transfer") : ?>
                 <div class="card">
                     <div class="card-header">Rekening Pembayaran</div>
                     <div class="card-body">
@@ -82,7 +84,7 @@ $meta           = $this->meta_model->get_meta();
                                 <?php endforeach; ?>
                             </div>
                             <div class="col-md-4">
-                                <a class="btn btn-success btn-block" href="<?php echo $data->payment_url; ?>">Bayar</a>
+                                <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
                             </div>
                         </div>
                     </div>
@@ -90,9 +92,9 @@ $meta           = $this->meta_model->get_meta();
             <?php else : ?>
                 <div class="alert alert-success">
                     Anda Menggunakan Pembayaran Langsung Ke Driver, Silahkan melakukan Pembayaran melalui Driver Dengan Menyebutkan Order ID Anda
-                    Order ID Anda Adalah <?php echo $data->order_id; ?>
+                    Order ID Anda Adalah <?php echo $transaksi->order_id; ?>
                 </div>
-            <?php endif; ?>
+            <?php endif; ?> -->
             <br>
             <a class="btn btn-primary" href="<?php echo base_url(); ?>">Kembali Ke Home</a>
             <a class="btn btn-success" href="<?php echo base_url('myaccount'); ?>">Halaman Akun Saya</a>

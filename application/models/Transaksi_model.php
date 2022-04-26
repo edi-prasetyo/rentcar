@@ -204,11 +204,11 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
-  public function test_transaksi($insert_id)
+  public function test_transaksi($order_id)
   {
     $this->db->select('*');
     $this->db->from('transaksi');
-    $this->db->where('order_id', $insert_id);
+    $this->db->where('order_id', $order_id);
     $this->db->order_by('id');
     $query = $this->db->get();
     return $query->row();
@@ -288,7 +288,7 @@ class Transaksi_model extends CI_Model
     return $query->result();
   }
 
-  public function detail_counter($id, $user_id)
+  public function detail_transaksi_redirect($passenger_phone)
   {
     $this->db->select('transaksi.*, user.name, user.user_phone, product.product_name');
     $this->db->from('transaksi');
@@ -296,7 +296,7 @@ class Transaksi_model extends CI_Model
     $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
     $this->db->join('product', 'product.id = transaksi.product_id', 'LEFT');
     //End Join
-    $this->db->where(['transaksi.id' => $id, 'transaksi.user_id' => $user_id]);
+    $this->db->where('transaksi.passenger_phone', $passenger_phone);
     $query = $this->db->get();
     return $query->row();
   }
