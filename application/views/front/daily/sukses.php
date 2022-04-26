@@ -1,10 +1,10 @@
 <?php
-$id             = $this->session->usertransaksi('id');
+$id             = $this->session->userdata('id');
 $user           = $this->user_model->user_detail($id);
 $meta           = $this->meta_model->get_meta();
 ?>
 
-<?php if ($this->session->usertransaksi('id') == $transaksi->user_id) : ?>
+<?php if ($this->session->userdata('id') == $transaksi->user_id) : ?>
     <section class="invoice bg-primary py-5">
         <div class="container">
             <div class="col-md-8 mx-auto">
