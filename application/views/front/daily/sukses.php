@@ -69,7 +69,7 @@ $meta           = $this->meta_model->get_meta();
             </li>
         </ul>
 
-        <a href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
+        <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
 
         <!-- <?php if ($transaksi->pembayaran == "Transfer") : ?>
                 <div class="card">
