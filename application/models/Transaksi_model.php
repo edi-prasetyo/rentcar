@@ -204,11 +204,11 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
-  public function test_transaksi($kode_transaksi)
+  public function test_transaksi($insert_id)
   {
     $this->db->select('*');
     $this->db->from('transaksi');
-    $this->db->where('kode_transaksi', $kode_transaksi);
+    $this->db->where('id', $insert_id);
     $query = $this->db->get();
     return $query->row();
   }

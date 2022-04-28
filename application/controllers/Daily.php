@@ -520,15 +520,18 @@ class Daily extends CI_Controller
             // $insert_id = $data['order_id'];
 
             // $payment_url = $response['payment_url'];
-            $kode_transaksi = $data['kode_transaksi'];
+            // $kode_transaksi = $data['kode_transaksi'];
             // $transaction = $this->transaksi_model->detail_transaksi_redirect($passenger_phone);
+            $result = json_decode($response, true);
 
-            $this->sukses($kode_transaksi);
+            $insert_id = $result['trx']['data']['id_order'];
+
+            $this->sukses($insert_id);
 
             if ($response !== false) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
-                redirect(base_url('daily/sukses/' . $kode_transaksi), 'refresh');
-                // var_dump($order_id);
+                redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
+                // var_dump($id);
                 // die;
             } else {
                 $this->session->set_flashdata('message', 'transaksi gagal di approved');
@@ -537,10 +540,9 @@ class Daily extends CI_Controller
             curl_close($ch);
 
 
-            // $this->update_point($insert_id);
-            // $this->_sendEmail($insert_id, 'order');
-            // $this->session->set_flashdata('message', 'Data telah ditambahkan');
-
+            $this->update_point($insert_id);
+            $this->_sendEmail($insert_id, 'order');
+            $this->session->set_flashdata('message', 'Data telah ditambahkan');
         }
     }
 
@@ -642,21 +644,6 @@ class Daily extends CI_Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Update Data Point jika point di gunakan
     public function update_point($insert_id)
     {
@@ -736,34 +723,34 @@ class Daily extends CI_Controller
     }
 
 
-    // public function sukses($insert_id)
-    // {
-
-
-    //     $transaksi = $this->transaksi_model->test_transaksi($insert_id);
-    //     $bank = $this->bank_model->get_allbank();
-    //     $data = [
-    //         'title'     => 'Order Sukses',
-    //         'transaksi' => $transaksi,
-    //         'bank'      => $bank,
-    //         'content'   => 'front/daily/sukses'
-    //     ];
-    //     $this->load->view('front/layout/wrapp', $data);
-    // }
-    public function sukses($kode_transaksi)
+    public function sukses($insert_id)
     {
 
 
-        $transaksi = $this->transaksi_model->test_transaksi($kode_transaksi);
-        // var_dump($transaksi);
-        // die;
-        // $bank = $this->bank_model->get_allbank();
+        $transaksi = $this->transaksi_model->test_transaksi($insert_id);
+        $bank = $this->bank_model->get_allbank();
         $data = [
             'title'     => 'Order Sukses',
             'transaksi' => $transaksi,
-            // 'bank'      => $bank,
+            'bank'      => $bank,
             'content'   => 'front/daily/sukses'
         ];
         $this->load->view('front/layout/wrapp', $data);
     }
+    // public function sukses($kode_transaksi)
+    // {
+
+
+    //     $transaksi = $this->transaksi_model->test_transaksi($kode_transaksi);
+    //     // var_dump($transaksi);
+    //     // die;
+    //     // $bank = $this->bank_model->get_allbank();
+    //     $data = [
+    //         'title'     => 'Order Sukses',
+    //         'transaksi' => $transaksi,
+    //         // 'bank'      => $bank,
+    //         'content'   => 'front/daily/sukses'
+    //     ];
+    //     $this->load->view('front/layout/wrapp', $data);
+    // }
 }
