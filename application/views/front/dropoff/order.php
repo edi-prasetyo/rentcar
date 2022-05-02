@@ -82,20 +82,7 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Lama Sewa<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-8">
-                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()" required>
-                                <option value="">-- Lama Sewa --</option>
-                                <option value='1'> 1 hari</option>
-                                <option value='2'> 2 Hari</option>
-                                <option value='3'> 3 Hari</option>
-                                <option value='4'> 4 Hari</option>
-                            </select>
-                            <div class="invalid-feedback">Pilih Lama Sewa.</div>
-                        </div>
-                    </div>
+
 
 
                     <div class="form-group row">

@@ -27,7 +27,7 @@
                         <th style="width: 10px">#</th>
                         <th>Nama Bandara</th>
                         <th>Kode Bandara</th>
-                        <th>Action</th>
+                        <th width="20%">Action</th>
 
                     </tr>
                 </thead>
@@ -38,7 +38,9 @@
                             <td><?php echo $no; ?></td>
                             <td><?php echo $airport->airport_name; ?></td>
                             <td><?php echo $airport->airport_code; ?></td>
-                            <td><a class="btn btn-primary btn-sm" href="<?php echo base_url('admin/airport/update/' . $airport->id); ?>">Update</a></td>
+                            <td><a class="btn btn-primary btn-sm" href="<?php echo base_url('admin/airport/update/' . $airport->id); ?>">Update</a>
+                                <?php include "delete.php"; ?>
+                            </td>
 
                         </tr>
                     <?php $no++;

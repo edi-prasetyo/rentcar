@@ -62,7 +62,7 @@ $user           = $this->user_model->user_detail($id);
                         }
                     </script>
 
-                    <?php echo form_open('dropoff/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+                    <?php echo form_open('airport/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
                     <input type="hidden" name="airpot_name" value="<?php echo $airport_name; ?> - <?php echo $airport_name; ?>">
                     <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?> - <?php echo $kota_name; ?>">
@@ -83,20 +83,7 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Lama Sewa<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-8">
-                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()" required>
-                                <option value="">-- Lama Sewa --</option>
-                                <option value='1'> 1 hari</option>
-                                <option value='2'> 2 Hari</option>
-                                <option value='3'> 3 Hari</option>
-                                <option value='4'> 4 Hari</option>
-                            </select>
-                            <div class="invalid-feedback">Pilih Lama Sewa.</div>
-                        </div>
-                    </div>
+
 
 
                     <div class="form-group row">
@@ -144,8 +131,8 @@ $user           = $this->user_model->user_detail($id);
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" id="id_tanggal" readonly>
-                            <div class="invalid-feedback">Jam Jemputharus di isi.</div>
+                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_jemput; ?>" id="id_tanggal" readonly>
+                            <div class="invalid-feedback">Jam Jemput harus di isi.</div>
                         </div>
                     </div>
 

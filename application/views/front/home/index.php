@@ -1,6 +1,6 @@
 <?php $meta = $this->meta_model->get_meta(); ?>
-<section class="pt-4 pb-3 mt-0 align-items-center d-flex bg-light" style="background-image: url(<?php echo base_url('assets/img/galery/1.jpg'); ?>); background-size: cover; min-height: 50vh;">
 
+<section class="pt-4 pb-3 mt-0 align-items-center bg-light" style="background-image: url(<?php echo base_url('assets/img/galery/1.jpg'); ?>); background-size: cover; min-height: 50vh;">
     <div class="container">
         <div class="container">
             <div class="row mb-md-4">
@@ -14,56 +14,30 @@
 
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('daily'); ?>" class="text-muted text-decoration-none product-button">
-                        <div class="card shadow-sm product-button">
-                            <div class="card-body d-flex justify-content-between align-items-center">
-                                <div><i class="fa-solid fa-calendar-day"></i> Rental Harian</div>
-                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('dropoff'); ?>" class="text-muted text-decoration-none product-button">
-                        <div class="card shadow-sm">
-                            <div class="card-body d-flex justify-content-between align-items-center">
-                                <div><i class="fa-solid fa-car-side"></i> Rental Drop Off</div>
-                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('airport'); ?>" class="text-muted text-decoration-none product-button">
-                        <div class="card shadow-sm">
-                            <div class="card-body d-flex justify-content-between align-items-center">
-                                <div><i class="fa-solid fa-plane-departure"></i> Rental Bandara</div>
-                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
-
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6 my-2">
-                    <a href="<?php echo base_url('transaksi'); ?>" class="text-muted text-decoration-none product-button">
-                        <div class="card shadow-sm">
-                            <div class="card-body d-flex justify-content-between align-items-center">
-                                <div> <i class="fa-solid fa-car-rear"></i> Rental Online</div>
-                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-
-            </div>
         </div>
     </div>
 </section>
+
+<div class="section-product" id="services">
+    <div class="container">
+        <h2 class="title my-5 text-center">Pilih <span>Paket Sewa</span></h2>
+        <div class="row">
+            <?php foreach ($product as $data) : ?>
+                <div class="col-md-4 col-6 my-2">
+                    <a href="<?php echo base_url('/'); ?><?php echo $data->product_url; ?>" class="text-muted text-decoration-none product-button">
+                        <div class="card shadow border-0 product-button" style="height:-130px;border-radius:15px">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div><img width="50%" class="img-fluid" src="<?php echo base_url('assets/img/galery/' . $data->image); ?>"> <?php echo $data->product_name; ?></div>
+                                <div class="arrow-click"><i class="fas fa-arrow-right"></i></div>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
 
 <section id="services">
     <div class="container py-5">

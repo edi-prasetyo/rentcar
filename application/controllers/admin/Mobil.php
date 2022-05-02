@@ -14,6 +14,7 @@ class Mobil extends CI_Controller
     $this->load->model('dropoff_model');
     $this->load->model('airport_model');
     $this->load->model('ketentuan_model');
+    $this->load->model('paket_model');
   }
   //listing data mobil
   public function index()
@@ -414,6 +415,7 @@ class Mobil extends CI_Controller
     $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect($_SERVER['HTTP_REFERER']);
   }
+
   public function update_paket($id)
   {
     $paket = $this->paket_model->detail_paket($id);
@@ -618,25 +620,25 @@ class Mobil extends CI_Controller
       //Masuk Database
     } else {
 
-      // $kota_asal = $kota->id;
-      $kota_tujuan = $this->input->post('kota_tujuan');
+
 
       $data  = [
         'mobil_id'                            => $mobil->id,
+        'kota_id'                           => $this->input->post('kota_id'),
         'airport_id'                           => $airport_id,
-        'kota_tujuan'                         => $kota_tujuan,
+        'kota_tujuan'                             => $this->input->post('kota_tujuan'),
         'ketentuan_id'                        => $this->input->post('ketentuan_id'),
-        'paket_type'                          => 'Drop Off',
+        'paket_type'                          => 'Airport',
         'paket_price'                         => $this->input->post('paket_price'),
         'paket_point'                         => $this->input->post('paket_point'),
         'paket_status'                        => $this->input->post('paket_status'),
         'paket_desc'                          => $this->input->post('paket_desc'),
         'created_at'                          => date('Y-m-d H:i:s')
       ];
-      $insert_id = $this->dropoff_model->create($data);
+      $insert_id = $this->airport_model->create_paket($data);
       // $this->update_nama_kota($kota_asal, $kota_tujuan, $insert_id);
       $this->session->set_flashdata('message', '<div class="alert alert-success">Data Produk telah ditambahkan</div>');
-      redirect(base_url('admin/mobil/dropoff/' . $mobil_id . '/' . $airport_id), 'refresh');
+      redirect(base_url('admin/mobil/airport/' . $mobil_id . '/' . $airport_id), 'refresh');
     }
 
     //End Masuk Database
@@ -648,5 +650,18 @@ class Mobil extends CI_Controller
       'content'                           => 'admin/airport/create_airport'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
+  }
+
+  public function delete_airport($id)
+  {
+    //Proteksi delete
+    is_login();
+
+    $paket = $this->airport_model->detail_paket($id);
+    //End Hapus Gambar
+    $data = array('id'   => $paket->id);
+    $this->airport_model->delete_paket($data);
+    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
+    redirect($_SERVER['HTTP_REFERER']);
   }
 }

@@ -33,7 +33,17 @@ $meta           = $this->meta_model->get_meta();
                         ORDER BERHASIL<br>
                         <?php echo $transaksi->mobil_name; ?><br>
                         <?php echo $transaksi->paket_name; ?><br>
-                        <?php echo $transaksi->status; ?><br>
+                        Status Penggunaan :
+                        <?php if ($transaksi->status == "Pending") : ?>
+                            <span class="badge badge-warning"><?php echo $transaksi->status; ?></span>
+                        <?php elseif ($transaksi->status == "Dikonfirmasi") : ?>
+                            <span class="badge badge-primary"><?php echo $transaksi->status; ?></span>
+                        <?php elseif ($transaksi->status == "Dalam Pengantaran") : ?>
+                            <span class="badge badge-info"><?php echo $transaksi->status; ?></span>
+                        <?php elseif ($transaksi->status == "Selesai") : ?>
+                            <span class="badge badge-success"><?php echo $transaksi->status; ?></span>
+                        <?php endif; ?>
+                        <br>
 
 
                     </div>
@@ -68,32 +78,12 @@ $meta           = $this->meta_model->get_meta();
                 <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></span>
             </li>
         </ul>
+        <?php if ($transaksi->pembayaran == "Cash") : ?>
+        <?php else : ?>
+            <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
+        <?php endif; ?>
 
-        <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
 
-        <!-- <?php if ($transaksi->pembayaran == "Transfer") : ?>
-                <div class="card">
-                    <div class="card-header">Rekening Pembayaran</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <?php foreach ($bank as $bank) : ?>
-                                    <img width="20%" src="<?php echo base_url('assets/img/bank/' . $bank->bank_logo); ?>">
-                                    <b><?php echo $bank->bank_number; ?></b> A/n <?php echo $bank->bank_account; ?><br>
-                                <?php endforeach; ?>
-                            </div>
-                            <div class="col-md-4">
-                                <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php else : ?>
-                <div class="alert alert-success">
-                    Anda Menggunakan Pembayaran Langsung Ke Driver, Silahkan melakukan Pembayaran melalui Driver Dengan Menyebutkan Order ID Anda
-                    Order ID Anda Adalah <?php echo $transaksi->order_id; ?>
-                </div>
-            <?php endif; ?> -->
         <br>
         <a class="btn btn-primary" href="<?php echo base_url(); ?>">Kembali Ke Home</a>
         <a class="btn btn-success" href="<?php echo base_url('myaccount'); ?>">Halaman Akun Saya</a>

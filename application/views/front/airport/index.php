@@ -34,7 +34,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label class="form-label text-white">Jam Sewa </label>
-                    <select class="form-control form-control-chosen" name="jam_sewa" value="" required>
+                    <select class="form-control form-control-chosen" name="jam_jemput" value="" required>
                         <option value="">- Jam Jemput -</option>
                         <option value='05:00'>05:00</option>
                         <option value='05:30'>05:30</option>
@@ -113,7 +113,7 @@
 
 
 <!-- <div class="container my-5">
-    <p><?php echo $tanggal_sewa; ?> <?php echo $jam_sewa; ?> </p>
+    <p><?php echo $tanggal_sewa; ?> <?php echo $jam_jemput; ?> </p>
     <div class="row">
         <?php foreach ($paket_sewa as $data) : ?>
             <div class="col-md-3 col-6">
@@ -124,7 +124,7 @@
                         <i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?>
                         <?php echo form_open('daily/paket/' . $kota_id . '/' . $data->mobil_id, array('method' => 'get')); ?>
                         <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
-                        <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
+                        <input type="hidden" name="jam_jemput" value="<?php echo $jam_jemput; ?>">
                         <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                         <?php echo form_close(); ?>
                     </div>

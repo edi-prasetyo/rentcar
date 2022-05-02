@@ -2,8 +2,14 @@
 <!-- Main content -->
 <div class="card">
     <div class="card-header">
-        <img src="<?php echo base_url('assets/img/logo/' . $meta->logo); ?>"><br>
-        Kode Top Up : <strong><?php echo $topup->code_topup; ?></strong>
+        <div class="row">
+            <div class="col-6">
+                <img class="img-fluid" src="<?php echo base_url('assets/img/logo/' . $meta->logo); ?>">
+            </div>
+            <div class="col-6 text-right">
+                Kode Top Up : <strong><?php echo $topup->code_topup; ?></strong>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <!-- title row -->

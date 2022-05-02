@@ -9,6 +9,7 @@ class Airport extends CI_Controller
         parent::__construct();
         $this->load->library('pagination');
         $this->load->model('airport_model');
+        $this->load->model('kota_model');
         $this->load->model('ketentuan_model');
     }
     //Index Kota
@@ -57,6 +58,7 @@ class Airport extends CI_Controller
     public function create()
     {
         $ketentuan = $this->ketentuan_model->get_ketentuan();
+        $listkota = $this->kota_model->get_allkota();
         $this->form_validation->set_rules(
             'airport_name',
             'Nama Bandara',
@@ -71,19 +73,73 @@ class Airport extends CI_Controller
             $data = [
                 'title'                         => 'Tambah Bandara',
                 'ketentuan'                     => $ketentuan,
+                'listkota'                     => $listkota,
                 'content'                       => 'admin/airport/create'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
             //Masuk Database
         } else {
             $data  = [
-                'airport_name'                         => $this->input->post('airport_name'),
-                'airport_code'                         => $this->input->post('airport_code'),
-                'created_at'                         => date('Y-m-d H:i:s')
+                'kota_id'                       => $this->input->post('kota_id'),
+                'airport_name'                  => $this->input->post('airport_name'),
+                'airport_code'                  => $this->input->post('airport_code'),
+                'created_at'                    => date('Y-m-d H:i:s')
             ];
             $this->airport_model->create($data);
             $this->session->set_flashdata('message', 'Data Produk telah ditambahkan');
             redirect(base_url('admin/airport'), 'refresh');
         }
+    }
+    public function update($id)
+    {
+        $ketentuan = $this->ketentuan_model->get_ketentuan();
+        $listkota = $this->kota_model->get_allkota();
+        $airport = $this->airport_model->detail_airport($id);
+        // var_dump($airport);
+        // die;
+
+        $this->form_validation->set_rules(
+            'airport_name',
+            'Nama Bandara',
+            'required',
+            [
+                'required'                        => 'Nama Bandara harus di isi',
+            ]
+        );
+        if ($this->form_validation->run() == false) {
+
+            //End Validasi
+            $data = [
+                'title'                     => 'Tambah Bandara',
+                'ketentuan'                 => $ketentuan,
+                'listkota'                  => $listkota,
+                'airport'                   => $airport,
+                'content'                   => 'admin/airport/update'
+            ];
+            $this->load->view('admin/layout/wrapp', $data, FALSE);
+            //Masuk Database
+        } else {
+            $data  = [
+                'id'                        => $id,
+                'kota_id'                   => $this->input->post('kota_id'),
+                'airport_name'              => $this->input->post('airport_name'),
+                'airport_code'              => $this->input->post('airport_code'),
+                'created_at'                => date('Y-m-d H:i:s')
+            ];
+            $this->airport_model->update($data);
+            $this->session->set_flashdata('message', 'Data Produk telah di Update');
+            redirect(base_url('admin/airport'), 'refresh');
+        }
+    }
+    //delete Airport
+    public function delete($id)
+    {
+        //Proteksi delete
+        is_login();
+        $airport = $this->airport_model->detail_airport($id);
+        $data = ['id'   => $airport->id];
+        $this->airport_model->delete($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
+        redirect($_SERVER['HTTP_REFERER']);
     }
 }

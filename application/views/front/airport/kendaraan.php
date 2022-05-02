@@ -34,7 +34,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label class="form-label text-white">Jam Sewa </label>
-                    <select class="form-control form-control-chosen" name="jam_sewa" value="" required>
+                    <select class="form-control form-control-chosen" name="jam_jemput" value="" required>
                         <option value="">- Jam Jemput -</option>
                         <option value='05:00'>05:00</option>
                         <option value='05:30'>05:30</option>
@@ -93,7 +93,7 @@
     <h3><?php echo $airport_name;
         ?> - <?php echo $kota_name;
                 ?> </h3>
-    <p><?php echo $tanggal_sewa; ?> <?php echo $jam_sewa; ?> </p>
+    <p><?php echo $tanggal_sewa; ?> <?php echo $jam_jemput; ?> </p>
     <div class="row">
 
         <?php foreach ($paket_airport as $data) : ?>
@@ -105,8 +105,10 @@
                         <h4><?php echo $data->paket_price; ?></h4>
                         <i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?>
                         <?php echo form_open('airport/order/', array('method' => 'get')); ?>
+                        <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
+                        <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
                         <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
-                        <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
+                        <input type="hidden" name="jam_jemput" value="<?php echo $jam_jemput; ?>">
                         <input type="hidden" name="airport_id" value="<?php echo $airport_id; ?>">
                         <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
                         <input type="hidden" name="airport_name" value="<?php echo $airport_name; ?>">

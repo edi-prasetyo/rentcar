@@ -231,6 +231,9 @@ class User_model extends CI_Model
       'is_active'   => 1,
       'is_locked'   => 1,
       'kota_id'     => $kota_id,
+      // 'daily'       => 1,
+      // 'dropoff'     => 1,
+      // 'airport'     => 1,
     ]);
     $this->db->order_by('user.id', 'DESC');
     $query = $this->db->get();

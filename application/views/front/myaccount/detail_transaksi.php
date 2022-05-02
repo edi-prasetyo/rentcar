@@ -34,7 +34,14 @@ $meta           = $this->meta_model->get_meta();
                             Detail order<br>
                             <?php echo $detail_transaksi->mobil_name; ?><br>
                             <?php echo $detail_transaksi->paket_name; ?><br>
-                            <?php echo $detail_transaksi->status; ?><br>
+                            Detail Penggunaan : <?php if ($detail_transaksi->status == "Pending") : ?>
+                                <span class="badge badge-warning"><?php echo $detail_transaksi->status; ?></span>
+                            <?php elseif ($detail_transaksi->status == "Dikonfirmasi") : ?>
+                                <span class="badge badge-primary"><?php echo $detail_transaksi->status; ?></span>
+                            <?php elseif ($detail_transaksi->status == "Selesai") : ?>
+                                <span class="badge badge-success"><?php echo $detail_transaksi->status; ?></span>
+                            <?php endif; ?>
+                            <br>
 
 
                         </div>

@@ -22,7 +22,7 @@
             <thead class="thead-light">
                 <tr>
                     <th>No</th>
-                    <th>Kota</th>
+                    <th>Airport</th>
                     <th width="25%">Action</th>
                 </tr>
             </thead>

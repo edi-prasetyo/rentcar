@@ -18,12 +18,16 @@
                 echo form_open('admin/mobil/create_airport/' . $mobil->id . '/' . $airport->id);
                 ?>
 
+
+
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label">Bandara <span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-9">
-                        <input type="text" class="form-control" name="airport_id" placeholder="Kota Asal" value="<?php echo $airport->airport_name; ?>" readonly>
+                        <input type="text" class="form-control" name="" placeholder="Bandara" value="<?php echo $airport->airport_name; ?>" readonly>
                         <?php echo form_error('airport_name', '<small class="text-danger">', '</small>'); ?>
+                        <input type="hidden" name="airport_id" value="<?php echo $airport->id; ?>">
+                        <input type="hidden" name="kota_id" value="<?php echo $airport->kota_id; ?>">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -141,7 +145,7 @@
                             <td><?php echo $data->paket_price; ?></td>
                             <td><?php echo $data->paket_point; ?></td>
                             <td>
-                                <a href="<?php echo base_url('admin/mobil/delete_paket/' . $data->id); ?>" class="text-danger"><i class="far fa-times-circle"></i></a>
+                                <a href="<?php echo base_url('admin/mobil/delete_airport/' . $data->id); ?>" class="text-danger"><i class="far fa-times-circle"></i></a>
                                 <!-- <a href="<?php //echo base_url('admin/mobil/update_paket/' . $data->id); 
                                                 ?>" class="text-danger"><i class="far fa-times-circle"></i></a> -->
 

@@ -36,6 +36,19 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Kota Bandara</label>
+                    <div class="col-md-9">
+                        <select class="form-control custom-select" name="kota_asal" value="" required>
+                            <option value="">-- Pilih Kota Bandara --</option>
+                            <?php foreach ($listkota as $data) : ?>
+                                <option value='<?php echo $data->id; ?>'><?php echo $data->kota_name; ?></option>
+                            <?php endforeach; ?>
+
+                        </select>
+                        <div class="invalid-feedback">Silahkan Pilih Ketentuan.</div>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <div class="col-lg-3"></div>

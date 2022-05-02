@@ -297,3 +297,23 @@
 }
 
 /* CSS Animation Success */
+
+/* Modal Fullcreen */
+.modal {
+	padding: 0 !important; 
+  }
+  .modal .modal-dialog {
+	width: 100%;
+	max-width: none;
+	height: 100%;
+	margin: 0;
+  }
+  .modal .modal-content {
+	min-height: 100%;
+	border: 0;
+	border-radius: 0;
+	padding: 10px;
+  }
+  .modal .modal-body {
+	overflow-y: auto;
+  }

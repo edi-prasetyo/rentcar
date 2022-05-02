@@ -41,8 +41,9 @@
                 <b>Pembayaran :</b> <?php echo $transaksi->pembayaran; ?><br>
                 <?php if ($transaksi->driver_id == 0) : ?>
                 <?php else : ?>
-                    <b>Driver :</b> <?php echo $transaksi->driver_name; ?>
+                    <b>Driver :</b> <?php echo $transaksi->driver_name; ?><br>
                 <?php endif; ?>
+                <b>Status Pembayaran :</b> <?php echo $transaksi->status_pembayaran; ?><br>
 
             </div>
             <!-- /.col -->
@@ -65,10 +66,16 @@
                         <tr>
                             <td>
                                 <?php echo $transaksi->mobil_name; ?> <br>
-                                <?php echo $transaksi->paket_name; ?> - <?php echo $transaksi->kota_name; ?>
+                                <?php if ($transaksi->product_id == 1) : ?>
+                                    <?php echo $transaksi->paket_name; ?> - <?php echo $transaksi->kota_name; ?>
+                                <?php elseif ($transaksi->product_id == 2) : ?>
+                                    <?php echo $transaksi->origin; ?> - <?php echo $transaksi->destination; ?>
+                                <?php elseif ($transaksi->product_id == 3) : ?>
+                                    <?php echo $transaksi->origin; ?> - <?php echo $transaksi->destination; ?>
+                                <?php endif; ?>
                             </td>
                             <td><?php echo $transaksi->lama_sewa; ?> Hari<br>
-                                <?php echo $transaksi->jumlah_mobil; ?> Unit
+
 
                             </td>
                             <td>Rp. <?php echo number_format($transaksi->start_price, 0, ",", "."); ?></td>

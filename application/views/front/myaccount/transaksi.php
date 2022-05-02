@@ -12,6 +12,7 @@
                             <th>ID Transaksi</th>
                             <th>Type</th>
                             <th>Status</th>
+                            <th>Pembayaran</th>
                             <th>Harga</th>
                             <th width="20%">Action</th>
                         </tr>
@@ -29,6 +30,15 @@
                                     <div class="badge badge-info"> <?php echo $data->status; ?></div>
                                 <?php else : ?>
                                     <div class="badge badge-success"> <?php echo $data->status; ?></div>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if ($data->status_pembayaran == 'Belum Bayar') : ?>
+                                    <div class="badge badge-warning"> <?php echo $data->status_pembayaran; ?></div>
+                                <?php elseif ($data->status_pembayaran == 'Lunas') : ?>
+                                    <div class="badge badge-success"> <?php echo $data->status_pembayaran; ?></div>
+                                <?php else : ?>
+                                    <div class="badge badge-danger"> <?php echo $data->status_pembayaran; ?></div>
                                 <?php endif; ?>
                             </td>
                             <td>

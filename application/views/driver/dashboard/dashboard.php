@@ -81,9 +81,9 @@ $user = $this->user_model->user_detail($user_id); ?>
             </div>
         </div>
     <?php else : ?>
-        <div class="col-md-7 mx-auto">
+        <div class="col-md-7 mx-auto mb-5 pb-5">
             <?php foreach ($transaksi_driver as $data) : ?>
-                <?php if ($data->order_type == "Daily" || $data->order_type == "Hourly") : ?>
+                <?php if ($data->order_type == "daily" || $data->order_type == "hourly") : ?>
                     <div class="card my-3 shadow border-0">
                         <div class="card-header bg-white">
                             <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?>
@@ -112,9 +112,16 @@ $user = $this->user_model->user_detail($user_id); ?>
                             </div>
                         </div>
                     </div>
-                <?php elseif ($data->order_type == "Drop Off") : ?>
-                    <div class="card my-2">
+                <?php elseif ($data->order_type == "dropoff") : ?>
+                    <div class="card shadow border-0 my-2">
+                        <div class="card-header bg-white">
+                            <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?>
+                            <i class="ri-time-line"></i> <?php echo $data->jam_jemput; ?>
+                        </div>
                         <div class="card-body">
+                            <?php echo $data->alamat_jemput; ?><br>
+                            <?php echo $data->mobil_name; ?><br>
+                            <small><?php echo $data->paket_name; ?></small><br>
                             <div class="col-12 mx-auto mb-3">
                                 <div class="list-wrapper">
                                     <div class="red-line"></div>
@@ -140,6 +147,57 @@ $user = $this->user_model->user_detail($user_id); ?>
                             <?php else : ?>
                             <?php endif; ?>
                             </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="<?php echo base_url('driver/transaksi/terima/' . $data->id); ?>" class="btn btn-success btn-block">Terima</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="<?php echo base_url('driver/transaksi/tolak/' . $data->id); ?>" class="btn btn-danger btn-block">Tolak</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php elseif ($data->order_type == "airport") : ?>
+                    <div class="card shadow border-0 my-2">
+                        <div class="card-header bg-white">
+                            <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?>
+                            <i class="ri-time-line"></i> <?php echo $data->jam_jemput; ?>
+                        </div>
+                        <div class="card-body">
+                            <?php echo $data->alamat_jemput; ?><br>
+                            <?php echo $data->mobil_name; ?><br>
+                            <small><?php echo $data->paket_name; ?></small><br>
+                            <div class="col-12 mx-auto mb-3">
+                                <div class="list-wrapper">
+                                    <div class="red-line"></div>
+                                    <div class="list-item-wrapper">
+                                        <div class="list-bullet bg-primary"><i class="ri-stop-fill"></i></div>
+                                        <div class="list-item">
+                                            <div class="list-text"><?php echo $data->origin; ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="list-item-wrapper">
+                                        <div class="list-bullet bg-success"><i class="ri-map-pin-2-fill"></i></div>
+                                        <div class="list-item">
+                                            <div class="list-text"><?php echo $data->destination; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body text-center">
+                                <h3 class="font-weight-bold"> Rp <?php echo number_format($data->total_price, 0, ",", "."); ?> </h3>
+                                <span class="text-muted">
+                                    <?php if ($data->product_id == 1) : ?>
+                                        <?php echo $data->jarak; ?> Km</span>
+                            <?php else : ?>
+                            <?php endif; ?>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
                             <div class="row">
                                 <div class="col-6">
                                     <a href="<?php echo base_url('driver/transaksi/terima/' . $data->id); ?>" class="btn btn-success btn-block">Terima</a>

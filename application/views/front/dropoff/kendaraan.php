@@ -104,6 +104,8 @@
                         <h5><?php echo $data->mobil_name; ?></h5>
                         <h4>Rp. <?php echo number_format($data->paket_price, 0, ",", "."); ?></h4>
                         <?php echo form_open('dropoff/order/', array('method' => 'get')); ?>
+                        <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
+                        <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
                         <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
                         <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
                         <input type="hidden" name="kota_asal" value="<?php echo $kota_asal; ?>">

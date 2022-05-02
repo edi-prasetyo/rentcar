@@ -1109,6 +1109,7 @@ footer p {
 .product-button :hover {
 	background-color: #ff5722;
 	color: #ffffff;
+	border-radius: 15px;
 }
 .arrow-click {
 	font-size: 20px;
@@ -1116,4 +1117,7 @@ footer p {
 .arrow-click :hover {
 	color: #ffffff;
 	padding-left: 40px;
+}
+.section-product{
+	height: -50px;
 }
