@@ -14,8 +14,7 @@ $user           = $this->user_model->user_detail($id);
 </nav>
 
 
-
-<div class="container my-3">
+<div class="container my-5">
     <div class="col-md-7 mx-auto">
         <div class="text-center">
             <?php echo $this->session->flashdata('message');
@@ -25,21 +24,11 @@ $user           = $this->user_model->user_detail($id);
         <div class="card mb-3 shadow border-0">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-7 text-center">
-                        <?php echo $kota_name; ?> - <?php echo $paket_name; ?> <br>
-                        <h4><?php echo $mobil_name; ?></h4>
+                    <div class="col-md-7">
+                        <?php echo $airport_name; ?> - <?php echo $kota_name; ?> <br>
+                        <?php echo $mobil_name; ?>
                     </div>
-
-                </div>
-            </div>
-            <div class="card-footer bg-white">
-                <div class="row">
-                    <div class="col-6">
-                        <h5 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h5>
-                    </div>
-
-                    <div class="col-6 text-right">
-                        <span class="h6"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
+                    <div class="col-md-5 text-right">
 
                         <?php if ($this->session->userdata('id')) : ?>
                         <?php else : ?>
@@ -48,12 +37,23 @@ $user           = $this->user_model->user_detail($id);
                     </div>
                 </div>
             </div>
+            <div class="card-footer bg-white">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h5>
+                    </div>
+                    <div class="col-6">
+                        <span class="h6"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <?php if ($this->session->userdata('id')) : ?>
-        <div class="col-md-7 mx-auto mb-5 pb-5">
-            <div class="card shadow border-0" >
+        <div class="col-md-7 mx-auto">
+            <div class="card shadow border-0 mb-5 pb-3">
                 <div class="card-header bg-white">
                     Form Pesanan
                 </div>
@@ -80,11 +80,12 @@ $user           = $this->user_model->user_detail($id);
                         }
                     </script>
 
-                    <?php echo form_open('daily/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+                    <?php echo form_open('airport/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
-                    <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
-                    <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
-                    <input type="hidden" name="paket_name" value="<?php echo $paket_name; ?>">
+                    <input type="hidden" name="airpot_name" value="<?php echo $airport_name; ?> - <?php echo $airport_name; ?>">
+                    <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?> - <?php echo $kota_name; ?>">
+
+
                     <input type="hidden" name="start_price" value="<?php echo $paket_price; ?>">
                     <input type="hidden" name="order_point" value="<?php echo $order_point; ?>">
                     <input type="hidden" name="ketentuan_desc" value="<?php echo $ketentuan_desc; ?>">
@@ -100,20 +101,7 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Lama Sewa<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-8">
-                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()" required>
-                                <option value="">-- Lama Sewa --</option>
-                                <option value='1'> 1 hari</option>
-                                <option value='2'> 2 Hari</option>
-                                <option value='3'> 3 Hari</option>
-                                <option value='4'> 4 Hari</option>
-                            </select>
-                            <div class="invalid-feedback">Pilih Lama Sewa.</div>
-                        </div>
-                    </div>
+
 
 
                     <div class="form-group row">
@@ -161,8 +149,8 @@ $user           = $this->user_model->user_detail($id);
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" id="id_tanggal" readonly>
-                            <div class="invalid-feedback">Jam Jemputharus di isi.</div>
+                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_jemput; ?>" id="id_tanggal" readonly>
+                            <div class="invalid-feedback">Jam Jemput harus di isi.</div>
                         </div>
                     </div>
 
@@ -188,8 +176,6 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-
-
                     <a class="btn btn-danger btn-block mb-3" data-toggle="collapse" href="#syaratKetentuan" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Syarat Ketentuan Sewa</a>
 
                     <div class="collapse multi-collapse" id="syaratKetentuan">
@@ -206,9 +192,6 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-
-
-
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">
                         </label>
@@ -221,16 +204,16 @@ $user           = $this->user_model->user_detail($id);
                     <?php echo form_close(); ?>
                 </div>
 
-
-
             </div>
         </div>
     <?php else : ?>
 
     <?php endif; ?>
 
-
 </div>
+
+
+
 
 
 <script type="text/javascript">

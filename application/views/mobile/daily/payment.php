@@ -8,4 +8,5 @@
     </div>
 </nav>
 
-<embed type="text/html" src="<?php echo $transaksi->payment_url; ?>" width="100%" height="2000px">
+<!-- <embed type="text/html" src="https://checkout-staging.xendit.co/web/6270dc5fd4846eff064dc53f" width="100%" height="1080px" min-height="100%"> -->
+<embed type="text/html" src="<?php echo $transaksi->payment_url; ?>" width="100%" min-height="1000px" height="100%">

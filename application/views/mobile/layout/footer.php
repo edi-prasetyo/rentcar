@@ -5,77 +5,29 @@ $meta      = $this->meta_model->get_meta();
 ?>
 
 
-<div class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow text-muted">
-   <div class="row">
-      <div class="col <?php if ($this->uri->segment(1) == "") {
-                           echo 'selected text-info';
-                        } ?>">
-         <a href="<?php echo base_url(); ?>" class="text-dark small font-weight-bold text-decoration-none">
-            <p class="h4 m-0"><i class="fa-solid fa-house"></i></p>
-            Home
-         </a>
-      </div>
 
-
-      <div class="col <?php if ($this->uri->segment(1) == "rental-mobil") {
-                           echo 'selected text-info';
-                        } ?>">
-         <a href="<?php echo base_url('rental-mobil'); ?>" class="text-dark small font-weight-bold text-decoration-none">
-            <p class="h4 m-0"><i class="fa-solid fa-bag-shopping"></i></p>
-            Order
-         </a>
-      </div>
-
-
-
-
-      <div class="col <?php if ($this->uri->segment(1) == "berita") {
-                           echo 'selected text-info';
-                        } ?>">
-         <a href="<?php echo base_url('berita'); ?>" class="text-dark small font-weight-bold text-decoration-none">
-            <p class="h4 m-0"><i class="fa-solid fa-fire-flame-curved"></i></p>
-            News
-         </a>
-      </div>
-
-      <?php if ($this->session->userdata('email')) : ?>
-
-         <div class="col <?php if ($this->uri->segment(1) == "myaccount") {
-                              echo 'selected text-info';
-                           } ?>">
-
-            <a href="<?php echo base_url('myaccount') ?>" class="text-dark small font-weight-bold text-decoration-none">
-               <p class="h4 m-0"><i class="fa-solid fa-user"></i></p>
-               Akun
-            </a>
-
-         </div>
-
-      <?php else : ?>
-
-         <div class="col <?php if ($this->uri->segment(1) == "auth") {
-                              echo 'selected text-info';
-                           } ?>">
-
-            <a href="<?php echo base_url('auth') ?>" class="text-dark small font-weight-bold text-decoration-none">
-               <p class="h4 m-0"><i class="fa-solid fa-user"></i></p>
-               Akun
-            </a>
-
-         </div>
-
-      <?php endif; ?>
-   </div>
-</div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/template/mobile/'); ?>js/slick.min.js"></script>
 <script src="<?php echo base_url('assets/template/mobile/'); ?>js/main.js"></script>
 <script src="<?php echo base_url() ?>assets/template/front/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url() ?>assets/template/mobile/js/chosen.jquery.min.js"></script>
 
 <script src="<?php echo base_url() ?>assets/template/front/vendor/date-time-picker-bootstrap-4/js/moment.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>assets/template/front/vendor/date-time-picker-bootstrap-4/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 
+
+<script>
+   // Chosen touch support.
+   if ($('.chosen-container').length > 0) {
+      $('.chosen-container').on('touchstart', function(e) {
+         e.stopPropagation();
+         e.preventDefault();
+         // Trigger the mousedown event.
+         $(this).trigger('mousedown');
+      });
+   }
+</script>
 
 <script>
    $(function() {

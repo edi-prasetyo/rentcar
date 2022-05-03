@@ -73,21 +73,43 @@ class Airport extends CI_Controller
             ]
         );
 
-        if ($this->form_validation->run() == false) {
-            $data = [
-                'title'         => 'Halaman Home',
-                'airport'          => $airport,
-                'airport_id'    => $airport_id,
-                'kota_id'       => $kota_id,
-                'kota'          => $kota,
-                'paket_sewa'    => $paket_sewa,
-                'kota_name'     => $kota_name,
 
-                'tanggal_sewa'  => $tanggal_sewa,
-                'jam_jemput'      => $jam_jemput,
-                'content'       => 'front/airport/index'
-            ];
-            $this->load->view('front/layout/wrapp', $data);
+
+        if ($this->form_validation->run() == false) {
+
+            if (!$this->agent->is_mobile()) {
+                // Desktop View
+                $data = [
+                    'title'         => 'Airport Car',
+                    'airport'          => $airport,
+                    'airport_id'    => $airport_id,
+                    'kota_id'       => $kota_id,
+                    'kota'          => $kota,
+                    'paket_sewa'    => $paket_sewa,
+                    'kota_name'     => $kota_name,
+
+                    'tanggal_sewa'  => $tanggal_sewa,
+                    'jam_jemput'      => $jam_jemput,
+                    'content'       => 'front/airport/index'
+                ];
+                $this->load->view('front/layout/wrapp', $data);
+            } else {
+                // Mobile View
+                $data = [
+                    'title'         => 'Airport Car',
+                    'airport'          => $airport,
+                    'airport_id'    => $airport_id,
+                    'kota_id'       => $kota_id,
+                    'kota'          => $kota,
+                    'paket_sewa'    => $paket_sewa,
+                    'kota_name'     => $kota_name,
+
+                    'tanggal_sewa'  => $tanggal_sewa,
+                    'jam_jemput'      => $jam_jemput,
+                    'content'       => 'mobile/airport/index'
+                ];
+                $this->load->view('mobile/layout/wrapp', $data);
+            }
         } else {
             $this->kendaraan($airport_id, $kota_id);
         }
@@ -105,66 +127,41 @@ class Airport extends CI_Controller
         $airport_name = $this->airport_model->airport_encrypt($airport_id);
         $kota_name = $this->kota_model->kota_tujuan_encrypt($kota_id);
 
-        // var_dump($airport_name);
-        // die;
-        //Validasi Berhasil
-        $data = [
-            'title'         => 'Pilih Kendaraan',
-            'airport'       => $airport,
-            'kota'          => $kota,
-            'paket_airport'    => $paket_airport,
-            'airport_name'     => $airport_name->airport_name,
-            'kota_name'   => $kota_name->kota_name,
-            'airport_id'     => $airport_id,
-            'kota_id'     => $kota_id,
-            'tanggal_sewa'  => $tanggal_sewa,
-            'jam_jemput'      => $jam_jemput,
-            'content'       => 'front/airport/kendaraan'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
-    }
-    public function paket($kota_id = false, $mobil_id = false)
-    {
-        $tanggal_sewa = "";
-        if ($this->input->get('tanggal_sewa') != NULL) {
-            $tanggal_sewa = $this->input->get('tanggal_sewa');
-            $this->session->set_userdata(array("tanggal_sewa" => $tanggal_sewa));
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = [
+                'title'         => 'Pilih Kendaraan',
+                'airport'       => $airport,
+                'kota'          => $kota,
+                'paket_airport'    => $paket_airport,
+                'airport_name'     => $airport_name->airport_name,
+                'kota_name'   => $kota_name->kota_name,
+                'airport_id'     => $airport_id,
+                'kota_id'     => $kota_id,
+                'tanggal_sewa'  => $tanggal_sewa,
+                'jam_jemput'      => $jam_jemput,
+                'content'       => 'front/airport/kendaraan'
+            ];
+            $this->load->view('front/layout/wrapp', $data);
         } else {
-            if ($this->session->userdata('tanggal_sewa') != NULL) {
-                $tanggal_sewa = $this->session->userdata('tanggal_sewa');
-            }
+            // Mobile View
+            $data = [
+                'title'         => 'Pilih Kendaraan',
+                'airport'       => $airport,
+                'kota'          => $kota,
+                'paket_airport'    => $paket_airport,
+                'airport_name'     => $airport_name->airport_name,
+                'kota_name'   => $kota_name->kota_name,
+                'airport_id'     => $airport_id,
+                'kota_id'     => $kota_id,
+                'tanggal_sewa'  => $tanggal_sewa,
+                'jam_jemput'      => $jam_jemput,
+                'content'       => 'mobile/airport/kendaraan'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data);
         }
-
-        $jam_jemput = "";
-        if ($this->input->get('jam_jemput') != NULL) {
-            $jam_jemput = $this->input->get('jam_jemput');
-            $this->session->set_userdata(array("jam_jemput" => $jam_jemput));
-        } else {
-            if ($this->session->userdata('jam_jemput') != NULL) {
-                $jam_jemput = $this->session->userdata('jam_jemput');
-            }
-        }
-
-        // $tanggal_sewa = $this->input->post('tanggal_sewa');
-        // $jam_jemput = $this->input->post('jam_jemput');
-
-        $mobil      = $this->mobil_model->detail_encrypt($mobil_id);
-        $kota       = $this->kota_model->detail_encrypt($kota_id);
-
-        $paket      = $this->paket_model->get_paket_dropoff($kota_id, $mobil_id);
-        // var_dump($paket);
-        // die;
-        $data = [
-            'title'         => 'Pilih Kendaraan',
-            'paket'         => $paket,
-            'mobil'         => $mobil,
-            'kota'          => $kota,
-            'tanggal_sewa'  =>  $tanggal_sewa,
-            'jam_jemput'      => $jam_jemput,
-            'content'       => 'front/airport/paket'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
     }
+
     public function order()
     {
         $user_id = $this->session->userdata('id');
@@ -263,25 +260,47 @@ class Airport extends CI_Controller
             )
         );
         if ($this->form_validation->run() === FALSE) {
+            if (!$this->agent->is_mobile()) {
+                // Desktop View
+                $data = [
+                    'title'             => 'Pilih Kendaraan',
+                    'tanggal_sewa'      =>  $tanggal_sewa,
+                    'jam_jemput'          => $jam_jemput,
+                    'mobil_name'        => $mobil_name,
+                    'airport_id'           => $airport_id,
+                    'kota_tujuan'           => $kota_tujuan,
+                    'airport_name'         => $airport_name,
+                    'kota_name'         => $kota_name,
 
-            $data = [
-                'title'             => 'Pilih Kendaraan',
-                'tanggal_sewa'      =>  $tanggal_sewa,
-                'jam_jemput'          => $jam_jemput,
-                'mobil_name'        => $mobil_name,
-                'airport_id'           => $airport_id,
-                'kota_tujuan'           => $kota_tujuan,
-                'airport_name'         => $airport_name,
-                'kota_name'         => $kota_name,
+                    'paket_price'       => $paket_price,
+                    'order_point'       => $order_point,
+                    'ketentuan_desc'    => $ketentuan_desc,
+                    'paket_desc'        => $paket_desc,
+                    'total_pointku'     => $total_pointku,
+                    'content'           => 'front/airport/order'
+                ];
+                $this->load->view('front/layout/wrapp', $data);
+            } else {
+                // Mobile View
+                $data = [
+                    'title'             => 'Pilih Kendaraan',
+                    'tanggal_sewa'      =>  $tanggal_sewa,
+                    'jam_jemput'          => $jam_jemput,
+                    'mobil_name'        => $mobil_name,
+                    'airport_id'           => $airport_id,
+                    'kota_tujuan'           => $kota_tujuan,
+                    'airport_name'         => $airport_name,
+                    'kota_name'         => $kota_name,
 
-                'paket_price'       => $paket_price,
-                'order_point'       => $order_point,
-                'ketentuan_desc'    => $ketentuan_desc,
-                'paket_desc'        => $paket_desc,
-                'total_pointku'     => $total_pointku,
-                'content'           => 'front/airport/order'
-            ];
-            $this->load->view('front/layout/wrapp', $data);
+                    'paket_price'       => $paket_price,
+                    'order_point'       => $order_point,
+                    'ketentuan_desc'    => $ketentuan_desc,
+                    'paket_desc'        => $paket_desc,
+                    'total_pointku'     => $total_pointku,
+                    'content'           => 'mobile/airport/order'
+                ];
+                $this->load->view('mobile/layout/wrapp', $data);
+            }
         } else {
 
             $order_id = strtoupper(random_string('numeric', 7));
@@ -420,176 +439,7 @@ class Airport extends CI_Controller
             $this->_sendEmail($insert_id, 'order');
         }
     }
-    // public function order()
-    // {
-    //     $user_id = $this->session->userdata('id');
-    //     $total_pointku = $this->point_model->total_user_point($user_id);
 
-    //     $tanggal_sewa = "";
-    //     if ($this->input->get('tanggal_sewa') != NULL) {
-    //         $tanggal_sewa = $this->input->get('tanggal_sewa');
-    //         $this->session->set_userdata(array("tanggal_sewa" => $tanggal_sewa));
-    //     } else {
-    //         if ($this->session->userdata('tanggal_sewa') != NULL) {
-    //             $tanggal_sewa = $this->session->userdata('tanggal_sewa');
-    //         }
-    //     }
-
-    //     $jam_jemput = "";
-    //     if ($this->input->get('jam_jemput') != NULL) {
-    //         $jam_jemput = $this->input->get('jam_jemput');
-    //         $this->session->set_userdata(array("jam_jemput" => $jam_jemput));
-    //     } else {
-    //         if ($this->session->userdata('jam_jemput') != NULL) {
-    //             $jam_jemput = $this->session->userdata('jam_jemput');
-    //         }
-    //     }
-
-    //     $mobil_name = "";
-    //     if ($this->input->get('mobil_name') != NULL) {
-    //         $mobil_name = $this->input->get('mobil_name');
-    //         $this->session->set_userdata(array("mobil_name" => $mobil_name));
-    //     } else {
-    //         if ($this->session->userdata('mobil_name') != NULL) {
-    //             $mobil_name = $this->session->userdata('mobil_name');
-    //         }
-    //     }
-    //     $mobil_id = "";
-    //     if ($this->input->get('mobil_id') != NULL) {
-    //         $mobil_id = $this->input->get('mobil_id');
-    //         $this->session->set_userdata(array("mobil_id" => $mobil_id));
-    //     } else {
-    //         if ($this->session->userdata('mobil_id') != NULL) {
-    //             $mobil_id = $this->session->userdata('mobil_id');
-    //         }
-    //     }
-    //     $airport_id = "";
-    //     if ($this->input->get('airport_id') != NULL) {
-    //         $airport_id = $this->input->get('airport_id');
-    //         $this->session->set_userdata(array("airport_id" => $airport_id));
-    //     } else {
-    //         if ($this->session->userdata('airport_id') != NULL) {
-    //             $airport_id = $this->session->userdata('airport_id');
-    //         }
-    //     }
-    //     $kota_id = "";
-    //     if ($this->input->get('kota_id') != NULL) {
-    //         $kota_id = $this->input->get('kota_id');
-    //         $this->session->set_userdata(array("kota_id" => $kota_id));
-    //     } else {
-    //         if ($this->session->userdata('kota_id') != NULL) {
-    //             $kota_id = $this->session->userdata('kota_id');
-    //         }
-    //     }
-    //     $airport_name = "";
-    //     if ($this->input->get('airport_name') != NULL) {
-    //         $airport_name = $this->input->get('airport_name');
-    //         $this->session->set_userdata(array("airport_name" => $airport_name));
-    //     } else {
-    //         if ($this->session->userdata('airport_name') != NULL) {
-    //             $airport_name = $this->session->userdata('airport_name');
-    //         }
-    //     }
-    //     $kota_name = "";
-    //     if ($this->input->get('kota_name') != NULL) {
-    //         $kota_name = $this->input->get('kota_name');
-    //         $this->session->set_userdata(array("kota_name" => $kota_name));
-    //     } else {
-    //         if ($this->session->userdata('kota_name') != NULL) {
-    //             $kota_name = $this->session->userdata('kota_name');
-    //         }
-    //     }
-
-    //     $paket = $this->airport_model->airport_detail($airport_id, $kota_id);
-
-    //     $paket_price    = $paket->paket_price;
-    //     $order_point    = $paket->paket_point;
-    //     $ketentuan_desc = $paket->ketentuan_desc;
-    //     $paket_desc     = $paket->paket_desc;
-
-
-
-    //     $this->form_validation->set_rules(
-    //         'passenger_name',
-    //         'Nama Penumpang',
-    //         'required',
-    //         array(
-    //             'required'                        => '%s Harus Diisi',
-    //         )
-    //     );
-    //     if ($this->form_validation->run() === FALSE) {
-
-    //         $data = [
-    //             'title'             => 'Pilih Kendaraan',
-    //             'tanggal_sewa'      =>  $tanggal_sewa,
-    //             'jam_jemput'          => $jam_jemput,
-    //             'mobil_name'        => $mobil_name,
-    //             'airport_id'           => $airport_id,
-    //             'kota_id'           => $kota_id,
-    //             'airport_name'         => $airport_name,
-    //             'kota_name'         => $kota_name,
-
-    //             'paket_price'       => $paket_price,
-    //             'order_point'       => $order_point,
-    //             'ketentuan_desc'    => $ketentuan_desc,
-    //             'paket_desc'        => $paket_desc,
-    //             'total_pointku'     => $total_pointku,
-    //             'content'           => 'front/airport/order'
-    //         ];
-    //         $this->load->view('front/layout/wrapp', $data);
-    //     } else {
-
-    //         $order_id = strtoupper(random_string('numeric', 7));
-    //         $kode_transaksi = strtoupper(random_string('alnum', 7));
-    //         $start_price = $this->input->post('start_price');
-    //         $lama_sewa = $this->input->post('lama_sewa');
-    //         $jumlah_mobil = $this->input->post('jumlah_mobil');
-    //         $diskon_point = $this->input->post('diskon_point');
-    //         $total_price = (int)$start_price * (int)$lama_sewa * (int)$jumlah_mobil;
-    //         $grand_total = (int)$start_price * (int)$lama_sewa * (int)$jumlah_mobil - (int)$diskon_point;
-
-
-    //         $data  = [
-    //             'user_id'                               => $this->session->userdata('id'),
-    //             'product_id'                            => 5,
-    //             'order_id'                              => $order_id,
-    //             'order_point'                              =>  $this->input->post('order_point'),
-    //             'kode_transaksi'                        => $kode_transaksi,
-    //             'passenger_name'                        => $this->input->post('passenger_name'),
-    //             'passenger_phone'                       => $this->input->post('passenger_phone'),
-    //             'passenger_email'                       => $this->input->post('passenger_email'),
-    //             'mobil_name'                            => $this->input->post('mobil_name'),
-    //             'mobil_id'                              => $mobil_id,
-    //             'paket_name'                            => $this->input->post('paket_name'),
-
-    //             'kota_name'                             => $this->input->post('kota_name'),
-    //             'kota_id'                               => $this->input->post('kota_id'),
-    //             'alamat_jemput'                         => $this->input->post('alamat_jemput'),
-    //             'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
-    //             'jam_jemput'                            => $this->input->post('jam_jemput'),
-    //             'lama_sewa'                             => $lama_sewa,
-    //             'jumlah_mobil'                          => $jumlah_mobil,
-    //             'start_price'                           => $start_price,
-    //             'total_price'                           => $total_price,
-    //             'diskon_point'                          => $diskon_point,
-    //             'grand_total'                           => $grand_total,
-    //             'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
-    //             'pembayaran'                            => $this->input->post('pembayaran'),
-    //             'status_pembayaran'                     =>  "Belum Dibayar",
-    //             'ketentuan_desc'                        => $this->input->post('ketentuan_desc'),
-    //             'paket_desc'                            => $this->input->post('paket_desc'),
-    //             'order_type'                            => 'Airport',
-    //             'status'                                => 'Pending',
-    //             'date_created'                          => date('Y-m-d H:i:s')
-    //         ];
-    //         $insert_id = $this->transaksi_model->create($data);
-    //         $this->sukses($insert_id);
-    //         $this->update_point($insert_id);
-    //         $this->_sendEmail($insert_id, 'order');
-    //         $this->session->set_flashdata('message', 'Data telah ditambahkan');
-    //         redirect(base_url('dropoff/sukses/' . $insert_id), 'refresh');
-    //     }
-    // }
     // Update Data Point jika point di gunakan
     public function update_point($insert_id)
     {
@@ -674,11 +524,22 @@ class Airport extends CI_Controller
 
         $id = $insert_id;
         $transaksi = $this->transaksi_model->last_transaksi($id);
-        $data = [
-            'title'     => 'Order Sukses',
-            'transaksi' => $transaksi,
-            'content'   => 'front/airport/sukses'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = [
+                'title'     => 'Order Sukses',
+                'transaksi' => $transaksi,
+                'content'   => 'front/airport/sukses'
+            ];
+            $this->load->view('front/layout/wrapp', $data);
+        } else {
+            // Mobile View
+            $data = [
+                'title'     => 'Order Sukses',
+                'transaksi' => $transaksi,
+                'content'   => 'mobile/airport/sukses'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data);
+        }
     }
 }

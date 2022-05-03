@@ -7,36 +7,35 @@
         <div style="color:transparent;"></div>
     </div>
 </nav>
-
-
 <div class="container my-3">
-    <div class="row">
-        <div class="col-6">
-            <h4><?php echo $kota_name;
-                ?></h4>
-        </div>
-        <div class="col-6 text-right">
-            <p><?php echo $tanggal_sewa; ?> <?php echo $jam_sewa; ?> </p>
-        </div>
-    </div>
+    <h4><?php echo $kota_asal_name;
+        ?> - <?php echo $kota_tujuan_name;
+                ?> </h4>
+    <p><?php echo $tanggal_sewa; ?> <?php echo $jam_sewa; ?> </p>
 
     <div class="mb-5 pb-3">
-        <?php foreach ($paket_sewa as $data) : ?>
-
+        <?php foreach ($paket_dropoff as $data) : ?>
             <div class="card shadow border-0 mb-3">
                 <div class="row">
                     <div class="col-5 border-right">
                         <div class="card-body">
-                            <img class="img-fluid" src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" alt="...">
+                            <img src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" class="card-img-top" alt="...">
                             <div class="text-center"><i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?></div>
                         </div>
                     </div>
                     <div class="col-7">
                         <div class="card-body text-center">
-                            <h6><?php echo $data->mobil_name; ?></h6>
-                            <?php echo form_open('daily/paket/' . $kota_id . '/' . md5($data->mobil_id), array('method' => 'get')); ?>
+                            <h5><?php echo $data->mobil_name; ?></h5>
+                            <h4>Rp. <?php echo number_format($data->paket_price, 0, ",", "."); ?></h4>
+                            <?php echo form_open('dropoff/order/', array('method' => 'get')); ?>
+                            <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
+                            <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
                             <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
                             <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
+                            <input type="hidden" name="kota_asal" value="<?php echo $kota_asal; ?>">
+                            <input type="hidden" name="kota_tujuan" value="<?php echo $kota_tujuan; ?>">
+                            <input type="hidden" name="kota_asal_name" value="<?php echo $kota_asal_name; ?>">
+                            <input type="hidden" name="kota_tujuan_name" value="<?php echo $kota_tujuan_name; ?>">
                             <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                             <?php echo form_close(); ?>
                         </div>
@@ -46,5 +45,3 @@
 
         <?php endforeach; ?>
     </div>
-
-</div>
