@@ -26,13 +26,26 @@ class Myaccount extends CI_Controller
         $user_id = $this->session->userdata('id');
         $user = $this->user_model->detail($user_id);
         $total_pointku = $this->point_model->total_user_point($user_id);
-        $data = [
-            'title'         => 'My Account',
-            'user'          => $user,
-            'total_pointku' => $total_pointku,
-            'content'       => 'front/myaccount/index'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
+
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = [
+                'title'         => 'My Account',
+                'user'          => $user,
+                'total_pointku' => $total_pointku,
+                'content'       => 'front/myaccount/index'
+            ];
+            $this->load->view('front/layout/wrapp', $data);
+        } else {
+            // Mobile View
+            $data = [
+                'title'         => 'My Account',
+                'user'          => $user,
+                'total_pointku' => $total_pointku,
+                'content'       => 'mobile/myaccount/index'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data);
+        }
     }
     public function point()
     {
@@ -40,16 +53,27 @@ class Myaccount extends CI_Controller
         $user = $this->user_model->detail($user_id);
         $point = $this->point_model->user_point($user_id);
         $total_pointku = $this->point_model->total_user_point($user_id);
-        // var_dump($total_pointku);
-        // die;
-        $data = [
-            'title'         => 'My Account',
-            'user'          => $user,
-            'point'         => $point,
-            'total_pointku'   => $total_pointku,
-            'content'       => 'front/myaccount/point'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = [
+                'title'         => 'My Point',
+                'user'          => $user,
+                'point'         => $point,
+                'total_pointku'   => $total_pointku,
+                'content'       => 'front/myaccount/point'
+            ];
+            $this->load->view('front/layout/wrapp', $data);
+        } else {
+            // Mobile View
+            $data = [
+                'title'         => 'My Point',
+                'user'          => $user,
+                'point'         => $point,
+                'total_pointku'   => $total_pointku,
+                'content'       => 'mobile/myaccount/point'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data);
+        }
     }
     public function transaksi()
     {
@@ -83,14 +107,27 @@ class Myaccount extends CI_Controller
         $this->pagination->initialize($config);
 
         $transaksi_saya = $this->transaksi_model->get_mytransaksi($id, $limit, $start);
-        $data = [
-            'title'                 => 'My Account',
-            'user'                  => $user,
-            'transaksi_saya'        => $transaksi_saya,
-            'pagination'            => $this->pagination->create_links(),
-            'content'               => 'front/myaccount/transaksi'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
+
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = [
+                'title'                 => 'My Transaction',
+                'user'                  => $user,
+                'transaksi_saya'        => $transaksi_saya,
+                'pagination'            => $this->pagination->create_links(),
+                'content'               => 'front/myaccount/transaksi'
+            ];
+            $this->load->view('front/layout/wrapp', $data);
+        } else {
+            $data = [
+                'title'                 => 'My Transaction',
+                'user'                  => $user,
+                'transaksi_saya'        => $transaksi_saya,
+                'pagination'            => $this->pagination->create_links(),
+                'content'               => 'mobile/myaccount/transaksi'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data);
+        }
     }
 
     public function detail_transaksi($id)
@@ -127,13 +164,23 @@ class Myaccount extends CI_Controller
         );
         if ($this->form_validation->run() === FALSE) {
             //End Validasi
-            $data = [
-                'title'                         => 'Edit Profile',
-                'user'                          => $user,
-                'content'                       => 'front/myaccount/update'
-            ];
-            $this->load->view('front/layout/wrapp', $data, FALSE);
-            //Masuk Database
+            if (!$this->agent->is_mobile()) {
+                // Desktop View
+                $data = [
+                    'title'                         => 'Edit Profile',
+                    'user'                          => $user,
+                    'content'                       => 'front/myaccount/update'
+                ];
+                $this->load->view('front/layout/wrapp', $data, FALSE);
+                //Masuk Database
+            } else {
+                $data = [
+                    'title'                         => 'Edit Profile',
+                    'user'                          => $user,
+                    'content'                       => 'mobile/myaccount/update'
+                ];
+                $this->load->view('mobile/layout/wrapp', $data, FALSE);
+            }
         } else {
             $data  = [
                 'id'                            => $user_id,
@@ -165,12 +212,22 @@ class Myaccount extends CI_Controller
         $this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $data = [
-                'title'         => 'Update Password',
-                'user'          => $user,
-                'content'       => 'front/myaccount/update_password'
-            ];
-            $this->load->view('front/layout/wrapp', $data, FALSE);
+            if (!$this->agent->is_mobile()) {
+                // Desktop View
+                $data = [
+                    'title'         => 'Update Password',
+                    'user'          => $user,
+                    'content'       => 'front/myaccount/update_password'
+                ];
+                $this->load->view('front/layout/wrapp', $data, FALSE);
+            } else {
+                $data = [
+                    'title'         => 'Update Password',
+                    'user'          => $user,
+                    'content'       => 'mobile/myaccount/update_password'
+                ];
+                $this->load->view('mobile/layout/wrapp', $data, FALSE);
+            }
         } else {
             $data = [
                 'id'                => $user_id,

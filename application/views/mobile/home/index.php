@@ -76,6 +76,78 @@ $meta = $this->meta_model->get_meta();
     </div>
 </div>
 
+
+
+
+<div class="trending-slider">
+
+    <div class="osahan-slider-item py-3 px-1">
+        <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+            <div class="list-card-image">
+                <div class="star position-absolute"><span class="badge badge-success"><i class="feather-star"></i> Kode Promo</span></div>
+                <div class="member-plan position-absolute"><span class="badge badge-dark">Promo</span></div>
+                <a href="restaurant.html">
+                    <img src="<?php echo base_url('assets/img/galery/card-1.jpg'); ?>" class="img-fluid item-img w-100">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-3 px-1">
+        <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+            <div class="list-card-image">
+                <div class="star position-absolute"><span class="badge badge-success"><i class="feather-star"></i> 3.1 (300+)</span></div>
+                <div class="favourite-heart text-danger position-absolute"><a href="#"><i class="feather-heart"></i></a></div>
+                <div class="member-plan position-absolute"><span class="badge badge-dark">Promoted</span></div>
+                <a href="restaurant.html">
+                    <img src="<?php echo base_url('assets/img/galery/card-2.jpg'); ?>" class="img-fluid item-img w-100">
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="container mt-3 mb-5 pb-5">
+    <div class="col-12">
+
+        <div class="pb-3 title d-flex align-items-center">
+            <h5 class="m-0 pt-3">Info Terbaru</h5>
+            <a class="pt-3 font-weight-bold ml-auto" href="#">Lihat Semua <i class="feather-chevrons-right"></i></a>
+        </div>
+
+        <div class="d-flex align-items-center list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+            <div class="list-card-image">
+
+                <a href="restaurant.html">
+                    <img src="<?php echo base_url('assets/img/galery/card-2.jpg'); ?>" class="img-fluid item-img w-100">
+                </a>
+            </div>
+            <div class="p-3 position-relative">
+                <div class="list-card-body">
+                    <h6 class="mb-1"><a href="restaurant.html" class="text-black">Lorem Ipsum is simply dummy text
+                        </a>
+                    </h6>
+                    <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i class="fa-solid fa-calendar-day"></i> 23 Mei 2022</span> <span class="float-right text-black-50"> $500 FOR TWO</span></p>
+                </div>
+                <div class="list-card-badge">
+                    <span class="badge badge-danger">Rental</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Footer Menu -->
+
 <div class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow text-muted">
     <div class="row">
         <div class="col <?php if ($this->uri->segment(1) == "") {

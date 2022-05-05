@@ -55,8 +55,8 @@ $user           = $this->user_model->user_detail($id);
     <?php if ($this->session->userdata('id')) : ?>
         <div class="col-md-7 mx-auto">
             <div class="card">
-                <div class="card-header">
-                    Buat Pesanan
+                <div class="card-header bg-white">
+                    Form Pesanan
                 </div>
 
                 <div class="card-body">

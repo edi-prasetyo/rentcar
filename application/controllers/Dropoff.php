@@ -429,7 +429,7 @@ class Dropoff extends CI_Controller
             }
         }
     }
-    
+
 
     // Update Data Point jika point di gunakan
     public function update_point($insert_id)
@@ -516,12 +516,26 @@ class Dropoff extends CI_Controller
         $id = $insert_id;
         $transaksi = $this->transaksi_model->last_transaksi($id);
         $bank = $this->bank_model->get_allbank();
-        $data = [
-            'title'     => 'Order Sukses',
-            'transaksi' => $transaksi,
-            'bank'      => $bank,
-            'content'   => 'front/dropoff/sukses'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
+
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+
+            $data = [
+                'title'     => 'Order Sukses',
+                'transaksi' => $transaksi,
+                'bank'      => $bank,
+                'content'   => 'front/dropoff/sukses'
+            ];
+            $this->load->view('front/layout/wrapp', $data);
+        } else {
+            // Mobile View
+            $data = [
+                'title'     => 'Order Sukses',
+                'transaksi' => $transaksi,
+                'bank'      => $bank,
+                'content'   => 'mobile/dropoff/sukses'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data);
+        }
     }
 }

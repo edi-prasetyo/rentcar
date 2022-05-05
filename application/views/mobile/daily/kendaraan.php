@@ -12,8 +12,8 @@
 <div class="container my-3">
     <div class="row">
         <div class="col-6">
-            <h4><?php echo $kota_name;
-                ?></h4>
+            <h6><?php echo $kota_name;
+                ?></h6>
         </div>
         <div class="col-6 text-right">
             <p><?php echo $tanggal_sewa; ?> <?php echo $jam_sewa; ?> </p>
