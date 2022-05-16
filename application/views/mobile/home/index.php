@@ -97,6 +97,10 @@ $user = $this->user_model->user_detail($user_id);
     </div>
 </div>
 
+<div class="container my-3">
+    <a class="btn btn-block btn-success" href="https://wa.me/<?php echo $meta->whatsapp; ?>"><i class="fab fa-whatsapp"></i> Hubungi Kami</a>
+</div>
+
 <div class="trending-slider mt-3">
 
     <?php foreach ($promo_home as $data) : ?>
@@ -116,9 +120,6 @@ $user = $this->user_model->user_detail($user_id);
     <?php endforeach; ?>
 
 </div>
-
-
-
 
 
 <div class="container mt-3 mb-5 pb-5">
