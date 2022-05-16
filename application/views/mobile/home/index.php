@@ -5,9 +5,9 @@ $user = $this->user_model->user_detail($user_id);
 // var_dump($user);
 // die;
 ?>
-<section class="bg-info" style="height: 80px;">
+<section class="bg-primary" style="height: 80px;">
     <div class="container">
-
+        <h5 class="my-auto text-white text-center pt-3 font-weight-bold">Sewamobiloka</h5>
     </div>
 
 </section>
@@ -84,20 +84,20 @@ $user = $this->user_model->user_detail($user_id);
             <?php foreach ($product as $data) : ?>
                 <div class="col-4 text-center col-md-offset-2">
                     <a href="<?php echo base_url('/' . $data->product_url); ?>">
-                        <div class="card shadow-sm " style="border-radius: 15px;">
-                            <div class=" card-body">
+                        <div class="card shadow border-0 " style="border-radius: 15px;">
+                            <div class="card-body">
                                 <img class="img-fluid" src="<?php echo base_url('assets/img/galery/' . $data->image); ?>">
                             </div>
                         </div>
                     </a>
-                    <div class="text-muted" style="font-size: 14px;"> <?php echo $data->product_name; ?></div>
+                    <div class="text-muted mt-2" style="font-size: 14px;"> <?php echo $data->product_name; ?></div>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
 </div>
 
-<div class="trending-slider">
+<div class="trending-slider mt-3">
 
     <?php foreach ($promo_home as $data) : ?>
 
