@@ -82,7 +82,7 @@ class Myaccount extends CI_Controller
 
         $config['base_url']         = base_url('myaccount/transaksi/index/');
         $config['total_rows']       = count($this->transaksi_model->total_row());
-        $config['per_page']         = 10;
+        $config['per_page']         = 5;
         $config['uri_segment']      = 4;
         $config['first_link']       = 'First';
         $config['last_link']        = 'Last';
@@ -138,16 +138,32 @@ class Myaccount extends CI_Controller
         $transaksi_driver = $this->transaksi_model->transaksi_detail_drivermyaccount($id);
 
         $bank = $this->bank_model->get_allbank();
-        $data = [
-            'title'                 => 'My Account',
-            'user'                  => $user,
-            'detail_transaksi'      => $detail_transaksi_saya,
-            'transaksi_driver'      => $transaksi_driver,
-            'bank'                  => $bank,
-            'pagination'            => $this->pagination->create_links(),
-            'content'               => 'front/myaccount/detail_transaksi'
-        ];
-        $this->load->view('front/layout/wrapp', $data);
+
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = [
+                'title'                 => 'Detail Transaksi',
+                'user'                  => $user,
+                'detail_transaksi'      => $detail_transaksi_saya,
+                'transaksi_driver'      => $transaksi_driver,
+                'bank'                  => $bank,
+                'pagination'            => $this->pagination->create_links(),
+                'content'               => 'front/myaccount/detail_transaksi'
+            ];
+            $this->load->view('front/layout/wrapp', $data);
+        } else {
+            // Mobile View
+            $data = [
+                'title'                 => 'Detail Transaksi',
+                'user'                  => $user,
+                'detail_transaksi'      => $detail_transaksi_saya,
+                'transaksi_driver'      => $transaksi_driver,
+                'bank'                  => $bank,
+                'pagination'            => $this->pagination->create_links(),
+                'content'               => 'mobile/myaccount/detail_transaksi'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data);
+        }
     }
     // Update Profile
     public function update_profile()

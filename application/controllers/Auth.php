@@ -41,11 +41,21 @@ class Auth extends CI_Controller
 				]
 			);
 			if ($this->form_validation->run() == false) {
-				$data = [
-					'title' 		=> 'User Login',
-					'content'       => 'front/auth/login'
-				];
-				$this->load->view('front/layout/wrapp', $data, FALSE);
+				if (!$this->agent->is_mobile()) {
+					// Desktop View
+					$data = [
+						'title' 		=> 'Login',
+						'content'       => 'front/auth/login'
+					];
+					$this->load->view('front/layout/wrapp', $data, FALSE);
+				} else {
+					// Mobile View
+					$data = [
+						'title' 		=> 'Login',
+						'content'       => 'mobile/auth/login'
+					];
+					$this->load->view('mobile/layout/wrapp', $data, FALSE);
+				}
 			} else {
 				//Validasi Berhasil
 				$this->_login();
@@ -80,7 +90,13 @@ class Auth extends CI_Controller
 						} elseif ($user['role_id'] == 5) {
 							redirect('driver/dashboard');
 						} elseif ($user['role_id'] == 6) {
-							redirect($_SERVER['HTTP_REFERER']);
+							if (!$this->agent->is_mobile()) {
+								// Desktop View
+								redirect($_SERVER['HTTP_REFERER']);
+							} else {
+								// Mobile View
+								redirect('/');
+							}
 						}
 					} else {
 						//Password Salah
@@ -139,11 +155,21 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
 
 		if ($this->form_validation->run() == false) {
-			$data = [
-				'title'			=> 'Register Reseller',
-				'content'       => 'front/auth/register'
-			];
-			$this->load->view('front/layout/wrapp', $data, FALSE);
+			if (!$this->agent->is_mobile()) {
+				// Desktop View
+				$data = [
+					'title'			=> 'Register',
+					'content'       => 'front/auth/register'
+				];
+				$this->load->view('front/layout/wrapp', $data, FALSE);
+			} else {
+				// Mobile View
+				$data = [
+					'title'			=> 'Register',
+					'content'       => 'mobile/auth/register'
+				];
+				$this->load->view('mobile/layout/wrapp', $data, FALSE);
+			}
 		} else {
 			$email = $this->input->post('real_email', true);
 			$user_phone = $this->input->post('user_phone');
@@ -282,11 +308,21 @@ class Auth extends CI_Controller
 			]
 		);
 		if ($this->form_validation->run() == false) {
-			$data = [
-				'title'		=> 'Forgot Password',
-				'content'	=> 'front/auth/forgot_password'
-			];
-			$this->load->view('front/layout/wrapp', $data, FALSE);
+			if (!$this->agent->is_mobile()) {
+				// Desktop View
+				$data = [
+					'title'		=> 'Forgot Password',
+					'content'	=> 'front/auth/forgot_password'
+				];
+				$this->load->view('front/layout/wrapp', $data, FALSE);
+			} else {
+				// Mobile View
+				$data = [
+					'title'		=> 'Forgot Password',
+					'content'	=> 'mobile/auth/forgot_password'
+				];
+				$this->load->view('mobile/layout/wrapp', $data, FALSE);
+			}
 		} else {
 			$email = $this->input->post('email');
 			$user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
@@ -354,11 +390,21 @@ class Auth extends CI_Controller
 		);
 
 		if ($this->form_validation->run() == false) {
-			$data = [
-				'title'		=> 'Change Password',
-				'content'	=> 'front/auth/change_password'
-			];
-			$this->load->view('front/layout/wrapp', $data, FALSE);
+			if (!$this->agent->is_mobile()) {
+				// Desktop View
+				$data = [
+					'title'		=> 'Change Password',
+					'content'	=> 'front/auth/change_password'
+				];
+				$this->load->view('front/layout/wrapp', $data, FALSE);
+			} else {
+				// Mobile View
+				$data = [
+					'title'		=> 'Change Password',
+					'content'	=> 'mobile/auth/change_password'
+				];
+				$this->load->view('mobile/layout/wrapp', $data, FALSE);
+			}
 		} else {
 			$password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
 			$email = $this->session->userdata('reset_email');
@@ -378,6 +424,12 @@ class Auth extends CI_Controller
 		$this->session->unset_userdata('role_id');
 		$this->session->unset_userdata('id');
 		$this->session->set_flashdata('message', '<div class="alert alert-success">Anda sudah Logout</div> ');
-		redirect('auth');
+		if (!$this->agent->is_mobile()) {
+			// Desktop View
+			redirect('auth');
+		} else {
+			// Mobile View
+			redirect('/');
+		}
 	}
 }

@@ -4,20 +4,28 @@ $user           = $this->user_model->user_detail($id);
 $meta           = $this->meta_model->get_meta();
 ?>
 
+<nav class="site-header bg-white sticky-top py-1 shadow-sm">
+    <div class="container py-2 d-flex justify-content-between align-items-center">
+        <a style="text-decoration:none;" class="text-dark text-left" href="javascript:history.back()"><i style="font-size: 25px;" class="ri-arrow-left-line"></i></a>
+        <span class="text-dark text-center font-weight-bold">
+            <?php echo $title; ?>
+        </span>
+        <div style="color:transparent;"></div>
+    </div>
+</nav>
+
 <?php if ($this->session->userdata('id')) : ?>
-    <section class="invoice bg-primary py-5">
+    <section class="invoice bg-primary pb-5 pt-2">
         <div class="container">
             <div class="col-md-8 mx-auto">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <h6 class="text-white"> ID Order </h6>
                         <h1 class="text-white"><b><?php echo $detail_transaksi->order_id; ?></b></h1>
-
                     </div>
-                    <div class="col-md-6 text-right">
-                        <h6 class="text-white"><b><?php echo $detail_transaksi->alamat_jemput; ?></b></h6>
-                        <h6 class="text-white"><b><?php echo $detail_transaksi->passenger_name; ?></b></h6>
-                        <h6 class="text-white"><b><?php echo $detail_transaksi->passenger_phone; ?></b></h6>
+                    <div class="col-6 text-right text-white">
+                        <h6><b><?php echo $detail_transaksi->passenger_name; ?></b></h6>
+                        <h6><b><?php echo $detail_transaksi->passenger_phone; ?></b></h6>
                     </div>
                 </div>
             </div>
@@ -26,120 +34,89 @@ $meta           = $this->meta_model->get_meta();
 
     <div class="container my-5">
         <div class="col-md-9 mx-auto">
-
-            <div class="card mb-3" style="margin-top:-90px;">
+            <div class="card mb-3 shadow border-0" style="margin-top:-90px;">
+                <div class="card-header bg-white">
+                    Review Pesanan
+                </div>
                 <div class="card-body">
+
                     <div class="row">
                         <div class="col-md-6">
-                            Detail order<br>
-                            <?php echo $detail_transaksi->mobil_name; ?><br>
-                            <?php echo $detail_transaksi->paket_name; ?><br>
-                            Detail Penggunaan : <?php if ($detail_transaksi->status == "Pending") : ?>
+
+                            Mobil : <?php echo $detail_transaksi->mobil_name; ?><br>
+                            Paket : <?php echo $detail_transaksi->paket_name; ?><br>
+                            Status Penggunaan :
+                            <?php if ($detail_transaksi->status == "Pending") : ?>
                                 <span class="badge badge-warning"><?php echo $detail_transaksi->status; ?></span>
                             <?php elseif ($detail_transaksi->status == "Dikonfirmasi") : ?>
                                 <span class="badge badge-primary"><?php echo $detail_transaksi->status; ?></span>
+                            <?php elseif ($detail_transaksi->status == "Dalam Pengantaran") : ?>
+                                <span class="badge badge-info"><?php echo $detail_transaksi->status; ?></span>
                             <?php elseif ($detail_transaksi->status == "Selesai") : ?>
                                 <span class="badge badge-success"><?php echo $detail_transaksi->status; ?></span>
                             <?php endif; ?>
                             <br>
-
-
                         </div>
                         <div class="col-md-6">
-                            <div class="text-right"> Total Pembayaran</div>
-                            <div class="display-4 text-right">
+                            <div class="text-left"> Total Pembayaran</div>
+                            <h1>
                                 Rp. <b><?php echo number_format($detail_transaksi->grand_total, 0, ",", "."); ?></b>
-                            </div>
+                            </h1>
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
-                    Rincian Pesanan
+            <div class="card shadow border-0 mb-3">
+                <div class="card-header bg-white">
+                    Detail penjemputan
+                </div>
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <h6><b><?php echo $detail_transaksi->alamat_jemput; ?></b></h6>
+                        Tanggal : <?php echo $detail_transaksi->tanggal_jemput; ?> - Jam <?php echo $detail_transaksi->jam_jemput; ?>
 
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Jumlah Mobil
-                    <span class="badge badge-primary badge-pill"><?php echo $detail_transaksi->jumlah_mobil; ?> Unit</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Durasi
-                    <span class="badge badge-primary badge-pill"><?php echo $detail_transaksi->lama_sewa; ?> Hari</span>
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Total Harga
-                    <span class="badge badge-primary badge-pill">Rp. <?php echo number_format($detail_transaksi->total_price, 0, ",", "."); ?></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Diskon Point
-                    <span class="badge badge-primary badge-pill"><?php echo number_format($detail_transaksi->diskon_point, 0, ",", "."); ?></span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Grand Total
-                    <span class="badge badge-primary badge-pill">Rp. <?php echo number_format($detail_transaksi->grand_total, 0, ",", "."); ?></span>
-                </li>
-            </ul>
-
-            <?php if ($detail_transaksi->pembayaran == "Transfer") : ?>
-                <div class="card">
-                    <div class="card-header">Rekening Pembayaran</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <?php foreach ($bank as $bank) : ?>
-                                    <img width="20%" src="<?php echo base_url('assets/img/bank/' . $bank->bank_logo); ?>">
-                                    <b><?php echo $bank->bank_number; ?></b> A/n <?php echo $bank->bank_account; ?><br>
-                                <?php endforeach; ?>
-                            </div>
-                            <div class="col-md-4">
-                                <a class="btn btn-success btn-block" href="https://wa.me/<?php echo $meta->whatsapp; ?>">Konfirmasi Pembayaran</a>
-                            </div>
-                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="card shadow border-0">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-white">
+                        Rincian Pesanan
+
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Total Harga
+                        <span class="font-weight-bold">Rp. <?php echo number_format($detail_transaksi->total_price, 0, ",", "."); ?></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Diskon Point
+                        <span class="font-weight-bold"><?php echo number_format($detail_transaksi->diskon_point, 0, ",", "."); ?></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Grand Total
+                        <span class="font-weight-bold">Rp. <?php echo number_format($detail_transaksi->grand_total, 0, ",", "."); ?></span>
+                    </li>
+                </ul>
+            </div>
+            <?php if ($detail_transaksi->pembayaran == "Cash") : ?>
+                <div class="my-3 pb-3">
+
+                    <button type="button" class="btn btn-danger btn-block btn-lg" data-toggle="modal" data-target="#Cancel">
+                        Batalkan Pesanan
+                    </button>
+
                 </div>
             <?php else : ?>
-                <div class="alert alert-success">
-                    Anda Menggunakan Pembayaran Langsung Ke Driver, Silahkan melakukan Pembayaran melalui Driver Dengan Menyebutkan Order ID Anda
-                    Order ID Anda Adalah <?php echo $detail_transaksi->order_id; ?>
-                </div>
-            <?php endif; ?>
+                <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
+                    <a href="<?php echo base_url('daily/payment/' . $detail_transaksi->id); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
+                </div> <?php endif; ?>
 
-            <?php if ($detail_transaksi->driver_id == 0 || $detail_transaksi->status == "Selesai") : ?>
-            <?php else : ?>
-                <div class="card">
-                    <div class="card-header">
-                        Info Driver
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nama Driver</th>
-                                    <th scope="col">Nomor Hp</th>
-                                    <th scope="col">Status Order</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><?php echo $transaksi_driver->name; ?></td>
-                                    <td><?php echo $transaksi_driver->user_phone; ?></td>
-                                    <td><?php echo $transaksi_driver->status; ?></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <br>
-            <a class="btn btn-primary" href="<?php echo base_url(); ?>">Kembali Ke Home</a>
-            <a class="btn btn-success" href="<?php echo base_url('myaccount'); ?>">Halaman Akun Saya</a>
         </div>
+
+
     </div>
 
 
@@ -152,9 +129,7 @@ $meta           = $this->meta_model->get_meta();
     </div>
 <?php endif; ?>
 
-<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Cancel">
-    Cancel
-</button>
+
 
 
 
@@ -162,7 +137,7 @@ $meta           = $this->meta_model->get_meta();
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Pembatalan Order</h5>
+                <h6 class="modal-title">Pembatalan Order</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>

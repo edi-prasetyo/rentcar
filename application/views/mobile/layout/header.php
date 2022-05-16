@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="bg-light">
+<body style="background: #f3f4f7">
   <div id="app">
     <div class="view view-main view-init ios-edges" data-url="/">
       <div class="page page-home page-with-subnavbar">

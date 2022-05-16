@@ -13,7 +13,7 @@ class Berita_model extends CI_Model
   public function get_berita($limit, $start)
   {
     $this->db->select('berita.*,
-    category.category_name, user.name');
+    category.category_name,category.category_slug, user.name');
     $this->db->from('berita');
     // Join
     $this->db->join('category', 'category.id = berita.category_id', 'LEFT');
@@ -24,10 +24,38 @@ class Berita_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  public function berita_home()
+  {
+    $this->db->select('berita.*,
+    category.category_name,category.category_slug, user.name');
+    $this->db->from('berita');
+    // Join
+    $this->db->join('category', 'category.id = berita.category_id', 'LEFT');
+    $this->db->join('user', 'user.id = berita.user_id', 'LEFT');
+    //End Join
+    $this->db->limit(3);
+    $this->db->order_by('id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function berita_sidebar()
+  {
+    $this->db->select('berita.*,
+    category.category_name,category.category_slug, user.name');
+    $this->db->from('berita');
+    // Join
+    $this->db->join('category', 'category.id = berita.category_id', 'LEFT');
+    $this->db->join('user', 'user.id = berita.user_id', 'LEFT');
+    //End Join
+    $this->db->limit(3);
+    $this->db->order_by('id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
   //Total Berita Main Page
   public function total_row()
   {
-    $this->db->select('berita.*,category.category_name, user.name');
+    $this->db->select('berita.*,category.category_name,category.category_slug, user.name');
     $this->db->from('berita');
     // Join
     $this->db->join('category', 'category.id = berita.category_id', 'LEFT');
@@ -68,7 +96,7 @@ class Berita_model extends CI_Model
   //listing Berita Main Page
   public function berita($limit, $start)
   {
-    $this->db->select('berita.*,category.category_name, user.name');
+    $this->db->select('berita.*,category.category_name, category.category_slug, user.name');
     $this->db->from('berita');
     // Join
     $this->db->join('category', 'category.id = berita.category_id', 'LEFT');

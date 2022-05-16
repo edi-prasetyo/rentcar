@@ -1,3 +1,7 @@
+body {
+	background: #000000 !important;
+	font-family: Open Sans;
+}
 /* List card */
 
 .list-card .count-number {
@@ -117,6 +121,7 @@
 
 .carbook-menu-fotter {
 	padding: 0px !important;
+	box-shadow: 5px 10px #000;
 }
 
 .carbook-menu-fotter .row {

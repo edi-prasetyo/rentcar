@@ -17,6 +17,15 @@ class Category_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  public function category_sidebar()
+  {
+    $this->db->select('*');
+    $this->db->from('category');
+    $this->db->limit(3);
+    $this->db->order_by('id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
   public function detail_category($id)
   {
     $this->db->select('*');

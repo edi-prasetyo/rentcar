@@ -93,6 +93,12 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/promo" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Promo</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?php echo base_url(); ?>admin/persentase" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Persentase</p>
@@ -110,6 +116,31 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
                   <p>Ketentuan</p>
                 </a>
               </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Konten
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/berita" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Berita</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url(); ?>admin/category" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>kategori</p>
+                </a>
+              </li>
+
             </ul>
           </li>
 

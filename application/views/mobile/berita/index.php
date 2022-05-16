@@ -8,50 +8,35 @@
     </div>
 </nav>
 
-<div class="container my-3 pb-5">
-    <?php foreach ($transaksi_saya as $data) : ?>
-        <a class="text-muted" href="<?php echo base_url('myaccount/detail_transaksi/' . md5($data->id)); ?>">
-            <div class="card mb-2 shadow border-0">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            Order ID : <?php echo $data->order_id; ?>
-                            <?php echo $data->order_type; ?><br>
-                            <?php if ($data->status == 'Pending') : ?>
-                                <div class="badge badge-warning"> <?php echo $data->status; ?></div>
-                            <?php elseif ($data->status == 'Dikonfirmasi') : ?>
-                                <div class="badge badge-info"> <?php echo $data->status; ?></div>
-                            <?php else : ?>
-                                <div class="badge badge-success"> <?php echo $data->status; ?></div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="col-6 text-right">
-                            <b>Rp. <?php echo number_format($data->total_price, 0, ",", "."); ?></b><br>
-                            <?php if ($data->status_pembayaran == 'Belum Bayar') : ?>
-                                <div class="badge badge-warning"> <?php echo $data->status_pembayaran; ?></div>
-                            <?php elseif ($data->status_pembayaran == 'Lunas') : ?>
-                                <div class="badge badge-success"> <?php echo $data->status_pembayaran; ?></div>
-                            <?php else : ?>
-                                <div class="badge badge-danger"> <?php echo $data->status_pembayaran; ?></div>
-                            <?php endif; ?>
+<div class="container my-5">
 
-                        </div>
-                    </div>
+    <?php foreach ($berita as $data) : ?>
+        <a class="text-decoration-none" href="<?php echo base_url('berita/detail/' . $data->berita_slug); ?>">
+            <div class="d-flex align-items-center list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                <div class="list-card-image">
+                    <img src="<?php echo base_url('assets/img/artikel/' . $data->berita_gambar); ?>" class="img-fluid item-img w-100">
+
                 </div>
+                <div class="p-3 position-relative">
+                    <div class="list-card-body">
+                        <h6 class="mb-1 text-muted"><?php echo substr($data->berita_title, 0, 35); ?>
 
+                        </h6>
+                        <p class="text-gray mb-3 time"><span class="bg-light text-dark rounded-sm pb-1 pt-1"><i class="fa-solid fa-calendar-day"></i> <?php echo date('d/m/Y', strtotime($data->date_created)); ?> </span></p>
+                    </div>
+
+                </div>
             </div>
         </a>
     <?php endforeach; ?>
 
 
-    <div class="pagination col-md-12 text-center my-3">
-        <?php if (isset($pagination)) {
-            echo $pagination;
+    <div class="pagination col-md-12 text-center">
+        <?php if (isset($paginasi)) {
+            echo $paginasi;
         } ?>
     </div>
-
 </div>
-
 
 
 <!-- Footer Menu -->
