@@ -94,7 +94,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-6 col-6">
                 <div class="card shadow border-0 my-3">
                     <div class="card-body">
@@ -106,91 +105,6 @@
                                 <h4>Sewa mobil Drop Off</h4>
                                 <p>Layanan sewa mobil dari satu kota ke kota lain.</p>
                                 <a class="btn btn-primary" href="<?php echo base_url('daily'); ?>">Booking </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-<section id="services" class="bg-white">
-    <div class="container">
-        <h2 class="title my-3 text-center">Layanan <span>Sewamobiloka</span></h2>
-        <div class="service">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="service-2">
-
-                        <div class="card shadow border-0 my-5">
-                            <div class="card-body">
-                                <div class="service-box">
-                                    <div class="clearfix">
-                                        <div class="iconset">
-                                            <img src="<?php echo base_url('assets/img/galery/img_wizard_1.png'); ?>" />
-                                        </div>
-                                        <div class="servicesB-content">
-                                            <h4>Sewa Mobil Indonesia</h4>
-                                            <p>Rental mobil murah di seluruh indonesia. Kiri sewa mobil semakin mudah dengan sewamobiloka.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card shadow border-0 my-5">
-                            <div class="card-body">
-                                <div class="service-box">
-                                    <div class="clearfix">
-                                        <div class="iconset">
-                                            <img src="<?php echo base_url('assets/img/galery/img_wizard_2.png'); ?>" />
-                                        </div>
-                                        <div class="servicesB-content">
-                                            <h4>Cara Mudah sewa mobil</h4>
-                                            <p>Platform sewa mobil dengan system yang canggih dan user friendly, Mudah di gunakan</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-6">
-
-                    <div class="service-2">
-                        <div class="card shadow border-0 my-5">
-                            <div class="card-body">
-                                <div class="service-box">
-                                    <div class="clearfix">
-                                        <div class="iconset">
-                                            <img src="<?php echo base_url('assets/img/galery/img_wizard_3.png'); ?>" />
-                                        </div>
-                                        <div class="servicesB-content">
-                                            <h4>Tersedia di seluruh indonesia</h4>
-                                            <p>Tersedia mobil di seluruh kota besar di indonesia. Kami memiliki partner yang sudah terseleksi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card shadow border-0 my-5">
-                            <div class="card-body">
-                                <div class="service-box">
-                                    <div class="clearfix">
-                                        <div class="iconset">
-                                            <img src="<?php echo base_url('assets/img/galery/img_wizard_4.png'); ?>" />
-                                        </div>
-                                        <div class="servicesB-content">
-                                            <h4>Pembayaran Aman dan Mudah</h4>
-                                            <p>Sewamobiloka menggunakan sistem pembayaran yang mudah dan aman </p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -230,10 +144,6 @@
         </div>
     </div>
 </section>
-
-
-
-
 
 <section id="services" class="my-5">
     <div class="container">

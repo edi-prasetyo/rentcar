@@ -42,6 +42,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <th>Tanggal Jemput</th>
                     <th>Customer</th>
                     <th>Type</th>
+                    <th>Pembayaran</th>
                     <th>Status</th>
                     <th>Harga</th>
                     <th width="20%">Action</th>
@@ -60,6 +61,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     </td>
                     <td><?php echo $transaksi->name; ?> </td>
                     <td><?php echo $transaksi->order_type; ?> </td>
+                    <td><?php echo $transaksi->pembayaran; ?> </td>
                     <td><?php echo $transaksi->status_pembayaran; ?> </td>
 
                     <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>

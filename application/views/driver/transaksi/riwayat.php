@@ -16,7 +16,8 @@
                     <div class="row">
                         <div class="col-7">
                             <?php echo date('d/m/Y', strtotime($transaksi->date_created)); ?> - <?php echo date('H:i', strtotime($transaksi->date_created)); ?><br>
-                            <?php echo $transaksi->order_id; ?>
+                            <?php echo $transaksi->order_id; ?><br>
+                            <?php echo $transaksi->order_type; ?>
 
                         </div>
                         <div class="col-5 text-right">

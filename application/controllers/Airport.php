@@ -306,7 +306,7 @@ class Airport extends CI_Controller
             $order_id = strtoupper(random_string('numeric', 7));
             $kode_transaksi = strtoupper(random_string('alnum', 7));
 
-            $diskon_point = $this->input->get('diskon_point');
+            $diskon_point = $this->input->post('diskon_point');
 
             $grand_total = (int)$paket_price - (int)$diskon_point;
             $pembayaran = $this->input->post('pembayaran');
