@@ -115,7 +115,7 @@
                         </tr>
                         <tr>
                             <th>Diskon</th>
-                            <td>Rp. 0</td>
+                            <td>Rp. <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></td>
                         </tr>
                         <tr>
                             <th>Total:</th>

@@ -81,6 +81,12 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
+                    <Select name="select" readonly>
+                        <option id="selected" value="1" selected>Option 1</option>
+                    </Select>
+                    <!-- Hidden div to get the click events-->
+                    <div id="select" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Kode Promo<span class="text-danger">*</span>
                         </label>
@@ -214,32 +220,47 @@ $user           = $this->user_model->user_detail($id);
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    //Listening to click event on the above hidden div
+    $('#myModal').on('shown.bs.modal', function() {
+        $('#myInput').trigger('focus')
+    })
+
+    //Listen to click event on Modal's buttons having class option
+    $(document).on('click', '.option', function() {
+        //Extract the text of the clicked element
+        var option_text = $(this).text();
+        //Set the text and value of option 
+        $('#selected').text(option_text).val(option_text);
+        //Close the modal
+        $('#myModal').modal('hide');
+    });
+</script>
 
 
-<!-- 
-<div class="container my-5">
+<!-- Example Modal, make the required changes -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-    <?php echo form_open('daily/order');
-    ?>
-
-    <div class="form-group row">
-        <label class="col-lg-4 col-form-label">Passenger Name <span class="text-success">* Optional</span>
-        </label>
-        <div class="col-lg-8">
-            <input type="text" class="form-control" name="passenger_name" placeholder="Nama Penumpang">
-
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <div class="btn btn-primary option">
+                    Hello
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
+
     </div>
-    <div class="form-group row">
-        <label class="col-lg-4 col-form-label">
-        </label>
-        <div class="col-lg-8">
-            <button type="submit" class="btn btn-primary btn-block">Order Sekarang</button>
-        </div>
-    </div>
-    <?php echo form_close();
-    ?>
-</div> -->
+</div>
 
 
 
