@@ -319,7 +319,7 @@ class Dropoff extends CI_Controller
                     'mobil_id'                              => $mobil_id,
                     'mobil_name'                            => $this->input->post('mobil_name'),
                     'paket_id'                              => 0,
-                    'paket_name'                            => $this->input->post('paket_name'),
+                    'paket_name'                            => "dropoff",
                     'alamat_jemput'                         => $this->input->post('alamat_jemput'),
                     'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
                     'jam_jemput'                            => $this->input->post('jam_jemput'),

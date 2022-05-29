@@ -1,7 +1,7 @@
 <?php
-        $id             = $this->session->userdata('id');
-        $user           = $this->user_model->user_detail($id);
-        ?>
+$id             = $this->session->userdata('id');
+$user           = $this->user_model->user_detail($id);
+?>
 <div class="container my-5">
     <div class="col-md-7 mx-auto">
         <div class="text-center">
@@ -59,7 +59,7 @@
                         }
                     </script>
 
-                    <?php echo form_open('daily/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+                    <?php echo form_open('daily/order'); ?>
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
                     <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
                     <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
@@ -70,11 +70,22 @@
                     <input type="hidden" name="paket_desc" value="<?php echo $paket_desc; ?>">
                     <input type="hidden" name="jumlah_mobil" value="1">
 
+
+
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Discount Point<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" id="myText" class="form-control" name="diskon_point" value="" readonly>
+                            <input type="text" id="myText" class="form-control" name="diskon_point" value="">
+                            <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Kode Promo<span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="kode_promo" value="">
                             <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
                         </div>
                     </div>
@@ -83,7 +94,7 @@
                         <label class="col-lg-4 col-form-label">Lama Sewa<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()" required>
+                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()">
                                 <option value="">-- Lama Sewa --</option>
                                 <option value='1'> 1 hari</option>
                                 <option value='2'> 2 Hari</option>
@@ -94,12 +105,11 @@
                         </div>
                     </div>
 
-
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Nama Lengkap<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="passenger_name" placeholder="Nama Lengkap" value="<?php echo $user->name; ?>" required>
+                            <input type="text" class="form-control" name="passenger_name" placeholder="Nama Lengkap" value="<?php echo $user->name; ?>">
                             <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
                         </div>
                     </div>
@@ -108,7 +118,7 @@
                         <label class="col-lg-4 col-form-label">Email <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="passenger_email" placeholder="Email" value="<?php echo $user->email; ?>" required>
+                            <input type="text" class="form-control" name="passenger_email" placeholder="Email" value="<?php echo $user->email; ?>">
                             <div class="invalid-feedback">Email harus di isi.</div>
                         </div>
                     </div>
@@ -117,7 +127,7 @@
                         <label class="col-lg-4 col-form-label">Nomor Handphone <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo $user->user_phone; ?>" required>
+                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo $user->user_phone; ?>">
                             <div class="invalid-feedback">Nomor Handphone harus di isi.</div>
                         </div>
                     </div>
@@ -125,7 +135,7 @@
                         <label class="col-lg-4 col-form-label">Alamat Penjemputan <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <textarea class="form-control" name="alamat_jemput" placeholder="Alamat penjemputan" required></textarea>
+                            <textarea class="form-control" name="alamat_jemput" placeholder="Alamat penjemputan"></textarea>
                             <div class="invalid-feedback">Silahkan masukan Alamat Penjemputan.</div>
                         </div>
                     </div>
@@ -158,7 +168,7 @@
                         <label class="col-lg-4 col-form-label">Pembayaran<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="pembayaran" value="" required>
+                            <select class="form-control" name="pembayaran" value="">
                                 <option value="">-- Pembayaran --</option>
                                 <option value='Transfer'> Transfer</option>
                                 <option value='Cash'> Cash Ke Driver</option>
