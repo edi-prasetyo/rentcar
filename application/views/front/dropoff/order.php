@@ -72,7 +72,7 @@ $user           = $this->user_model->user_detail($id);
                     <input type="hidden" name="ketentuan_desc" value="<?php echo $ketentuan_desc; ?>">
                     <input type="hidden" name="paket_desc" value="<?php echo $paket_desc; ?>">
                     <input type="hidden" name="jumlah_mobil" value="1">
-                    <input type="hidden" name="pembayaran" value="Cash">
+                    <input type="hidden" name="pembayaran" value="Transfer">
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Discount Point<span class="text-danger">*</span>
