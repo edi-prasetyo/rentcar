@@ -19,6 +19,16 @@ class Promo_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  public function get_promo_active($expired)
+  {
+    $this->db->select('*');
+    $this->db->from('promo');
+    $this->db->where('is_active', 1);
+    $this->db->where('expired_at >=', $expired);
+    $this->db->order_by('id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
   public function promo_home()
   {
     $this->db->select('*');

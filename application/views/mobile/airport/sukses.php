@@ -96,6 +96,10 @@ $meta           = $this->meta_model->get_meta();
                     <span class="font-weight-bold"><?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Diskon Promo
+                    <span class="font-weight-bold">- <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                     Grand Total
                     <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></span>
                 </li>
@@ -113,6 +117,7 @@ $meta           = $this->meta_model->get_meta();
                 </div>
             </div>
         <?php else : ?>
+            <div class="alert alert-danger">Bayar Sebelum <?php echo $transaksi->expired_payment_date; ?></div>
             <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
                 <a href="<?php echo base_url('daily/payment/' . $transaksi->id); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
             </div> <?php endif; ?>

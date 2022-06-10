@@ -42,7 +42,7 @@
                                 <?php endif; ?>
                             </td>
                             <td>
-                                Rp. <?php echo number_format($data->total_price, 0, ",", "."); ?>
+                                Rp. <?php echo number_format($data->grand_total, 0, ",", "."); ?>
                             </td>
 
                             <td>

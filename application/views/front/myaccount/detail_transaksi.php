@@ -72,40 +72,34 @@ $meta           = $this->meta_model->get_meta();
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Total Harga
-                    <span class="badge badge-primary badge-pill">Rp. <?php echo number_format($detail_transaksi->total_price, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">Rp. <?php echo number_format($detail_transaksi->total_price, 0, ",", "."); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Diskon Point
-                    <span class="badge badge-primary badge-pill"><?php echo number_format($detail_transaksi->diskon_point, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">- <?php echo number_format($detail_transaksi->diskon_point, 0, ",", "."); ?></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Diskon Promo
+                    <span class="font-weight-bold">- <?php echo number_format($detail_transaksi->promo_amount, 0, ",", "."); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Grand Total
-                    <span class="badge badge-primary badge-pill">Rp. <?php echo number_format($detail_transaksi->grand_total, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">Rp. <?php echo number_format($detail_transaksi->grand_total, 0, ",", "."); ?></span>
                 </li>
             </ul>
 
-            <?php if ($detail_transaksi->pembayaran == "Transfer") : ?>
-                <div class="card">
-                    <div class="card-header">Rekening Pembayaran</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <?php foreach ($bank as $bank) : ?>
-                                    <img width="20%" src="<?php echo base_url('assets/img/bank/' . $bank->bank_logo); ?>">
-                                    <b><?php echo $bank->bank_number; ?></b> A/n <?php echo $bank->bank_account; ?><br>
-                                <?php endforeach; ?>
-                            </div>
-                            <div class="col-md-4">
-                                <a class="btn btn-success btn-block" href="https://wa.me/<?php echo $meta->whatsapp; ?>">Konfirmasi Pembayaran</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <?php if ($detail_transaksi->pembayaran == "Cash") : ?>
             <?php else : ?>
-                <div class="alert alert-success">
-                    Anda Menggunakan Pembayaran Langsung Ke Driver, Silahkan melakukan Pembayaran melalui Driver Dengan Menyebutkan Order ID Anda
-                    Order ID Anda Adalah <?php echo $detail_transaksi->order_id; ?>
-                </div>
+                <div class="alert alert-danger">Bayar Sebelum <?php echo $detail_transaksi->expired_payment_date; ?></div>
+                <?php $date = date('Y-m-d');
+                if ($detail_transaksi->expired_payment_date >= $date) : ?>
+                    <div class="text-danger">Pembayaran Telah Expired</div>
+                <?php else : ?>
+                    <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
+                        <a href="<?php echo base_url('daily/payment/' . $detail_transaksi->id); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
+                    </div>
+                <?php endif; ?>
+                <a class="btn btn-success btn-block" href="<?php echo $detail_transaksi->payment_url; ?>">Bayar</a>
             <?php endif; ?>
 
             <?php if ($detail_transaksi->driver_id == 0 || $detail_transaksi->status == "Selesai") : ?>

@@ -15,6 +15,7 @@ class Dropoff extends CI_Controller
         $this->load->model('point_model');
         $this->load->model('paket_model');
         $this->load->model('bank_model');
+        $this->load->model('promo_model');
     }
     public function index()
     {
@@ -154,6 +155,9 @@ class Dropoff extends CI_Controller
     {
         $user_id = $this->session->userdata('id');
         $total_pointku = $this->point_model->total_user_point($user_id);
+        $expired = date('Y-m-d');
+        $promo = $this->promo_model->get_promo_active($expired);
+
         $tanggal_sewa = "";
         if ($this->input->get('tanggal_sewa') != NULL) {
             $tanggal_sewa = $this->input->get('tanggal_sewa');
@@ -267,6 +271,7 @@ class Dropoff extends CI_Controller
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
+                    'promo'             => $promo,
                     'content'           => 'front/dropoff/order'
                 ];
                 $this->load->view('front/layout/wrapp', $data);
@@ -286,6 +291,7 @@ class Dropoff extends CI_Controller
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
+                    'promo'             => $promo,
                     'content'           => 'mobile/dropoff/order'
                 ];
                 $this->load->view('mobile/layout/wrapp', $data);
@@ -294,9 +300,10 @@ class Dropoff extends CI_Controller
 
             $order_id = strtoupper(random_string('numeric', 7));
             $kode_transaksi = strtoupper(random_string('alnum', 7));
-            $diskon_point = $this->input->get('diskon_point');
+            $diskon_point = $this->input->post('diskon_point');
+            $promo_amount = $this->input->post('promo_amount');
 
-            $grand_total = (int)$paket_price - (int)$diskon_point;
+            $grand_total = (int)$paket_price - (int)$diskon_point - (int) $promo_amount;
 
             $pembayaran = $this->input->post('pembayaran');
 
@@ -332,7 +339,7 @@ class Dropoff extends CI_Controller
                     'start_price'                           => $this->input->post('start_price'),
                     'total_price'                           => $paket_price,
                     'diskon_point'                          => $diskon_point,
-                    'promo_amount'                          => 0,
+                    'promo_amount'                          => $promo_amount,
                     'grand_total'                           => $grand_total,
                     'status'                                => 'Pending',
                     'status_read'                           => 0,
@@ -348,6 +355,7 @@ class Dropoff extends CI_Controller
                     'date_updated'                          => date('Y-m-d H:i:s'),
                 ];
                 $insert_id = $this->transaksi_model->create($data);
+                $this->update_point($insert_id);
                 $this->session->set_flashdata('message', 'Data telah ditambahkan');
                 redirect(base_url('dropoff/sukses/' . $insert_id), 'refresh');
             } else {
@@ -386,7 +394,7 @@ class Dropoff extends CI_Controller
                     'start_price'                           => $this->input->post('start_price'),
                     'total_price'                           => $paket_price,
                     'diskon_point'                          => $diskon_point,
-                    'promo_amount'                          => 0,
+                    'promo_amount'                          => $promo_amount,
                     'grand_total'                           => $grand_total,
                     'status'                                => 'Pending',
                     'status_read'                           => 0,
@@ -427,6 +435,8 @@ class Dropoff extends CI_Controller
                 }
                 curl_close($ch);
             }
+            $this->update_point($insert_id);
+            $this->_sendEmail($insert_id, 'order');
         }
     }
 
@@ -453,61 +463,61 @@ class Dropoff extends CI_Controller
     }
 
 
-    // private function _sendEmail($insert_id)
-    // {
-    //     $email_order = $this->pengaturan_model->email_order();
-    //     $transaksi  = $this->transaksi_model->last_transaksi($insert_id);
-    //     $meta = $this->meta_model->get_meta();
+    private function _sendEmail($insert_id)
+    {
+        $email_order = $this->pengaturan_model->email_order();
+        $transaksi  = $this->transaksi_model->last_transaksi($insert_id);
+        $meta = $this->meta_model->get_meta();
 
-    //     $config = [
-    //         'protocol'     => "$email_order->protocol",
-    //         'smtp_host'   => "$email_order->smtp_host",
-    //         'smtp_port'   => $email_order->smtp_port,
-    //         'smtp_user'   => "$email_order->smtp_user",
-    //         'smtp_pass'   => "$email_order->smtp_pass",
-    //         'mailtype'     => 'html',
-    //         'charset'     => 'utf-8',
-    //     ];
+        $config = [
+            'protocol'     => "$email_order->protocol",
+            'smtp_host'   => "$email_order->smtp_host",
+            'smtp_port'   => $email_order->smtp_port,
+            'smtp_user'   => "$email_order->smtp_user",
+            'smtp_pass'   => "$email_order->smtp_pass",
+            'mailtype'     => 'html',
+            'charset'     => 'utf-8',
+        ];
 
-    //     $this->load->library('email', $config);
-    //     $this->email->initialize($config);
-    //     $this->email->set_newline("\r\n");
-    //     $this->email->from("$email_order->smtp_user", ' Order ', "$meta->title");
-    //     $this->email->to($this->input->post('passenger_email'));
-    //     $this->email->cc("$email_order->cc_email");
-    //     $this->email->bcc("$email_order->bcc_email");
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+        $this->email->from("$email_order->smtp_user", ' Order ', "$meta->title");
+        $this->email->to($this->input->post('passenger_email'));
+        $this->email->cc("$email_order->cc_email");
+        $this->email->bcc("$email_order->bcc_email");
 
-    //     $this->email->subject('Order ' . $meta->title . '' . $transaksi->kode_transaksi . '');
-    //     $this->email->message('
-    //     <b>Informasi Customer</b><br>
-    //     Nama                : ' . $transaksi->passenger_name . '<br>
-    //     No. HP              : ' . $transaksi->passenger_phone . '<br>
-    //     Email               : ' . $transaksi->passenger_email . '<br>
-    //     <b>Informasi Pemesanan Sewa Mobil</b><br>
-    //     Rental              : ' . $meta->title . '<br>
-    //     Order ID            : ' . $transaksi->order_id . '<br>
-    //     Mobil               : ' . $transaksi->mobil_name . '<br>
-    //     Alamat Jemput       : ' . $transaksi->alamat_jemput . '<br>
-    //     Tanggal Jemput      : ' . $transaksi->tanggal_jemput . '<br>
-    //     Jam Jemput          : ' . $transaksi->jam_jemput . '<br>
-    //     Paket               : ' . $transaksi->paket_name . '<br>
-    //     Permintaan Khusus   : ' . $transaksi->permintaan_khusus . '<br>
-    //     Total Pembayaran    : ' . number_format($transaksi->grand_total, 0, ",", ".") . '<br>
-    //     Pembayaran          : ' . $transaksi->pembayaran . '<br>
-    //     Status Pembayaran   : ' . $transaksi->status_pembayaran . '<br>
-    //     <b>Ketentuan Sewa :</b><br>
-    //     ' . $transaksi->ketentuan_desc . '<br>
-    //     <b>Batas Area Penggunaan </b>
-    //     ' . $transaksi->paket_desc . '
-    //     ');
+        $this->email->subject('Order ' . $meta->title . '' . $transaksi->kode_transaksi . '');
+        $this->email->message('
+        <b>Informasi Customer</b><br>
+        Nama                : ' . $transaksi->passenger_name . '<br>
+        No. HP              : ' . $transaksi->passenger_phone . '<br>
+        Email               : ' . $transaksi->passenger_email . '<br>
+        <b>Informasi Pemesanan Sewa Mobil</b><br>
+        Rental              : ' . $meta->title . '<br>
+        Order ID            : ' . $transaksi->order_id . '<br>
+        Mobil               : ' . $transaksi->mobil_name . '<br>
+        Alamat Jemput       : ' . $transaksi->alamat_jemput . '<br>
+        Tanggal Jemput      : ' . $transaksi->tanggal_jemput . '<br>
+        Jam Jemput          : ' . $transaksi->jam_jemput . '<br>
+        Paket               : ' . $transaksi->paket_name . '<br>
+        Permintaan Khusus   : ' . $transaksi->permintaan_khusus . '<br>
+        Total Pembayaran    : ' . number_format($transaksi->grand_total, 0, ",", ".") . '<br>
+        Pembayaran          : ' . $transaksi->pembayaran . '<br>
+        Status Pembayaran   : ' . $transaksi->status_pembayaran . '<br>
+        <b>Ketentuan Sewa :</b><br>
+        ' . $transaksi->ketentuan_desc . '<br>
+        <b>Batas Area Penggunaan </b>
+        ' . $transaksi->paket_desc . '
+        ');
 
-    //     if ($this->email->send()) {
-    //         return true;
-    //     } //else {
-    //     //     echo $this->email->print_debugger();
-    //     //     die;
-    //     // }
-    // }
+        if ($this->email->send()) {
+            return true;
+        } //else {
+        //     echo $this->email->print_debugger();
+        //     die;
+        // }
+    }
 
 
     public function sukses($insert_id)

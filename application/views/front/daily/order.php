@@ -69,30 +69,33 @@ $user           = $this->user_model->user_detail($id);
                     <input type="hidden" name="ketentuan_desc" value="<?php echo $ketentuan_desc; ?>">
                     <input type="hidden" name="paket_desc" value="<?php echo $paket_desc; ?>">
                     <input type="hidden" name="jumlah_mobil" value="1">
+                    <input type="hidden" name="pembayaran" value="Cash">
 
 
 
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Discount Point<span class="text-danger">*</span>
+                        <label class="col-lg-4 col-form-label">Discount Point
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" id="myText" class="form-control" name="diskon_point" value="">
+                            <input type="text" id="myText" class="form-control" name="diskon_point" value="" readonly>
                             <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
                         </div>
                     </div>
 
-                    <Select name="select" readonly>
-                        <option id="selected" value="1" selected>Option 1</option>
-                    </Select>
-                    <!-- Hidden div to get the click events-->
-                    <div id="select" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+                    <!-- Test -->
+
+                    <!-- Test -->
 
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Kode Promo<span class="text-danger">*</span>
+                        <label class="col-lg-4 col-form-label">Kode Promo
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="kode_promo" value="">
-                            <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
+                            <select class="form-control form-control-chosen" name="promo_amount">
+                                <option value="">-- Kode Promo --</option>
+                                <?php foreach ($promo as $promo) : ?>
+                                    <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
 
@@ -100,7 +103,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Lama Sewa<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()">
+                            <select class="form-control form-control-chosen" name="lama_sewa" id="lama_sewa" value="" onchange="total()">
                                 <option value="">-- Lama Sewa --</option>
                                 <option value='1'> 1 hari</option>
                                 <option value='2'> 2 Hari</option>
@@ -171,19 +174,6 @@ $user           = $this->user_model->user_detail($id);
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Pembayaran<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-8">
-                            <select class="form-control" name="pembayaran" value="">
-                                <option value="">-- Pembayaran --</option>
-                                <option value='Transfer'> Transfer</option>
-                                <option value='Cash'> Cash Ke Driver</option>
-                            </select>
-                            <div class="invalid-feedback">Pilih Tipe Pembayaran</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <label class="col-lg-4 col-form-label"> Syarat Ketentuan
                         </label>
                         <div class="col-lg-8">
@@ -220,47 +210,15 @@ $user           = $this->user_model->user_detail($id);
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-    //Listening to click event on the above hidden div
-    $('#myModal').on('shown.bs.modal', function() {
-        $('#myInput').trigger('focus')
-    })
 
-    //Listen to click event on Modal's buttons having class option
-    $(document).on('click', '.option', function() {
-        //Extract the text of the clicked element
-        var option_text = $(this).text();
-        //Set the text and value of option 
-        $('#selected').text(option_text).val(option_text);
-        //Close the modal
-        $('#myModal').modal('hide');
-    });
-</script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
 
 
-<!-- Example Modal, make the required changes -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <div class="btn btn-primary option">
-                    Hello
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
 
-    </div>
-</div>
+
 
 
 

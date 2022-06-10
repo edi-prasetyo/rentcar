@@ -97,11 +97,17 @@ $meta      = $this->meta_model->get_meta();
 </section>
 
 <!-- Load javascript Jquery -->
-<script src="<?php echo base_url() ?>assets/template/front/js/jquery.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>assets/template/front/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>assets/template/front/js/jquery-1.11.3.min.js"></script>
+<!-- <script src="<?php echo base_url() ?>assets/template/front/js/jquery.js" type="text/javascript"></script> -->
+<!-- <script src="<?php echo base_url() ?>assets/template/front/js/jquery-1.11.3.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="<?php echo base_url() ?>assets/template/front/js/chosen.jquery.min.js"></script>
 <script src="<?php echo base_url() ?>assets/template/front/assets/js/vendor/popper.min.js"></script>
+<script src="<?php echo base_url() ?>assets/template/front/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+
 
 
 <!-- Google Analitycs -->
@@ -110,6 +116,8 @@ $meta      = $this->meta_model->get_meta();
 
 <script src="<?php echo base_url() ?>assets/template/front/vendor/date-time-picker-bootstrap-4/js/moment.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>assets/template/front/vendor/date-time-picker-bootstrap-4/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+
+
 
 <script>
     $(function() {
@@ -170,6 +178,10 @@ $meta      = $this->meta_model->get_meta();
         }, false);
     })();
 </script>
+
+
+
+
 
 
 

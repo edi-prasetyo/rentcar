@@ -91,6 +91,7 @@ $user           = $this->user_model->user_detail($id);
                     <input type="hidden" name="ketentuan_desc" value="<?php echo $ketentuan_desc; ?>">
                     <input type="hidden" name="paket_desc" value="<?php echo $paket_desc; ?>">
                     <input type="hidden" name="jumlah_mobil" value="1">
+                    <input type="hidden" name="pembayaran" value="Cash">
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Discount Point<span class="text-danger">*</span>
@@ -101,7 +102,18 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Kode Promo
+                        </label>
+                        <div class="col-lg-8">
+                            <select class="form-control form-control-chosen" name="promo_amount">
+                                <option value="">-- Kode Promo --</option>
+                                <?php foreach ($promo as $promo) : ?>
+                                    <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
 
 
                     <div class="form-group row">
@@ -163,18 +175,7 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Pembayaran<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-8">
-                            <select class="form-control" name="pembayaran" value="" required>
-                                <option value="">-- Pembayaran --</option>
-                                <option value='Transfer'> Transfer</option>
-                                <option value='Cash'> Cash Ke Driver</option>
-                            </select>
-                            <div class="invalid-feedback">Pilih Tipe Pembayaran</div>
-                        </div>
-                    </div>
+
 
                     <a class="btn btn-danger btn-block mb-3" data-toggle="collapse" href="#syaratKetentuan" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Syarat Ketentuan Sewa</a>
 

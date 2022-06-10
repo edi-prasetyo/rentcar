@@ -16,6 +16,7 @@ class Airport extends CI_Controller
         $this->load->model('point_model');
         $this->load->model('paket_model');
         $this->load->model('bank_model');
+        $this->load->model('promo_model');
     }
     public function index()
     {
@@ -166,6 +167,8 @@ class Airport extends CI_Controller
     {
         $user_id = $this->session->userdata('id');
         $total_pointku = $this->point_model->total_user_point($user_id);
+        $expired = date('Y-m-d');
+        $promo = $this->promo_model->get_promo_active($expired);
 
         $tanggal_sewa = "";
         if ($this->input->get('tanggal_sewa') != NULL) {
@@ -277,6 +280,7 @@ class Airport extends CI_Controller
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
+                    'promo'             => $promo,
                     'content'           => 'front/airport/order'
                 ];
                 $this->load->view('front/layout/wrapp', $data);
@@ -297,6 +301,7 @@ class Airport extends CI_Controller
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
+                    'promo'             => $promo,
                     'content'           => 'mobile/airport/order'
                 ];
                 $this->load->view('mobile/layout/wrapp', $data);
@@ -307,8 +312,9 @@ class Airport extends CI_Controller
             $kode_transaksi = strtoupper(random_string('alnum', 7));
 
             $diskon_point = $this->input->post('diskon_point');
+            $promo_amount = $this->input->post('promo_amount');
 
-            $grand_total = (int)$paket_price - (int)$diskon_point;
+            $grand_total = (int)$paket_price - (int)$diskon_point - (int) $promo_amount;
             $pembayaran = $this->input->post('pembayaran');
 
             if ($pembayaran == 'Cash') {
@@ -342,7 +348,7 @@ class Airport extends CI_Controller
                     'start_price'                           => $this->input->post('start_price'),
                     'total_price'                           => $paket_price,
                     'diskon_point'                          => $diskon_point,
-                    'promo_amount'                          => 0,
+                    'promo_amount'                          => $promo_amount,
                     'grand_total'                           => $grand_total,
                     'status'                                => 'Pending',
                     'status_read'                           => 0,
@@ -358,6 +364,7 @@ class Airport extends CI_Controller
                     'date_updated'                          => date('Y-m-d H:i:s'),
                 ];
                 $insert_id = $this->transaksi_model->create($data);
+                $this->update_point($insert_id);
                 $this->session->set_flashdata('message', 'Data telah ditambahkan');
                 redirect(base_url('airport/sukses/' . $insert_id), 'refresh');
             } else {
@@ -394,7 +401,7 @@ class Airport extends CI_Controller
                     'start_price'                           => $this->input->post('start_price'),
                     'total_price'                           => $paket_price,
                     'diskon_point'                          => $diskon_point,
-                    'promo_amount'                          => 0,
+                    'promo_amount'                          => $promo_amount,
                     'grand_total'                           => $grand_total,
                     'status'                                => 'Pending',
                     'status_read'                           => 0,

@@ -71,7 +71,11 @@ $meta           = $this->meta_model->get_meta();
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Diskon Point
-                <span class="font-weight-bold"><?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></span>
+                <span class="font-weight-bold">- <?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Diskon Promo
+                <span class="font-weight-bold">- <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Grand Total
@@ -80,6 +84,15 @@ $meta           = $this->meta_model->get_meta();
         </ul>
         <?php if ($transaksi->pembayaran == "Cash") : ?>
         <?php else : ?>
+            <div class="alert alert-danger">Bayar Sebelum <?php echo $transaksi->expired_payment_date; ?></div>
+            <?php $date = date('Y-m-d');
+            if ($transaksi->expired_payment_date >= $date) : ?>
+                <div class="text-danger">Pembayaran Telah Expired</div>
+            <?php else : ?>
+                <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
+                    <a href="<?php echo base_url('daily/payment/' . $transaksi->id); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
+                </div>
+            <?php endif; ?>
             <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
         <?php endif; ?>
 
