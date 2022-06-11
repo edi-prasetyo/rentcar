@@ -104,22 +104,15 @@ $meta           = $this->meta_model->get_meta();
                 </li>
             </ul>
         </div>
-        <?php if ($transaksi->pembayaran == "Cash") : ?>
-            <div class="my-3 pb-3">
-                <div class="row">
-                    <div class="col-6">
-                        <a class="btn btn-primary btn-block" href="<?php echo base_url(); ?>">Kembali</a>
-                    </div>
-                    <div class="col-6">
-                        <a class="btn btn-success btn-block" href="<?php echo base_url('myaccount'); ?>"> Akun Saya</a>
-                    </div>
-                </div>
-            </div>
+        <?php $date = date('Y-m-d H:i');
+        if ($transaksi->expired_payment_date <= $date) : ?>
+            <div class="alert alert-danger">Pembayaran Telah Expired</div>
         <?php else : ?>
-            <div class="alert alert-danger">Bayar Sebelum <?php echo $transaksi->expired_payment_date; ?></div>
+            <div class="alert alert-danger">Bayar Sebelum <?php echo date("j F Y", strtotime($transaksi->expired_payment_date)); ?> Jam <?php echo date("H:i", strtotime($transaksi->expired_payment_date)); ?></div>
             <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
                 <a href="<?php echo base_url('daily/payment/' . $transaksi->id); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
-            </div> <?php endif; ?>
+            </div>
+        <?php endif; ?>
 
     </div>
 

@@ -86,7 +86,7 @@ $meta           = $this->meta_model->get_meta();
 
         <?php $date = date('Y-m-d H:i');
         if ($transaksi->expired_payment_date <= $date) : ?>
-            <div class="text-danger">Pembayaran Telah Expired</div>
+            <div class="alert alert-danger">Pembayaran Telah Expired</div>
         <?php else : ?>
             <div class="alert alert-danger">Bayar Sebelum <?php echo date("j F Y", strtotime($transaksi->expired_payment_date)); ?> Jam <?php echo date("H:i", strtotime($transaksi->expired_payment_date)); ?></div>
             <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar Sekarang</a>
