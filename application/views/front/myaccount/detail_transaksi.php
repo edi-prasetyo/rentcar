@@ -88,19 +88,16 @@ $meta           = $this->meta_model->get_meta();
                 </li>
             </ul>
 
-            <?php if ($detail_transaksi->pembayaran == "Cash") : ?>
+
+
+            <?php $date = date('Y-m-d H:i');
+            if ($detail_transaksi->expired_payment_date <= $date) : ?>
+                <div class="text-danger">Pembayaran Telah Expired</div>
             <?php else : ?>
-                <div class="alert alert-danger">Bayar Sebelum <?php echo $detail_transaksi->expired_payment_date; ?></div>
-                <?php $date = date('Y-m-d');
-                if ($detail_transaksi->expired_payment_date >= $date) : ?>
-                    <div class="text-danger">Pembayaran Telah Expired</div>
-                <?php else : ?>
-                    <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
-                        <a href="<?php echo base_url('daily/payment/' . $detail_transaksi->id); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
-                    </div>
-                <?php endif; ?>
-                <a class="btn btn-success btn-block" href="<?php echo $detail_transaksi->payment_url; ?>">Bayar</a>
+                <div class="alert alert-danger">Bayar Sebelum <?php echo date("j F Y", strtotime($detail_transaksi->expired_payment_date)); ?> Jam <?php echo date("H:i", strtotime($detail_transaksi->expired_payment_date)); ?></div>
+                <a class="btn btn-success btn-block" href="<?php echo $detail_transaksi->payment_url; ?>">Bayar Sekarang</a>
             <?php endif; ?>
+
 
             <?php if ($detail_transaksi->driver_id == 0 || $detail_transaksi->status == "Selesai") : ?>
             <?php else : ?>
@@ -130,9 +127,7 @@ $meta           = $this->meta_model->get_meta();
                 </div>
             <?php endif; ?>
 
-            <br>
-            <a class="btn btn-primary" href="<?php echo base_url(); ?>">Kembali Ke Home</a>
-            <a class="btn btn-success" href="<?php echo base_url('myaccount'); ?>">Halaman Akun Saya</a>
+
         </div>
     </div>
 
