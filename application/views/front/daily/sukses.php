@@ -84,7 +84,7 @@ $meta           = $this->meta_model->get_meta();
         </ul>
 
 
-        <?php $date = date('Y-m-d');
+        <?php $date = date('Y-m-d H:i');
         if ($transaksi->expired_payment_date <= $date) : ?>
             <div class="text-danger">Pembayaran Telah Expired</div>
         <?php else : ?>
