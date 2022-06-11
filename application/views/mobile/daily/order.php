@@ -189,18 +189,7 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Pembayaran<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-lg-8">
-                            <select class="form-control" name="pembayaran" value="" required>
-                                <option value="">-- Pembayaran --</option>
-                                <option value='Transfer'> Transfer</option>
-                                <option value='Cash'> Cash Ke Driver</option>
-                            </select>
-                            <div class="invalid-feedback">Pilih Tipe Pembayaran</div>
-                        </div>
-                    </div>
+              
 
 
 
