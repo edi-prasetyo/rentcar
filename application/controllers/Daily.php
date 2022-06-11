@@ -336,129 +336,78 @@ class Daily extends CI_Controller
 
             $pembayaran = $this->input->post('pembayaran');
 
-            if ($pembayaran == 'Cash') {
-                $data  = [
-                    'user_id'                               => $this->session->userdata('id'),
-                    'product_id'                            => 1,
-                    'driver_name'                           => '',
-                    'product_name'                          => 'Daily',
-                    'order_id'                              => $order_id,
-                    'order_point'                           => $this->input->post('order_point'),
-                    'kode_transaksi'                        => $kode_transaksi,
-                    'passenger_name'                        => $this->input->post('passenger_name'),
-                    'passenger_phone'                       => $this->input->post('passenger_phone'),
-                    'passenger_email'                       => $this->input->post('passenger_email'),
-                    'kota_id'                               => $this->input->post('kota_id'),
-                    'kota_name'                             => $this->input->post('kota_name'),
-                    'mobil_id'                              => $mobil_id,
-                    'mobil_name'                            => $this->input->post('mobil_name'),
-                    'paket_id'                              => $paket_id,
-                    'paket_name'                            => $this->input->post('paket_name'),
-                    'alamat_jemput'                         => $this->input->post('alamat_jemput'),
-                    'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
-                    'jam_jemput'                            => $this->input->post('jam_jemput'),
-                    'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
-                    'lama_sewa'                             => $this->input->post('lama_sewa'),
-                    'jumlah_mobil'                          => $this->input->post('jumlah_mobil'),
-                    'ketentuan_desc'                        => $this->input->post('ketentuan_desc'),
-                    'paket_desc'                            =>  $this->input->post('paket_desc'),
-                    'jarak'                                 => 0,
-                    'start_price'                           => $this->input->post('start_price'),
-                    'total_price'                           => $total_price,
-                    'diskon_point'                          => $diskon_point,
-                    'promo_amount'                          => $promo_amount,
-                    'grand_total'                           => $grand_total,
-                    'status'                                => 'Pending',
-                    'status_read'                           => 0,
-                    'order_type'                            => 'daily',
-                    'pembayaran_id'                         => 0,
-                    'pembayaran'                            => $pembayaran,
-                    'status_pembayaran'                     => 'Belum Dibayar',
-                    'no_va'                                 => '',
-                    'payment_channel'                       => 'VIRTUAL_ACCOUNT',
-                    'payment_transaction_id'                => '',
-                    'stage'                                 => 1,
-                    'date_created'                          => date('Y-m-d H:i:s'),
-                    'date_updated'                          => date('Y-m-d H:i:s'),
-                ];
-                $insert_id = $this->transaksi_model->create($data);
-                $this->update_point($insert_id);
-                $this->session->set_flashdata('message', 'Data telah ditambahkan');
+
+            /* Endpoint */
+            $url = 'https://api.sewamobiloka.com/api/order/create_order';
+
+            $data  = [
+                'user_id'                               => $this->session->userdata('id'),
+                'product_id'                            => 5,
+                'driver_name'                           => '',
+                'product_name'                          => 'Daily',
+                'order_id'                              => $order_id,
+                'order_point'                           => $this->input->post('order_point'),
+                'kode_transaksi'                        => $kode_transaksi,
+                'passenger_name'                        => $this->input->post('passenger_name'),
+                'passenger_phone'                       => $this->input->post('passenger_phone'),
+                'passenger_email'                       => $this->input->post('passenger_email'),
+                'kota_id'                               => $this->input->post('kota_id'),
+                'kota_name'                             => $this->input->post('kota_name'),
+                'mobil_id'                              => $mobil_id,
+                'mobil_name'                            => $this->input->post('mobil_name'),
+                'paket_id'                              => $paket_id,
+                'paket_name'                            => $this->input->post('paket_name'),
+                'alamat_jemput'                         => $this->input->post('alamat_jemput'),
+                'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
+                'jam_jemput'                            => $this->input->post('jam_jemput'),
+                'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
+                'lama_sewa'                             => $this->input->post('lama_sewa'),
+                'jumlah_mobil'                          => $this->input->post('jumlah_mobil'),
+                'ketentuan_desc'                        => $this->input->post('ketentuan_desc'),
+                'paket_desc'                            =>  $this->input->post('paket_desc'),
+                'jarak'                                 => 0,
+                'start_price'                           => $this->input->post('start_price'),
+                'total_price'                           => $total_price,
+                'diskon_point'                          => $diskon_point,
+                'promo_amount'                          => $promo_amount,
+                'grand_total'                           => $grand_total,
+                'status'                                => 'Pending',
+                'status_read'                           => 0,
+                'order_type'                            => 'daily',
+                'pembayaran_id'                         => 0,
+                'pembayaran'                            => $pembayaran,
+                'status_pembayaran'                     => 'Belum Dibayar',
+                'no_va'                                 => '',
+                'payment_channel'                       => 'VIRTUAL_ACCOUNT',
+                'payment_transaction_id'                => '',
+                'stage'                                 => 1,
+                'date_created'                          => date('Y-m-d H:i:s'),
+                'date_updated'                          => date('Y-m-d H:i:s'),
+            ];
+
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+            $response = curl_exec($ch);
+
+
+            $result = json_decode($response, true);
+
+            $insert_id = $result['trx']['data']['id_order'];
+
+            $this->sukses($insert_id);
+
+            if ($response !== false) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
                 redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
             } else {
-
-
-                /* Endpoint */
-                $url = 'https://api.sewamobiloka.com/api/order/create_order';
-
-                $data  = [
-                    'user_id'                               => $this->session->userdata('id'),
-                    'product_id'                            => 5,
-                    'driver_name'                           => '',
-                    'product_name'                          => 'Daily',
-                    'order_id'                              => $order_id,
-                    'order_point'                           => $this->input->post('order_point'),
-                    'kode_transaksi'                        => $kode_transaksi,
-                    'passenger_name'                        => $this->input->post('passenger_name'),
-                    'passenger_phone'                       => $this->input->post('passenger_phone'),
-                    'passenger_email'                       => $this->input->post('passenger_email'),
-                    'kota_id'                               => $this->input->post('kota_id'),
-                    'kota_name'                             => $this->input->post('kota_name'),
-                    'mobil_id'                              => $mobil_id,
-                    'mobil_name'                            => $this->input->post('mobil_name'),
-                    'paket_id'                              => $paket_id,
-                    'paket_name'                            => $this->input->post('paket_name'),
-                    'alamat_jemput'                         => $this->input->post('alamat_jemput'),
-                    'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
-                    'jam_jemput'                            => $this->input->post('jam_jemput'),
-                    'permintaan_khusus'                     => $this->input->post('permintaan_khusus'),
-                    'lama_sewa'                             => $this->input->post('lama_sewa'),
-                    'jumlah_mobil'                          => $this->input->post('jumlah_mobil'),
-                    'ketentuan_desc'                        => $this->input->post('ketentuan_desc'),
-                    'paket_desc'                            =>  $this->input->post('paket_desc'),
-                    'jarak'                                 => 0,
-                    'start_price'                           => $this->input->post('start_price'),
-                    'total_price'                           => $total_price,
-                    'diskon_point'                          => $diskon_point,
-                    'promo_amount'                          => $promo_amount,
-                    'grand_total'                           => $grand_total,
-                    'status'                                => 'Pending',
-                    'status_read'                           => 0,
-                    'order_type'                            => 'daily',
-                    'pembayaran_id'                         => 0,
-                    'pembayaran'                            => $pembayaran,
-                    'status_pembayaran'                     => 'Belum Dibayar',
-                    'no_va'                                 => '',
-                    'payment_channel'                       => 'VIRTUAL_ACCOUNT',
-                    'payment_transaction_id'                => '',
-                    'stage'                                 => 1,
-                    'date_created'                          => date('Y-m-d H:i:s'),
-                    'date_updated'                          => date('Y-m-d H:i:s'),
-                ];
-
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-                $response = curl_exec($ch);
-
-
-                $result = json_decode($response, true);
-
-                $insert_id = $result['trx']['data']['id_order'];
-
-                $this->sukses($insert_id);
-
-                if ($response !== false) {
-                    $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
-                    redirect(base_url('daily/sukses/' . $insert_id), 'refresh');
-                } else {
-                    $this->session->set_flashdata('message', 'transaksi gagal di approved');
-                    redirect(base_url('daily/404'), 'refresh');
-                }
-                curl_close($ch);
+                $this->session->set_flashdata('message', 'transaksi gagal di approved');
+                redirect(base_url('daily/404'), 'refresh');
             }
+            curl_close($ch);
+
 
             $this->update_point($insert_id);
             $this->_sendEmail($insert_id, 'order');
