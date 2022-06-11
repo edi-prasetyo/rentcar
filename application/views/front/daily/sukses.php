@@ -82,24 +82,17 @@ $meta           = $this->meta_model->get_meta();
                 <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></span>
             </li>
         </ul>
-        <?php if ($transaksi->pembayaran == "Cash") : ?>
+
+
+        <?php $date = date('Y-m-d');
+        if ($transaksi->expired_payment_date <= $date) : ?>
+            <div class="text-danger">Pembayaran Telah Expired</div>
         <?php else : ?>
-            <div class="alert alert-danger">Bayar Sebelum <?php echo $transaksi->expired_payment_date; ?></div>
-            <?php $date = date('Y-m-d');
-            if ($transaksi->expired_payment_date >= $date) : ?>
-                <div class="text-danger">Pembayaran Telah Expired</div>
-            <?php else : ?>
-                <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
-                    <a href="<?php echo base_url('daily/payment/' . $transaksi->id); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
-                </div>
-            <?php endif; ?>
-            <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar</a>
+            <div class="alert alert-danger">Bayar Sebelum <?php echo date("j F Y", strtotime($transaksi->expired_payment_date)); ?> Jam <?php echo date("H:i", strtotime($transaksi->expired_payment_date)); ?></div>
+            <a class="btn btn-success btn-block" href="<?php echo $transaksi->payment_url; ?>">Bayar Sekarang</a>
         <?php endif; ?>
 
 
-        <br>
-        <a class="btn btn-primary" href="<?php echo base_url(); ?>">Kembali Ke Home</a>
-        <a class="btn btn-success" href="<?php echo base_url('myaccount'); ?>">Halaman Akun Saya</a>
     </div>
 
 
