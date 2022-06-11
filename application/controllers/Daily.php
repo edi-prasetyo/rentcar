@@ -327,14 +327,18 @@ class Daily extends CI_Controller
             $order_id = strtoupper(random_string('numeric', 7));
             $kode_transaksi = strtoupper(random_string('alnum', 7));
             // $start_price = $this->input->post('start_price');
-            $lama_sewa = $this->input->post('lama_sewa');
-            $jumlah_mobil = $this->input->post('jumlah_mobil');
+            $lama_sewa = $this->input->get('lama_sewa');
+            $jumlah_mobil = $this->input->get('jumlah_mobil');
             $diskon_point = $this->input->post('diskon_point');
             $promo_amount = $this->input->post('promo_amount');
             $total_price = (int) $paket_price * (int) $lama_sewa * (int) $jumlah_mobil;
             $grand_total = (int) $paket_price * (int) $lama_sewa * (int) $jumlah_mobil - (int) $diskon_point - (int) $promo_amount;
 
-            $pembayaran = $this->input->post('pembayaran');
+
+
+
+
+            // $pembayaran = $this->input->post('pembayaran');
 
 
             /* Endpoint */
@@ -368,14 +372,14 @@ class Daily extends CI_Controller
                 'jarak'                                 => 0,
                 'start_price'                           => $this->input->post('start_price'),
                 'total_price'                           => $total_price,
-                'diskon_point'                          => $diskon_point,
-                'promo_amount'                          => $promo_amount,
+                'diskon_point'                          => (int) $diskon_point,
+                'promo_amount'                          => (int) $promo_amount,
                 'grand_total'                           => $grand_total,
                 'status'                                => 'Pending',
                 'status_read'                           => 0,
                 'order_type'                            => 'daily',
                 'pembayaran_id'                         => 0,
-                'pembayaran'                            => $pembayaran,
+                'pembayaran'                            => 'Transfer',
                 'status_pembayaran'                     => 'Belum Dibayar',
                 'no_va'                                 => '',
                 'payment_channel'                       => 'VIRTUAL_ACCOUNT',
@@ -394,6 +398,9 @@ class Daily extends CI_Controller
 
 
             $result = json_decode($response, true);
+
+            // var_dump($response);
+            // die;
 
             $insert_id = $result['trx']['data']['id_order'];
 
