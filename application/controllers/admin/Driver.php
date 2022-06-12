@@ -11,6 +11,7 @@ class Driver extends CI_Controller
         $this->load->model('main_model');
         $this->load->model('saldo_model');
         $this->load->model('topup_model');
+        $this->load->model('kota_model');
     }
     public function index()
     {
@@ -61,6 +62,7 @@ class Driver extends CI_Controller
     // Create Driver
     public function create()
     {
+        $listkota = $this->kota_model->get_allkota();
         $this->form_validation->set_rules(
             'name',
             'Nama',
@@ -92,6 +94,7 @@ class Driver extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data = [
                 'title'         => 'Add Driver',
+                'listkota'      => $listkota,
                 'content'       => 'admin/driver/create'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
@@ -114,6 +117,60 @@ class Driver extends CI_Controller
                 'date_created'  => date('Y-m-d H:i:s')
             ];
             $this->db->insert('user', $data);
+            $this->session->set_flashdata('message', 'Selamat Anda berhasil mendaftar, silahkan Aktivasi akun');
+            redirect('admin/driver');
+        }
+    }
+    // Update Driver
+    public function update($id)
+    {
+        $driver = $this->user_model->detail_driver($id);
+        // var_dump($driver);
+        // die;
+        $listkota = $this->kota_model->get_allkota();
+        $this->form_validation->set_rules(
+            'name',
+            'Nama',
+            'required|trim',
+            ['required' => 'nama harus di isi']
+        );
+
+        $this->form_validation->set_rules(
+            'password1',
+            'Password',
+            'required|trim|min_length[3]|matches[password2]',
+            [
+                'matches'     => 'Password tidak sama',
+                'min_length'   => 'Password Min 3 karakter'
+            ]
+        );
+        $this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == false) {
+            $data = [
+                'title'         => 'Add Driver',
+                'listkota'      => $listkota,
+                'driver'        => $driver,
+                'content'       => 'admin/driver/update'
+            ];
+            $this->load->view('admin/layout/wrapp', $data, FALSE);
+        } else {
+
+            $email = $this->input->post('email', true);
+            $user_code = random_int(1000, 9999);
+            $data = [
+                'id'             => $id,
+                'name'          => htmlspecialchars($this->input->post('name', true)),
+                'email'         => htmlspecialchars($email),
+                'user_phone'    => $this->input->post('user_phone'),
+                'user_address'  => $this->input->post('user_address'),
+                'password'      => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'role_id'       => 5,
+                'is_active'     => 1,
+                'is_locked'     => 1,
+                'date_updated'  => date('Y-m-d H:i:s')
+            ];
+            $this->db->update('user', $data);
             $this->session->set_flashdata('message', 'Selamat Anda berhasil mendaftar, silahkan Aktivasi akun');
             redirect('admin/driver');
         }
