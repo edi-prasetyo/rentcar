@@ -25,6 +25,7 @@
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
+                        <th>Kota</th>
                         <th>Nama Bandara</th>
                         <th>Kode Bandara</th>
                         <th width="20%">Action</th>
@@ -36,6 +37,7 @@
                     foreach ($airport as $airport) : ?>
                         <tr>
                             <td><?php echo $no; ?></td>
+                            <td><?php echo $airport->kota_name; ?></td>
                             <td><?php echo $airport->airport_name; ?></td>
                             <td><?php echo $airport->airport_code; ?></td>
                             <td><a class="btn btn-primary btn-sm" href="<?php echo base_url('admin/airport/update/' . $airport->id); ?>">Update</a>

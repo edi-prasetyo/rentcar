@@ -19,8 +19,11 @@ class Airport_model extends CI_Model
     }
     public function get_airport($limit, $start)
     {
-        $this->db->select('*');
+        $this->db->select('airport.*,kota.kota_name');
         $this->db->from('airport');
+        // Join
+        $this->db->join('kota', 'kota.id = airport.kota_id', 'LEFT');
+        // End Join
         $this->db->limit($limit, $start);
         $this->db->order_by('id', 'ASC');
         $query = $this->db->get();

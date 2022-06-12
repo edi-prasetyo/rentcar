@@ -39,8 +39,8 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label">Kota Bandara</label>
                     <div class="col-md-9">
-                        <select class="form-control custom-select" name="kota_asal" value="" required>
-                            <option value="">-- Pilih Kota Bandara --</option>
+                        <select class="form-control custom-select" name="kota_id" value="" required>
+                            <option value="">-- Pilih Kota --</option>
                             <?php foreach ($listkota as $data) : ?>
                                 <option value='<?php echo $data->id; ?>'><?php echo $data->kota_name; ?></option>
                             <?php endforeach; ?>
