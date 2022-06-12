@@ -65,6 +65,14 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <td><?php echo $transaksi->order_type; ?> </td>
                     <td>
                         <?php echo $transaksi->pembayaran; ?><br>
+                        <?php if ($transaksi->status_pembayaran == "Lunas") : ?>
+                            <div class="badge badge-success">Paid</div>
+                        <?php else : ?>
+                            <div class="badge badge-danger">Unpaid</div>
+                        <?php endif; ?>
+
+                    </td>
+                    <td>
                         <?php if ($transaksi->status == 1) : ?>
                             <div class="badge badge-warning">Pending</div>
                         <?php elseif ($transaksi->status == 2) : ?>
@@ -77,9 +85,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                             <div class="badge badge-danger">Ditolak Driver</div>
                         <?php else : ?>
                         <?php endif; ?>
-
                     </td>
-                    <td><?php echo $transaksi->status_pembayaran; ?> </td>
 
                     <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
                     <!-- <td><img class="img-fluid" src="<?php echo base_url('assets/img/barcode/' . $transaksi->barcode); ?>"></td> -->
