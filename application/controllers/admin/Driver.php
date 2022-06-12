@@ -102,13 +102,41 @@ class Driver extends CI_Controller
 
             $email = $this->input->post('email', true);
             $user_code = random_int(1000, 9999);
+
+            $user_phone = $this->input->post('user_phone');
+            $phone = str_replace(' ', '', $user_phone);
+            $phone = str_replace('-', '', $user_phone);
+
+            // Ubah 0 menjadi 62
+            // kadang ada penulisan no hp 0811 239 345
+            $phone = str_replace(" ", "", $phone);
+            // kadang ada penulisan no hp (0274) 778787
+            $phone = str_replace("(", "", $phone);
+            // kadang ada penulisan no hp (0274) 778787
+            $phone = str_replace(")", "", $phone);
+            // kadang ada penulisan no hp 0811.239.345
+            $phone = str_replace(".", "", $phone);
+
+            // cek apakah no hp mengandung karakter + dan 0-9
+            if (!preg_match('/[^+0-9]/', trim($phone))) {
+                // cek apakah no hp karakter 1-3 adalah +62
+                if (substr(trim($phone), 0, 3) == '62') {
+                    $hp = trim($phone);
+                }
+                // cek apakah no hp karakter 1 adalah 0
+                elseif (substr(trim($phone), 0, 1) == '0') {
+                    $hp = '62' . substr(trim($phone), 1);
+                }
+            }
+
+
             $data = [
                 'user_create'   => $this->session->userdata('id'),
                 'user_title'    => $this->input->post('user_title'),
                 'name'          => htmlspecialchars($this->input->post('name', true)),
                 'email'         => htmlspecialchars($email),
                 'user_code'     => $user_code,
-                'user_phone'    => $this->input->post('user_phone'),
+                'user_phone'    => $hp,
                 'user_address'  => $this->input->post('user_address'),
                 'password'      => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id'       => 5,
@@ -158,11 +186,37 @@ class Driver extends CI_Controller
 
             $email = $this->input->post('email', true);
             $user_code = random_int(1000, 9999);
+
+            $user_phone = $this->input->post('user_phone');
+            $phone = str_replace(' ', '', $user_phone);
+            $phone = str_replace('-', '', $user_phone);
+
+            // Ubah 0 menjadi 62
+            // kadang ada penulisan no hp 0811 239 345
+            $phone = str_replace(" ", "", $phone);
+            // kadang ada penulisan no hp (0274) 778787
+            $phone = str_replace("(", "", $phone);
+            // kadang ada penulisan no hp (0274) 778787
+            $phone = str_replace(")", "", $phone);
+            // kadang ada penulisan no hp 0811.239.345
+            $phone = str_replace(".", "", $phone);
+
+            // cek apakah no hp mengandung karakter + dan 0-9
+            if (!preg_match('/[^+0-9]/', trim($phone))) {
+                // cek apakah no hp karakter 1-3 adalah +62
+                if (substr(trim($phone), 0, 3) == '62') {
+                    $hp = trim($phone);
+                }
+                // cek apakah no hp karakter 1 adalah 0
+                elseif (substr(trim($phone), 0, 1) == '0') {
+                    $hp = '62' . substr(trim($phone), 1);
+                }
+            }
             $data = [
                 'id'             => $id,
                 'name'          => htmlspecialchars($this->input->post('name', true)),
                 'email'         => htmlspecialchars($email),
-                'user_phone'    => $this->input->post('user_phone'),
+                'user_phone'    => $hp,
                 'user_address'  => $this->input->post('user_address'),
                 'password'      => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id'       => 5,
