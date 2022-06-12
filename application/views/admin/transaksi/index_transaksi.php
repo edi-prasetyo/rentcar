@@ -64,17 +64,17 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <td><?php echo $transaksi->name; ?> </td>
                     <td><?php echo $transaksi->order_type; ?> </td>
                     <td>
-                        <?php echo $transaksi->pembayaran; ?>
+                        <?php echo $transaksi->pembayaran; ?><br>
                         <?php if ($transaksi->status == 1) : ?>
                             <div class="badge badge-warning">Pending</div>
                         <?php elseif ($transaksi->status == 2) : ?>
-                            <div class="badge badge-warning">Konfirmasi Driver</div>
+                            <div class="badge badge-info">Konfirmasi Driver</div>
                         <?php elseif ($transaksi->status == 3) : ?>
-                            <div class="badge badge-warning">Dalam Pengantaran</div>
+                            <div class="badge badge-primari">Dalam Pengantaran</div>
                         <?php elseif ($transaksi->status == 4) : ?>
-                            <div class="badge badge-warning">Selesai</div>
+                            <div class="badge badge-success">Selesai</div>
                         <?php elseif ($transaksi->status == 5) : ?>
-                            <div class="badge badge-warning">Ditolak Driver</div>
+                            <div class="badge badge-danger">Ditolak Driver</div>
                         <?php else : ?>
                         <?php endif; ?>
 

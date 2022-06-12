@@ -170,7 +170,7 @@ class Transaksi extends CI_Controller
         is_login();
         $data = [
             'id'                => $id,
-            'status'             => 'Dalam Pengantaran',
+            'status'             => 3,
         ];
         $this->transaksi_model->update($data);
     }
@@ -541,7 +541,7 @@ class Transaksi extends CI_Controller
         is_login();
         $data = [
             'id'                    => $id,
-            'status'                => 'Selesai',
+            'status'                => 4,
         ];
         $this->transaksi_model->update($data);
     }
