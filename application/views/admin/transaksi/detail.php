@@ -28,7 +28,8 @@
                 To
                 <address>
                     <strong><?php echo $transaksi->passenger_name; ?></strong><br>
-                    <?php echo $transaksi->alamat_jemput; ?><br>
+                    Alamat Jemput : <?php echo $transaksi->alamat_jemput; ?><br>
+                    Kota : <?php echo $transaksi->kota_name; ?><br>
                     Phone: <?php echo $transaksi->passenger_phone; ?><br>
                     Email: <?php echo $transaksi->passenger_email; ?>
                 </address>
@@ -92,10 +93,7 @@
         <div class="row">
             <!-- accepted payments column -->
             <div class="col-6">
-                <b>Rekening Pembayaran:</b><br>
-                <?php foreach ($bank as $bank) : ?>
-                    <?php echo $bank->bank_name; ?> <?php echo $bank->bank_number; ?> A/n <?php echo $bank->bank_account; ?>
-                <?php endforeach; ?><br>
+
                 <b>Syarat dan Ketentuan:</b><br>
                 <?php echo $transaksi->ketentuan_desc; ?>
             </div>
@@ -110,12 +108,12 @@
                             <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
                         </tr>
                         <tr>
-                            <th>Point</th>
-                            <td>-<?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></td>
+                            <th>Diskon Point</th>
+                            <td>- <?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></td>
                         </tr>
                         <tr>
-                            <th>Diskon</th>
-                            <td>Rp. <?php echo number_format($transaksi->promo, 0, ",", "."); ?></td>
+                            <th>Diskon Promo</th>
+                            <td>- <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></td>
                         </tr>
                         <tr>
                             <th>Total:</th>
