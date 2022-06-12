@@ -67,11 +67,11 @@
                         <tr>
                             <td>
                                 <?php echo $transaksi->mobil_name; ?> <br>
-                                <?php if ($transaksi->product_id == 1) : ?>
+                                <?php if ($transaksi->order_type == 'daily') : ?>
                                     <?php echo $transaksi->paket_name; ?> - <?php echo $transaksi->kota_name; ?>
-                                <?php elseif ($transaksi->product_id == 2) : ?>
+                                <?php elseif ($transaksi->order_type == 'airport') : ?>
                                     <?php echo $transaksi->origin; ?> - <?php echo $transaksi->destination; ?>
-                                <?php elseif ($transaksi->product_id == 3) : ?>
+                                <?php elseif ($transaksi->product_id == 'dropoff') : ?>
                                     <?php echo $transaksi->origin; ?> - <?php echo $transaksi->destination; ?>
                                 <?php endif; ?>
                             </td>

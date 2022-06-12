@@ -39,6 +39,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                 <tr>
                     <th>#</th>
                     <th>Order ID</th>
+                    <th>Mobil</th>
                     <th>Tanggal Jemput</th>
                     <th>Customer</th>
                     <th>Type</th>
@@ -53,6 +54,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                 <tr>
                     <td><?php echo $no; ?></td>
                     <td><?php echo $transaksi->order_id; ?></td>
+                    <td><?php echo $transaksi->mobil_name; ?></td>
                     <td><?php echo date('d/m/Y', strtotime($transaksi->tanggal_jemput)); ?>
                         <?php if ($transaksi->status_read == 0) : ?>
                             <span class="right badge badge-danger">New Order</span>
