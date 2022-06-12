@@ -701,7 +701,7 @@ class transaksi extends CI_Controller
         $data  = [
           'id'                      => $id,
           'stage'                   => 2,
-          'status'                  => 'Dikonfirmasi',
+          'status'                  => 2,
           'driver_id'               => $driver_id,
         ];
         $this->transaksi_model->update($data);

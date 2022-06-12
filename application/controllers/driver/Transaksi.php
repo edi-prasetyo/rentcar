@@ -49,6 +49,7 @@ class Transaksi extends CI_Controller
             'id'                => $id,
             'driver_name'       => $driver_name,
             'stage'             => 3,
+            'status'             => 3,
         ];
         $this->transaksi_model->update($data);
         $this->dalam_perjalanan($id);
@@ -213,8 +214,8 @@ class Transaksi extends CI_Controller
             'id'                => $id,
             'driver_id'         => 0,
             'driver_name'       => '',
-
-            'status'             => 'Ditolak Pengemudi',
+            'stage'             => 5,
+            'status'             => 5,
         ];
         $this->transaksi_model->update($data);
     }
@@ -230,6 +231,7 @@ class Transaksi extends CI_Controller
             $data = [
                 'id'                => $id,
                 'stage'             => 4,
+                'status'             => 4,
                 'status_pembayaran' => 'Lunas'
             ];
             $this->transaksi_model->update($data);
@@ -243,6 +245,7 @@ class Transaksi extends CI_Controller
             $data = [
                 'id'                => $id,
                 'stage'             => 4,
+                'status'             => 4,
                 'status_pembayaran' => 'Lunas'
             ];
             $this->transaksi_model->update($data);

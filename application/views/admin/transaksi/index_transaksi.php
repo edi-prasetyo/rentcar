@@ -55,7 +55,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <td><?php echo $no; ?></td>
                     <td><?php echo $transaksi->order_id; ?></td>
                     <td><?php echo $transaksi->mobil_name; ?></td>
-                    <td><?php echo date('d/m/Y', strtotime($transaksi->tanggal_jemput)); ?>
+                    <td><?php echo $transaksi->tanggal_jemput; ?>
                         <?php if ($transaksi->status_read == 0) : ?>
                             <span class="right badge badge-danger">New Order</span>
                         <?php else : ?>
@@ -63,7 +63,22 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     </td>
                     <td><?php echo $transaksi->name; ?> </td>
                     <td><?php echo $transaksi->order_type; ?> </td>
-                    <td><?php echo $transaksi->pembayaran; ?> </td>
+                    <td>
+                        <?php echo $transaksi->pembayaran; ?>
+                        <?php if ($transaksi->status == 1) : ?>
+                            <div class="badge badge-warning">Pending</div>
+                        <?php elseif ($transaksi->status == 2) : ?>
+                            <div class="badge badge-warning">Konfirmasi Driver</div>
+                        <?php elseif ($transaksi->status == 3) : ?>
+                            <div class="badge badge-warning">Dalam Pengantaran</div>
+                        <?php elseif ($transaksi->status == 4) : ?>
+                            <div class="badge badge-warning">Selesai</div>
+                        <?php elseif ($transaksi->status == 5) : ?>
+                            <div class="badge badge-warning">Ditolak Driver</div>
+                        <?php else : ?>
+                        <?php endif; ?>
+
+                    </td>
                     <td><?php echo $transaksi->status_pembayaran; ?> </td>
 
                     <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
