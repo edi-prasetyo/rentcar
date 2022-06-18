@@ -206,68 +206,105 @@ class Auth extends CI_Controller
 				'user_phone'	=> $hp,
 				'password'		=> password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
 				'role_id'		=> 6,
-				'is_active'		=> 1,
+				'is_active'		=> 0,
 				'is_locked'		=> 1,
 				'date_created'	=> date('Y-m-d H:i:s')
 			];
 			//Token
 			$token = base64_encode(random_bytes(25));
 			$user_token = [
-				'email'			=> $email,
+				'user_phone'	=> $hp,
 				'token'			=> $token,
 				'date_created'	=>  date('Y-m-d H:i:s')
 			];
 			$this->db->insert('user', $data);
 			$this->db->insert('user_token', $user_token);
 			//Kirim Email
-			$this->_sendEmail($token, 'verify');
+			// $this->_sendEmail($token, 'verify');
+			$this->_sendWhatsapp($token, $hp, 'verify');
 			$this->_deleteUser($email);
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat Anda berhasil mendaftar, silahkan Aktivasi akun</div>');
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
-	private function _sendEmail($token, $type)
+	public function _sendWhatsapp($token, $hp, $type)
 	{
-		$meta = $this->meta_model->get_meta();
-		$email_daftar = $this->pengaturan_model->email_register();
-		$config = [
-
-			'protocol'     	=> "$email_daftar->protocol",
-			'smtp_host'   	=> "$email_daftar->smtp_host",
-			'smtp_port'   	=> $email_daftar->smtp_port,
-			'smtp_user'   	=> "$email_daftar->smtp_user",
-			'smtp_pass'   	=> "$email_daftar->smtp_pass",
-			'mailtype'     	=> 'html',
-			'charset'     	=> 'utf-8',
-		];
-
-		$this->load->library('email', $config);
-		$this->email->initialize($config);
-		$this->email->set_newline("\r\n");
-		$this->email->from("$email_daftar->smtp_user", $meta->title);
-		$this->email->to($this->input->post('real_email'));
-
 		if ($type == 'verify') {
-			$this->email->subject('Account Verification');
-			$this->email->message('Silahkan Klik Link ini untuk mengaktivasi akun 
-			<a href=" ' . base_url() . 'auth/verify?email=' . $this->input->post('real_email') . '&token=' . urlencode($token) . ' ">Aktivasi</a>');
+			$message = "Silahkan Klik Link ini untuk mengaktivasi akun " . base_url() . "auth/verify?user_phone=" . urlencode($hp) . "&token=" . urlencode($token) . " ";
 		} elseif ($type == 'forgot') {
-			$this->email->subject('Reset Password');
-			$this->email->message('Silahkan Klik Link ini untuk Mereset Password 
-			<a href=" ' . base_url() . 'auth/resetpassword?email=' . $this->input->post('real_email') . '&token=' . urlencode($token) . ' ">Reset Password</a>');
+			$message = 'Silahkan Klik Link ini untuk Mereset Password 
+			' . base_url() . 'auth/resetpassword?user_phone=' . $hp . '&token=' . urlencode($token) . ' ';
 		}
 
-		if ($this->email->send()) {
-			return true;
-		}
+		$apikey = "be5e0a993081eca5f5feca46ace4c6657b36f803";
+		$tujuan = $hp;
+		$pesan = $message;
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => 'https://starsender.online/api/sendText?message=' . rawurlencode($pesan) . '&tujuan=' . rawurlencode($tujuan . '@s.whatsapp.net'),
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			CURLOPT_HTTPHEADER => array(
+				'apikey: ' . $apikey
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		$response;
 	}
+	// private function _sendEmail($token, $type)
+	// {
+	// 	$meta = $this->meta_model->get_meta();
+	// 	$email_daftar = $this->pengaturan_model->email_register();
+	// 	$config = [
+
+	// 		'protocol'     	=> "$email_daftar->protocol",
+	// 		'smtp_host'   	=> "$email_daftar->smtp_host",
+	// 		'smtp_port'   	=> $email_daftar->smtp_port,
+	// 		'smtp_user'   	=> "$email_daftar->smtp_user",
+	// 		'smtp_pass'   	=> "$email_daftar->smtp_pass",
+	// 		'mailtype'     	=> 'html',
+	// 		'charset'     	=> 'utf-8',
+	// 	];
+
+	// 	$this->load->library('email', $config);
+	// 	$this->email->initialize($config);
+	// 	$this->email->set_newline("\r\n");
+	// 	$this->email->from("$email_daftar->smtp_user", $meta->title);
+	// 	$this->email->to($this->input->post('real_email'));
+
+	// 	if ($type == 'verify') {
+	// 		$this->email->subject('Account Verification');
+	// 		$this->email->message('Silahkan Klik Link ini untuk mengaktivasi akun 
+	// 		<a href=" ' . base_url() . 'auth/verify?email=' . $this->input->post('real_email') . '&token=' . urlencode($token) . ' ">Aktivasi</a>');
+	// 	} elseif ($type == 'forgot') {
+	// 		$this->email->subject('Reset Password');
+	// 		$this->email->message('Silahkan Klik Link ini untuk Mereset Password 
+	// 		<a href=" ' . base_url() . 'auth/resetpassword?email=' . $this->input->post('real_email') . '&token=' . urlencode($token) . ' ">Reset Password</a>');
+	// 	}
+
+	// 	if ($this->email->send()) {
+	// 		return true;
+	// 	}
+	// }
 	public function verify()
 	{
-		$email = $this->input->get('email');
+		$user_phone = $this->input->get('user_phone');
 		$token = $this->input->get('token');
 
-		$user = $this->db->get_where('user', ['email' => $email])->row_array();
+		$user = $this->db->get_where('user', ['user_phone' => $user_phone])->row_array();
+		// var_dump($user);
+		// die;
 
 		if ($user) {
 			$user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
@@ -275,15 +312,15 @@ class Auth extends CI_Controller
 				if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
 
 					$this->db->set('is_active', 1);
-					$this->db->where('email', $email);
+					$this->db->where('user_phone', $user_phone);
 					$this->db->update('user');
 
-					$this->db->delete('user_token', ['email' => $email]);
-					$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat email ' . $email . '  sudah di aktivasi, Silahkan login!</div> ');
+					$this->db->delete('user_token', ['user_phone' => $user_phone]);
+					$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat email ' . $user_phone . '  sudah di aktivasi, Silahkan login!</div> ');
 					redirect('auth');
 				} else {
-					$this->db->delete('user', ['email' => $email]);
-					$this->db->delete('user', ['token' => $token]);
+					$this->db->delete('user_token', ['user_phone' => $user_phone]);
+					$this->db->delete('user_token', ['token' => $token]);
 					$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Token Expired!</div> ');
 					redirect('auth');
 				}
@@ -296,6 +333,40 @@ class Auth extends CI_Controller
 			redirect('auth');
 		}
 	}
+	// public function verify()
+	// {
+	// 	$email = $this->input->get('email');
+	// 	$token = $this->input->get('token');
+
+	// 	$user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+	// 	if ($user) {
+	// 		$user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+	// 		if ($user_token) {
+	// 			if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
+
+	// 				$this->db->set('is_active', 1);
+	// 				$this->db->where('email', $email);
+	// 				$this->db->update('user');
+
+	// 				$this->db->delete('user_token', ['email' => $email]);
+	// 				$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat email ' . $email . '  sudah di aktivasi, Silahkan login!</div> ');
+	// 				redirect('auth');
+	// 			} else {
+	// 				$this->db->delete('user', ['email' => $email]);
+	// 				$this->db->delete('user', ['token' => $token]);
+	// 				$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Token Expired!</div> ');
+	// 				redirect('auth');
+	// 			}
+	// 		} else {
+	// 			$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Token salah!</div> ');
+	// 			redirect('auth');
+	// 		}
+	// 	} else {
+	// 		$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Email salah!</div> ');
+	// 		redirect('auth');
+	// 	}
+	// }
 	public function forgotPassword()
 	{
 		$this->form_validation->set_rules(
@@ -334,7 +405,7 @@ class Auth extends CI_Controller
 					'date_created'	=> time()
 				];
 				$this->db->insert('user_token', $user_token);
-				$this->_sendEmail($token, 'forgot');
+				// $this->_sendEmail($token, 'forgot');
 
 				$this->session->set_flashdata('message', '<div class="alert alert-success">Silahkan cek email untuk mereset password</div> ');
 				redirect('auth');
