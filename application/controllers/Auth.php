@@ -211,7 +211,9 @@ class Auth extends CI_Controller
 				'date_created'	=> date('Y-m-d H:i:s')
 			];
 			//Token
-			$token = base64_encode(random_bytes(25));
+			$token = openssl_random_pseudo_bytes(16);
+			$token = bin2hex($token);
+
 			$user_token = [
 				'user_phone'	=> $hp,
 				'token'			=> $token,
@@ -231,7 +233,7 @@ class Auth extends CI_Controller
 	public function _sendWhatsapp($token, $hp, $type)
 	{
 		if ($type == 'verify') {
-			$message = "Silahkan Klik Link ini untuk mengaktivasi akun " . base_url() . "auth/verify?user_phone=" . urlencode($hp) . "&token=" . urlencode($token) . " ";
+			$message = "Silahkan Klik Link ini untuk mengaktivasi akun " . base_url() . "auth/verify?user_phone=" . $hp . "&token=" . $token . " ";
 		} elseif ($type == 'forgot') {
 			$message = 'Silahkan Klik Link ini untuk Mereset Password 
 			' . base_url() . 'auth/resetpassword?user_phone=' . $hp . '&token=' . urlencode($token) . ' ';
@@ -302,18 +304,25 @@ class Auth extends CI_Controller
 		$user_phone = $this->input->get('user_phone');
 		$token = $this->input->get('token');
 
+
 		$user = $this->db->get_where('user', ['user_phone' => $user_phone])->row_array();
-		// var_dump($user);
-		// die;
+		$user_id = $user['id'];
+
 
 		if ($user) {
 			$user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
 			if ($user_token) {
 				if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
 
-					$this->db->set('is_active', 1);
-					$this->db->where('user_phone', $user_phone);
-					$this->db->update('user');
+					// $this->db->set(['is_active' => 1]);
+					// $this->db->where('id', $user_id);
+					// $this->db->update('user');
+					$data = [
+						'id'		=> $user_id,
+						'is_active' => 1,
+					];
+
+					$this->user_model->update($data);
 
 					$this->db->delete('user_token', ['user_phone' => $user_phone]);
 					$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat email ' . $user_phone . '  sudah di aktivasi, Silahkan login!</div> ');
@@ -330,7 +339,7 @@ class Auth extends CI_Controller
 			}
 		} else {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Email salah!</div> ');
-			redirect('auth');
+			// redirect('auth');
 		}
 	}
 	// public function verify()
