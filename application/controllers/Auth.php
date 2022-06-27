@@ -312,27 +312,20 @@ class Auth extends CI_Controller
 		if ($user) {
 			$user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
 			if ($user_token) {
-				if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
 
-					// $this->db->set(['is_active' => 1]);
-					// $this->db->where('id', $user_id);
-					// $this->db->update('user');
-					$data = [
-						'id'		=> $user_id,
-						'is_active' => 1,
-					];
 
-					$this->user_model->update($data);
+				// $this->db->set(['is_active' => 1]);
+				// $this->db->where('id', $user_id);
+				// $this->db->update('user');
+				$data = [
+					'id'		=> $user_id,
+					'is_active' => 1,
+				];
 
-					$this->db->delete('user_token', ['user_phone' => $user_phone]);
-					$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat email ' . $user_phone . '  sudah di aktivasi, Silahkan login!</div> ');
-					redirect('auth');
-				} else {
-					$this->db->delete('user_token', ['user_phone' => $user_phone]);
-					$this->db->delete('user_token', ['token' => $token]);
-					$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Token Expired!</div> ');
-					redirect('auth');
-				}
+				$this->user_model->update($data);
+				// $this->db->delete('user_token', ['user_phone' => $user_phone]);
+				$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat email ' . $user_phone . '  sudah di aktivasi, Silahkan login!</div> ');
+				redirect('auth');
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Token salah!</div> ');
 				redirect('auth');

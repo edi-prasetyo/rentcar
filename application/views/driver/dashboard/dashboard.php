@@ -112,7 +112,7 @@ $user = $this->user_model->user_detail($user_id); ?>
                             </div>
                         </div>
                     </div>
-                <?php elseif ($data->order_type == "dropoff") : ?>
+                <?php elseif ($data->order_type == "dropOff") : ?>
                     <div class="card shadow border-0 my-2">
                         <div class="card-header bg-white">
                             <i class="ri-calendar-todo-line"></i> <?php echo $data->tanggal_jemput; ?>

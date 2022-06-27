@@ -398,7 +398,7 @@ class Dropoff extends CI_Controller
                 'grand_total'                           => $grand_total,
                 'status'                                => 'Pending',
                 'status_read'                           => 0,
-                'order_type'                            => 'dropoff',
+                'order_type'                            => 'dropOff',
                 'pembayaran_id'                         => 0,
                 'pembayaran'                            => 'Transfer',
                 'status_pembayaran'                     => 'Belum Dibayar',
