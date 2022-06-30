@@ -57,6 +57,7 @@ class Meta extends CI_Controller
         'instagram'               => $this->input->post('instagram'),
         'youtube'                 => $this->input->post('youtube'),
         'twitter'                 => $this->input->post('twitter'),
+        'whatsapp_api'                 => $this->input->post('twitter'),
         'date_updated'            => date('Y-m-d H:i:s')
       ];
       $this->meta_model->update($data);
@@ -200,5 +201,34 @@ class Meta extends CI_Controller
       'content'                       => 'admin/meta/upload_favicon'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
+  }
+
+  public function whatsapp_api($id)
+  {
+    $meta = $this->meta_model->get_meta();
+    $this->form_validation->set_rules(
+      'whatsapp_api',
+      'whatsapp api',
+      'required',
+      array('required'            => '%s Harus Diisi')
+    );
+    if ($this->form_validation->run() === FALSE) {
+      $data = [
+        'title'                   => 'Update Pengaturan',
+        'meta'                    => $meta,
+        'content'                 => 'admin/pengaturan/whatsapp_api'
+      ];
+      $this->load->view('admin/layout/wrapp', $data, FALSE);
+    } else {
+
+      $data = [
+        'id'                      => $id,
+        'whatsapp_api'            => $this->input->post('whatsapp_api'),
+      ];
+      $this->meta_model->update_whatsapp($data);
+      $this->session->set_flashdata('message', 'Data telah diubah');
+      redirect($_SERVER['HTTP_REFERER']);
+      // redirect(base_url('admin/pengaturan/whatsapp_api/' . $id), 'refresh');
+    }
   }
 }

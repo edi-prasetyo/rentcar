@@ -16,6 +16,7 @@ class Daily extends CI_Controller
         $this->load->model('paket_model');
         $this->load->model('bank_model');
         $this->load->model('promo_model');
+        $this->load->model('meta_model');
     }
     public function index()
     {
@@ -418,7 +419,118 @@ class Daily extends CI_Controller
 
             $this->update_point($insert_id);
             $this->_sendEmail($insert_id, 'order');
+            $this->_sendWhatsapp($insert_id);
         }
+    }
+
+    public function _sendWhatsapp($insert_id)
+    {
+        $meta = $this->meta_model->get_meta();
+        $whatsapp_key = $meta->whatsapp_api;
+        $transaksi = $this->transaksi_model->last_transaksi($insert_id);
+        $whatsapp = $transaksi->passenger_phone;
+
+        if ($transaksi->pembayaran == "Transfer") {
+            $message = "
+            
+            Terima Kasih Atas Pesanan Anda 
+            Berikut rincian Pesanan anda
+            ----------------------------
+            Detail Customer
+            ----------------------------
+            Nama            : " . $transaksi->passenger_name . "
+            email           : " . $transaksi->passenger_email . "
+            ----------------------------
+            Detail Pesanan
+            ----------------------------
+            Mobil           : " . $transaksi->mobil_name . "
+            Paket           : " . $transaksi->paket_name . "
+            Tgl jemput      : " . $transaksi->paket_name . "
+            Jam jemput      : " . $transaksi->paket_name . "
+            Alamat jemput   : " . $transaksi->paket_name . "
+            ----------------------------
+            Detail Harga
+            ----------------------------
+            Total Harga     : " . $transaksi->total_price . "
+            Diskon Point    : " . $transaksi->diskon_point . "
+            Diskon Promo    : " . $transaksi->promo_amount . "
+            Total Harga     : " . $transaksi->grand_total . "
+            ----------------------------
+            Pembayaran
+            ----------------------------
+            Silahkan Klik Link di bawah ini untuk 
+            melakukan Pembayaran
+            " . $transaksi->paymen_url . "
+
+            Terima Kasih Atas Pesanan Anda.
+            Jika butuh bantuan silahkan menghubungi
+            " . $meta->whatsapp . "
+            
+            ";
+        } else {
+            $message = "
+            
+            Terima Kasih Atas Pesanan Anda 
+            Berikut rincian Pesanan anda
+            ----------------------------
+            Detail Customer
+            ----------------------------
+            Nama            : " . $transaksi->passenger_name . "
+            email           : " . $transaksi->passenger_email . "
+            ----------------------------
+            Detail Pesanan
+            ----------------------------
+            Mobil           : " . $transaksi->mobil_name . "
+            Paket           : " . $transaksi->paket_name . "
+            Tgl jemput      : " . $transaksi->tanggal_jemput . "
+            Jam jemput      : " . $transaksi->jam_jemput . "
+            Alamat jemput   : " . $transaksi->alamat_jemput . "
+            ----------------------------
+            Detail Harga
+            ----------------------------
+            Total Harga     : " . $transaksi->total_price . "
+            Diskon Point    : " . $transaksi->diskon_point . "
+            Diskon Promo    : " . $transaksi->promo_amount . "
+            Total Harga     : " . $transaksi->grand_total . "
+            ----------------------------
+            Pembayaran
+            ----------------------------
+            Silahkan melakukan Pembayaran 
+            Melalui Driver Saat Penjemputan
+
+            Terima Kasih Atas Pesanan Anda.
+            Jika butuh bantuan silahkan 
+            menghubungi.
+            " . $meta->whatsapp . "
+            
+            ";
+        }
+
+
+        $apikey = $whatsapp_key;
+        $tujuan = $whatsapp;
+        $pesan = $message;
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://starsender.online/api/sendText?message=' . rawurlencode($pesan) . '&tujuan=' . rawurlencode($tujuan . '@s.whatsapp.net'),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_HTTPHEADER => array(
+                'apikey: ' . $apikey
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $response;
     }
 
     // Update Data Point jika point di gunakan

@@ -27,4 +27,9 @@ class Meta_model extends CI_Model
     $this->db->where('id', $data['id']);
     $this->db->update('meta', $data);
   }
+  public function update_whatsapp($data)
+  {
+    $this->db->where('id', $data['id']);
+    $this->db->update('meta', $data);
+  }
 }

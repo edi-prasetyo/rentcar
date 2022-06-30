@@ -186,6 +186,11 @@ class User_model extends CI_Model
     $this->db->where('id', $data['id']);
     $this->db->update('user', $data);
   }
+  public function request_password($data)
+  {
+    $this->db->where('user_phone', $data['user_phone']);
+    $this->db->update('user', $data);
+  }
   // Product User Read
   public function detail($id)
   {

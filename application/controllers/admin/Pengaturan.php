@@ -8,16 +8,22 @@ class Pengaturan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('pengaturan_model');
+        $this->load->model('meta_model');
     }
     public function index()
     {
         $email_register                = $this->pengaturan_model->email_register();
         $email_order                   = $this->pengaturan_model->email_order();
+        $payment_method = $this->pengaturan_model->get_payment();
+        $meta = $this->meta_model->get_meta();
+
 
         $data    = [
-            'title'                   => 'Pengaturan Email',
+            'title'                   => 'Pengaturan',
             'email_register'              => $email_register,
             'email_order'              => $email_order,
+            'payment_method'            => $payment_method,
+            'meta'                      => $meta,
             'content'                 => 'admin/pengaturan/index_pengaturan'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
@@ -54,6 +60,54 @@ class Pengaturan extends CI_Controller
             $this->pengaturan_model->update($data);
             $this->session->set_flashdata('message', 'Data telah di ubah');
             redirect(base_url('admin/pengaturan'), 'refresh');
+        }
+    }
+    public function active_payment($id)
+    {
+        $data = [
+            'id'                      => $id,
+            'is_active'                   => 1,
+        ];
+        $this->pengaturan_model->update_payment($data);
+        $this->session->set_flashdata('message', 'Data telah di ubah');
+        redirect(base_url('admin/pengaturan'), 'refresh');
+    }
+    public function inactive_payment($id)
+    {
+        $data = [
+            'id'                      => $id,
+            'is_active'                   => 0,
+        ];
+        $this->pengaturan_model->update_payment($data);
+        $this->session->set_flashdata('message', 'Data telah di ubah');
+        redirect(base_url('admin/pengaturan'), 'refresh');
+    }
+    public function whatsapp_api($id)
+    {
+        $meta = $this->meta_model->get_meta();
+        $this->form_validation->set_rules(
+            'whatsapp_api',
+            'whatsapp api',
+            'required',
+            array('required'            => '%s Harus Diisi')
+        );
+        if ($this->form_validation->run() === FALSE) {
+            $data = [
+                'title'                   => 'Update Pengaturan',
+                'meta'                  => $meta,
+                'content'                 => 'admin/pengaturan/index_pengaturan'
+            ];
+            $this->load->view('admin/layout/wrapp', $data, FALSE);
+        } else {
+
+            $data = [
+                'id'                      => $id,
+                'whatsapp_api'            => $this->input->post('whatsapp_api'),
+            ];
+            $this->pengaturan_model->update_whatsapp($data);
+            $this->session->set_flashdata('message', 'Data telah diubah');
+            redirect($_SERVER['HTTP_REFERER']);
+            // redirect(base_url('admin/pengaturan/whatsapp_api/' . $id), 'refresh');
         }
     }
 }

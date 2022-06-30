@@ -92,10 +92,10 @@ class Auth extends CI_Controller
 						} elseif ($user['role_id'] == 6) {
 							if (!$this->agent->is_mobile()) {
 								// Desktop View
-								redirect($_SERVER['HTTP_REFERER']);
+								redirect('myaccount');
 							} else {
 								// Mobile View
-								redirect('/');
+								redirect('myaccount');
 							}
 						}
 					} else {
@@ -227,19 +227,22 @@ class Auth extends CI_Controller
 			$this->_deleteUser($email);
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat Anda berhasil mendaftar, silahkan Aktivasi akun</div>');
-			redirect($_SERVER['HTTP_REFERER']);
+			redirect('auth');
 		}
 	}
 	public function _sendWhatsapp($token, $hp, $type)
 	{
+		$meta = $this->meta_model->get_meta();
+		$whatsapp_key = $meta->whatsapp_api;
+
 		if ($type == 'verify') {
 			$message = "Silahkan Klik Link ini untuk mengaktivasi akun " . base_url() . "auth/verify?user_phone=" . $hp . "&token=" . $token . " ";
 		} elseif ($type == 'forgot') {
 			$message = 'Silahkan Klik Link ini untuk Mereset Password 
-			' . base_url() . 'auth/resetpassword?user_phone=' . $hp . '&token=' . urlencode($token) . ' ';
+			' . base_url() . 'auth/resetpassword?user_phone=' . $hp . '&token=' . $token . ' ';
 		}
 
-		$apikey = "be5e0a993081eca5f5feca46ace4c6657b36f803";
+		$apikey = $whatsapp_key;
 		$tujuan = $hp;
 		$pesan = $message;
 
@@ -264,6 +267,7 @@ class Auth extends CI_Controller
 		curl_close($curl);
 		$response;
 	}
+
 	// private function _sendEmail($token, $type)
 	// {
 	// 	$meta = $this->meta_model->get_meta();
@@ -323,7 +327,7 @@ class Auth extends CI_Controller
 				];
 
 				$this->user_model->update($data);
-				// $this->db->delete('user_token', ['user_phone' => $user_phone]);
+				$this->db->delete('user_token', ['user_phone' => $user_phone]);
 				$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat email ' . $user_phone . '  sudah di aktivasi, Silahkan login!</div> ');
 				redirect('auth');
 			} else {
@@ -331,8 +335,8 @@ class Auth extends CI_Controller
 				redirect('auth');
 			}
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Email salah!</div> ');
-			// redirect('auth');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger">Aktivasi akun Gagal, Nomor Handphone tidak terdaftar!</div> ');
+			redirect('auth');
 		}
 	}
 	// public function verify()
@@ -369,27 +373,31 @@ class Auth extends CI_Controller
 	// 		redirect('auth');
 	// 	}
 	// }
+
+
 	public function forgotPassword()
 	{
+
+
+
 		$this->form_validation->set_rules(
-			'email',
-			'Email',
-			'required|trim|valid_email',
+			'user_phone',
+			'Nomor Hp',
+			'required',
 			[
 				'required' 		=> 'Email harus di isi',
-				'valid_email' 	=> 'Format email Tidak sesuai'
 			]
 		);
 		if ($this->form_validation->run() == false) {
 			if (!$this->agent->is_mobile()) {
-				// Desktop View
+
 				$data = [
 					'title'		=> 'Forgot Password',
 					'content'	=> 'front/auth/forgot_password'
 				];
 				$this->load->view('front/layout/wrapp', $data, FALSE);
 			} else {
-				// Mobile View
+
 				$data = [
 					'title'		=> 'Forgot Password',
 					'content'	=> 'mobile/auth/forgot_password'
@@ -397,26 +405,174 @@ class Auth extends CI_Controller
 				$this->load->view('mobile/layout/wrapp', $data, FALSE);
 			}
 		} else {
-			$email = $this->input->post('email');
-			$user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
-			if ($user) {
-				$token = base64_encode(random_bytes(25));
-				$user_token = [
-					'email'			=> $email,
-					'token'			=> $token,
-					'date_created'	=> time()
-				];
-				$this->db->insert('user_token', $user_token);
-				// $this->_sendEmail($token, 'forgot');
 
-				$this->session->set_flashdata('message', '<div class="alert alert-success">Silahkan cek email untuk mereset password</div> ');
+
+
+			$user_phone = $this->input->post('user_phone');
+			$phone = str_replace(' ', '', $user_phone);
+			$phone = str_replace('-', '', $user_phone);
+			$phone = str_replace(" ", "", $phone);
+			$phone = str_replace("(", "", $phone);
+			$phone = str_replace(")", "", $phone);
+			$phone = str_replace(".", "", $phone);
+			if (!preg_match('/[^+0-9]/', trim($phone))) {
+
+				if (substr(trim($phone), 0, 3) == '62') {
+					$hp = trim($phone);
+				} elseif (substr(trim($phone), 0, 1) == '0') {
+					$hp = '62' . substr(trim($phone), 1);
+				}
+			}
+
+			$user_phone = $this->db->get_where('user', ['user_phone' => $hp, 'is_active' => 1])->row_array();
+			if ($user_phone) {
+
+				$user_id = $user_phone['id'];
+				$new_password =  random_string('numeric', 5);
+
+				$data = [
+					'id'			=> $user_id,
+					'password'		=> password_hash($new_password, PASSWORD_DEFAULT),
+
+
+				];
+
+				$this->user_model->update($data);
+				$this->_sendPassword($user_phone, $new_password);
+				$this->session->set_flashdata('message', '<div class="alert alert-success"> Silahkan cek Pesan Whatsapp ke nomor ' . $user_phone['user_phone'] . ' untuk mereset password</div> ');
 				redirect('auth');
 			} else {
-				$this->session->set_flashdata('message', '<div class="alert alert-danger">Email Tidak Terdaftar atau belum di aktivasi</div> ');
-				redirect('auth');
+				$this->session->set_flashdata('message', '<div class="alert alert-danger">Nomor Whatsapp Tidak Terdaftar atau belum di aktivasi</div> ');
+				redirect($_SERVER['HTTP_REFERER']);
 			}
 		}
 	}
+
+	public function _sendPassword($user_phone, $new_password)
+	{
+		$meta = $this->meta_model->get_meta();
+		$whatsapp_key = $meta->whatsapp_api;
+		$phone = $user_phone['user_phone'];
+		$email = $user_phone['email'];
+
+		$message = "
+		Silahkan Gunakan Data Berikut 
+		Untuk Login Ke Aplikasi
+		----------------------------
+		Email    : " . $email . "
+		Password : " . $new_password . "
+		----------------------------
+		Silahkan Login lalu
+		ubah kembali password 
+		anda.
+		
+		";
+
+		$apikey = $whatsapp_key;
+		$tujuan = $phone;
+		$pesan = $message;
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => 'https://starsender.online/api/sendText?message=' . rawurlencode($pesan) . '&tujuan=' . rawurlencode($tujuan . '@s.whatsapp.net'),
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			CURLOPT_HTTPHEADER => array(
+				'apikey: ' . $apikey
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		$response;
+	}
+
+	// public function forgotPassword()
+	// {
+	// 	$this->form_validation->set_rules(
+	// 		'whatsapp',
+	// 		'Email',
+	// 		'required',
+	// 		[
+	// 			'required' 		=> 'Email harus di isi',
+	// 		]
+	// 	);
+	// 	if ($this->form_validation->run() == false) {
+	// 		if (!$this->agent->is_mobile()) {
+
+	// 			$data = [
+	// 				'title'		=> 'Forgot Password',
+	// 				'content'	=> 'front/auth/forgot_password'
+	// 			];
+	// 			$this->load->view('front/layout/wrapp', $data, FALSE);
+	// 		} else {
+
+	// 			$data = [
+	// 				'title'		=> 'Forgot Password',
+	// 				'content'	=> 'mobile/auth/forgot_password'
+	// 			];
+	// 			$this->load->view('mobile/layout/wrapp', $data, FALSE);
+	// 		}
+	// 	} else {
+
+
+	// 		$user_phone = $this->input->post('user_phone');
+	// 		$phone = str_replace(' ', '', $user_phone);
+	// 		$phone = str_replace('-', '', $user_phone);
+
+
+	// 		$phone = str_replace(" ", "", $phone);
+
+	// 		$phone = str_replace("(", "", $phone);
+
+	// 		$phone = str_replace(")", "", $phone);
+
+	// 		$phone = str_replace(".", "", $phone);
+
+
+	// 		if (!preg_match('/[^+0-9]/', trim($phone))) {
+
+	// 			if (substr(trim($phone), 0, 3) == '62') {
+	// 				$hp = trim($phone);
+	// 			}
+
+	// 			elseif (substr(trim($phone), 0, 1) == '0') {
+	// 				$hp = '62' . substr(trim($phone), 1);
+	// 			}
+	// 		}
+
+	// 		$user = $this->db->get_where('user', ['user_phone' => $hp, 'is_active' => 1])->row_array();
+	// 		if ($user) {
+
+	// 			$token = openssl_random_pseudo_bytes(16);
+	// 			$token = bin2hex($token);
+
+	// 			$user_token = [
+	// 				'user_phone'			=> $hp,
+	// 				'token'			=> $token,
+	// 				'date_created'	=> time()
+	// 			];
+	// 			$this->db->insert('user_token', $user_token);
+	// 			$this->_sendWhatsapp($token, $hp, 'forgot');
+
+	// 			$this->session->set_flashdata('message', '<div class="alert alert-success">Silahkan cek Pesan Whatsapp untuk mereset password</div> ');
+	// 			redirect('auth');
+	// 		} else {
+	// 			$this->session->set_flashdata('message', '<div class="alert alert-danger">Email Tidak Terdaftar atau belum di aktivasi</div> ');
+	// 			redirect('auth');
+	// 		}
+	// 	}
+	// }
+
+
+
 	public function _deleteUser($email)
 	{
 		$user = $this->db->get_where('user', ['is_active' => 0, 'email' => $email])->row_array();

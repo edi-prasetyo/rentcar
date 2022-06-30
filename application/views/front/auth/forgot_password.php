@@ -7,15 +7,18 @@
                 <div class="p-5">
                     <div class="text-center">
                         <h1 class="h4 text-gray-900 mb-4">Forgot your password?</h1>
-                        <?php echo $this->session->flashdata('message'); ?>
+                        <?php
+                        echo $this->session->flashdata('message');
+                        unset($_SESSION['message']);
+                        ?>
                     </div>
                     <?php
                     $attributes = array('class' => 'user');
                     echo form_open('auth/forgotpassword', $attributes)
                     ?>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" name="email" id="email" placeholder="Enter Email Address..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase">
-                        <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="text" class="form-control form-control-user" name="user_phone" placeholder="Enter Email Address..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase">
+                        <?php echo form_error('user_phone', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
 
 

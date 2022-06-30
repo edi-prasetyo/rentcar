@@ -186,14 +186,29 @@ class Driver extends CI_Controller
         } else {
 
             $email = $this->input->post('email', true);
-            $user_code = random_int(1000, 9999);
+
+            $user_phone = $this->input->post('user_phone');
+            $phone = str_replace(' ', '', $user_phone);
+            $phone = str_replace('-', '', $user_phone);
+            $phone = str_replace(" ", "", $phone);
+            $phone = str_replace("(", "", $phone);
+            $phone = str_replace(")", "", $phone);
+            $phone = str_replace(".", "", $phone);
+            if (!preg_match('/[^+0-9]/', trim($phone))) {
+
+                if (substr(trim($phone), 0, 3) == '62') {
+                    $hp = trim($phone);
+                } elseif (substr(trim($phone), 0, 1) == '0') {
+                    $hp = '62' . substr(trim($phone), 1);
+                }
+            }
 
 
             $data = [
                 'id'             => $id,
                 'name'          => htmlspecialchars($this->input->post('name', true)),
                 'email'         => htmlspecialchars($email),
-                'user_phone'    => $this->input->post('user_phone'),
+                'user_phone'    => $hp,
                 'user_address'  => $this->input->post('user_address'),
                 'kota_id'  => $this->input->post('kota_id'),
                 'password'      => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),

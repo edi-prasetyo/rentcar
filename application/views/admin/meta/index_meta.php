@@ -64,6 +64,8 @@
                     <hr>
                     <div class="col-md-3">Map</div>
                     <div class="col-md-9">: <?php echo $meta->map; ?></div>
+                    <div class="col-md-3">Whatsapp Api</div>
+                    <div class="col-md-9">: <?php echo $meta->whatsapp_api; ?></div>
                 </div>
             </div>
         </div>
@@ -91,6 +93,10 @@
                 <a href="<?php echo base_url('admin/meta/favicon'); ?>" class="btn btn-rounded btn-info btn-sm btn-block"><i class="fa fa-edit"></i> Ubah Favicon</a>
             </div>
         </div>
+
+
+
+
 
     </div>
 </div>
