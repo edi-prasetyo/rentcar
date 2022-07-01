@@ -467,8 +467,10 @@ class Daily extends CI_Controller
                 // die;
 
                 $insert_id = $result['trx']['data']['id_order'];
+                $this->update_point($insert_id);
+                // $this->_sendEmail($insert_id, 'order');
+                $this->_sendWhatsapp($insert_id);
 
-                $this->sukses($insert_id);
 
                 if ($response !== false) {
                     $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
@@ -478,12 +480,6 @@ class Daily extends CI_Controller
                     redirect(base_url('daily/404'), 'refresh');
                 }
                 curl_close($ch);
-
-
-
-                $this->update_point($insert_id);
-                // $this->_sendEmail($insert_id, 'order');
-                $this->_sendWhatsapp($insert_id);
             }
         }
     }
@@ -597,8 +593,6 @@ class Daily extends CI_Controller
 
         curl_close($curl);
         $response;
-
-        echo $response;
     }
 
     // Update Data Point jika point di gunakan
@@ -677,54 +671,5 @@ class Daily extends CI_Controller
         //     echo $this->email->print_debugger();
         //     die;
         // }
-    }
-
-
-    public function sukses($insert_id)
-    {
-        $transaksi = $this->transaksi_model->sukses_transaksi($insert_id);
-        $bank = $this->bank_model->get_allbank();
-
-        if (!$this->agent->is_mobile()) {
-            // Desktop View
-            $data = [
-                'title'     => 'Review Pesanan',
-                'transaksi' => $transaksi,
-                'bank'      => $bank,
-                'content'   => 'front/daily/sukses'
-            ];
-            $this->load->view('front/layout/wrapp', $data);
-        } else {
-            // Mobile View
-            $data = [
-                'title'     => 'Review Pesanan',
-                'transaksi' => $transaksi,
-                'bank'      => $bank,
-                'content'   => 'mobile/daily/sukses'
-            ];
-            $this->load->view('mobile/layout/wrapp', $data);
-        }
-    }
-
-    public function payment($insert_id)
-    {
-        $transaksi = $this->transaksi_model->test_transaksi($insert_id);
-        if (!$this->agent->is_mobile()) {
-            // Desktop View
-            $data = [
-                'title'     => 'Pembayaran',
-                'transaksi' => $transaksi,
-                'content'   => 'front/daily/payment'
-            ];
-            $this->load->view('front/layout/wrapp', $data);
-        } else {
-            // Mobile View
-            $data = [
-                'title'     => 'Pembayaran',
-                'transaksi' => $transaksi,
-                'content'   => 'mobile/daily/payment'
-            ];
-            $this->load->view('mobile/layout/wrapp', $data);
-        }
     }
 }
