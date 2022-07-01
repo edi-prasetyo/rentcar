@@ -57,7 +57,7 @@ class Meta extends CI_Controller
         'instagram'               => $this->input->post('instagram'),
         'youtube'                 => $this->input->post('youtube'),
         'twitter'                 => $this->input->post('twitter'),
-        'whatsapp_api'                 => $this->input->post('twitter'),
+        'whatsapp_api'                 => $this->input->post('whatsapp_api'),
         'date_updated'            => date('Y-m-d H:i:s')
       ];
       $this->meta_model->update($data);

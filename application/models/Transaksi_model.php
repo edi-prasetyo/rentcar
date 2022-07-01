@@ -204,11 +204,11 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
-  public function test_transaksi($insert_id)
+  public function sukses_transaksi($insert_id)
   {
     $this->db->select('*');
     $this->db->from('transaksi');
-    $this->db->where('id', $insert_id);
+    $this->db->where('md5(id)', $insert_id);
     $query = $this->db->get();
     return $query->row();
   }
@@ -432,5 +432,19 @@ class Transaksi_model extends CI_Model
   public function save_batch($data)
   {
     return $this->db->insert_batch('transaksi_driver', $data);
+  }
+
+  public function cek_transaksi($kode_transaksi, $email)
+  {
+    $this->db->select('transaksi.*, mobil.mobil_name');
+    $this->db->from('transaksi');
+    //join
+    $this->db->join('mobil', 'mobil.id = transaksi.mobil_id', 'left');
+    //End Join
+    $this->db->like('kode_transaksi', $kode_transaksi);
+    $this->db->like('passenger_email', $email);
+    // $this->db->where('kode_transaksi',$kode_transaksi);
+    $query = $this->db->get();
+    return $query->row();
   }
 }
