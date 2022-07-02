@@ -121,31 +121,31 @@ class Dropoff extends CI_Controller
         if (!$this->agent->is_mobile()) {
             // Desktop View
             $data = [
-                'title'         => 'Pilih Kendaraan',
-                'kota'          => $kota,
-                'paket_dropoff'    => $paket_dropoff,
-                'kota_asal_name'     => $kota_asal_name->kota_name,
-                'kota_tujuan_name'   => $kota_tujuan_name->kota_name,
-                'kota_asal'     => $kota_asal,
-                'kota_tujuan'     => $kota_tujuan,
-                'tanggal_sewa'  => $tanggal_sewa,
-                'jam_sewa'      => $jam_sewa,
-                'content'       => 'front/dropoff/kendaraan'
+                'title'                 => 'Pilih Kendaraan',
+                'kota'                  => $kota,
+                'paket_dropoff'         => $paket_dropoff,
+                'kota_asal_name'        => $kota_asal_name->kota_name,
+                'kota_tujuan_name'      => $kota_tujuan_name->kota_name,
+                'kota_asal'             => $kota_asal,
+                'kota_tujuan'           => $kota_tujuan,
+                'tanggal_sewa'          => $tanggal_sewa,
+                'jam_sewa'              => $jam_sewa,
+                'content'               => 'front/dropoff/kendaraan'
             ];
             $this->load->view('front/layout/wrapp', $data);
         } else {
             // Mobile View
             $data = [
-                'title'         => 'Pilih Kendaraan',
-                'kota'          => $kota,
-                'paket_dropoff'    => $paket_dropoff,
-                'kota_asal_name'     => $kota_asal_name->kota_name,
-                'kota_tujuan_name'   => $kota_tujuan_name->kota_name,
-                'kota_asal'     => $kota_asal,
-                'kota_tujuan'     => $kota_tujuan,
-                'tanggal_sewa'  => $tanggal_sewa,
-                'jam_sewa'      => $jam_sewa,
-                'content'       => 'mobile/dropoff/kendaraan'
+                'title'                 => 'Pilih Kendaraan',
+                'kota'                  => $kota,
+                'paket_dropoff'         => $paket_dropoff,
+                'kota_asal_name'        => $kota_asal_name->kota_name,
+                'kota_tujuan_name'      => $kota_tujuan_name->kota_name,
+                'kota_asal'             => $kota_asal,
+                'kota_tujuan'           => $kota_tujuan,
+                'tanggal_sewa'          => $tanggal_sewa,
+                'jam_sewa'              => $jam_sewa,
+                'content'               => 'mobile/dropoff/kendaraan'
             ];
             $this->load->view('mobile/layout/wrapp', $data);
         }
@@ -157,7 +157,7 @@ class Dropoff extends CI_Controller
         $total_pointku = $this->point_model->total_user_point($user_id);
         $expired = date('Y-m-d');
         $promo = $this->promo_model->get_promo_active($expired);
-        $pembayaran = $this->pengaturan_model->get_payment();
+        $pembayaran = $this->pengaturan_model->show_payment();
 
         $tanggal_sewa = "";
         if ($this->input->get('tanggal_sewa') != NULL) {

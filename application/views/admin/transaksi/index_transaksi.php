@@ -61,7 +61,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                         <?php else : ?>
                         <?php endif; ?>
                     </td>
-                    <td><?php echo $transaksi->name; ?> </td>
+                    <td><?php echo $transaksi->passenger_name; ?> </td>
                     <td><?php echo $transaksi->order_type; ?> </td>
                     <td>
                         <?php echo $transaksi->pembayaran; ?><br>
@@ -73,15 +73,15 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
 
                     </td>
                     <td>
-                        <?php if ($transaksi->status == 1) : ?>
+                        <?php if ($transaksi->stage == 1) : ?>
                             <div class="badge badge-warning">Pending</div>
-                        <?php elseif ($transaksi->status == 2) : ?>
+                        <?php elseif ($transaksi->stage == 2) : ?>
                             <div class="badge badge-info">Konfirmasi Driver</div>
-                        <?php elseif ($transaksi->status == 3) : ?>
-                            <div class="badge badge-primari">Dalam Pengantaran</div>
-                        <?php elseif ($transaksi->status == 4) : ?>
+                        <?php elseif ($transaksi->stage == 3) : ?>
+                            <div class="badge badge-primary">Dalam Pengantaran</div>
+                        <?php elseif ($transaksi->stage == 4) : ?>
                             <div class="badge badge-success">Selesai</div>
-                        <?php elseif ($transaksi->status == 5) : ?>
+                        <?php elseif ($transaksi->stage == 5) : ?>
                             <div class="badge badge-danger">Ditolak Driver</div>
                         <?php else : ?>
                         <?php endif; ?>

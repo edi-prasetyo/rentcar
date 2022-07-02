@@ -308,10 +308,8 @@ class Airport extends CI_Controller
 
             $order_id = strtoupper(random_string('numeric', 7));
             $kode_transaksi = strtoupper(random_string('alnum', 7));
-
             $diskon_point = $this->input->post('diskon_point');
             $promo_amount = $this->input->post('promo_amount');
-
             $grand_total = (int)$paket_price - (int)$diskon_point - (int) $promo_amount;
             $pembayaran = $this->input->post('pembayaran');
 
@@ -366,7 +364,7 @@ class Airport extends CI_Controller
                 // $this->_sendEmail($insert_id, 'order');
                 $this->_sendWhatsapp($insert_id);
                 $this->session->set_flashdata('message', 'Data telah ditambahkan');
-                redirect(base_url('airport/sukses/' . $insert_id), 'refresh');
+                redirect(base_url('transaksi/sukses/' . md5($insert_id)), 'refresh');
             } else {
 
                 /* Endpoint */
@@ -432,7 +430,7 @@ class Airport extends CI_Controller
                 $this->_sendWhatsapp($insert_id);
                 if ($response !== false) {
                     $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close"></button>Transaksi Telah di Konfirmasi</div>');
-                    redirect(base_url('airport/sukses/' . $insert_id), 'refresh');
+                    redirect(base_url('transaksi/sukses/' . md5($insert_id)), 'refresh');
                     var_dump($response);
                     die;
                 } else {

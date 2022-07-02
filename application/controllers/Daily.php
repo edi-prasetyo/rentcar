@@ -198,7 +198,7 @@ class Daily extends CI_Controller
         $total_pointku = $this->point_model->total_user_point($user_id);
         $expired = date('Y-m-d');
         $promo = $this->promo_model->get_promo_active($expired);
-        $pembayaran = $this->pengaturan_model->get_payment();
+        $pembayaran = $this->pengaturan_model->show_payment();
         // var_dump($expired);
         // die;
 

@@ -14,7 +14,7 @@ class Pengaturan_model extends CI_Model
     $query = $this->db->get('pengaturan_email');
     return $query->row();
   }
-  
+
   public function email_register()
   {
     $this->db->select('*');
@@ -48,6 +48,14 @@ class Pengaturan_model extends CI_Model
   {
     $this->db->select('*');
     $this->db->from('payment_method');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function show_payment()
+  {
+    $this->db->select('*');
+    $this->db->from('payment_method');
+    $this->db->where('is_active', true);
     $query = $this->db->get();
     return $query->result();
   }
