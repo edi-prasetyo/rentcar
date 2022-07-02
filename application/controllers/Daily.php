@@ -331,6 +331,35 @@ class Daily extends CI_Controller
             $pembayaran = $this->input->post('pembayaran');
 
             if ($pembayaran == 'Cash') {
+
+
+                $passenger_phone = $this->input->post('passenger_phone');
+                $phone = str_replace(' ', '', $passenger_phone);
+                $phone = str_replace('-', '', $passenger_phone);
+
+                // Ubah 0 menjadi 62
+                // kadang ada penulisan no hp 0811 239 345
+                $phone = str_replace(" ", "", $phone);
+                // kadang ada penulisan no hp (0274) 778787
+                $phone = str_replace("(", "", $phone);
+                // kadang ada penulisan no hp (0274) 778787
+                $phone = str_replace(")", "", $phone);
+                // kadang ada penulisan no hp 0811.239.345
+                $phone = str_replace(".", "", $phone);
+
+                // cek apakah no hp mengandung karakter + dan 0-9
+                if (!preg_match('/[^+0-9]/', trim($phone))) {
+                    // cek apakah no hp karakter 1-3 adalah +62
+                    if (substr(trim($phone), 0, 3) == '62') {
+                        $hp = trim($phone);
+                    }
+                    // cek apakah no hp karakter 1 adalah 0
+                    elseif (substr(trim($phone), 0, 1) == '0') {
+                        $hp = '62' . substr(trim($phone), 1);
+                    }
+                }
+
+
                 $order_id = strtoupper(random_string('numeric', 7));
                 $kode_transaksi = strtoupper(random_string('alnum', 7));
                 // $start_price = $this->input->post('start_price');
@@ -350,7 +379,7 @@ class Daily extends CI_Controller
                     'order_point'                           => $this->input->post('order_point'),
                     'kode_transaksi'                        => $kode_transaksi,
                     'passenger_name'                        => $this->input->post('passenger_name'),
-                    'passenger_phone'                       => $this->input->post('passenger_phone'),
+                    'passenger_phone'                       => $hp,
                     'passenger_email'                       => $this->input->post('passenger_email'),
                     'kota_id'                               => $this->input->post('kota_id'),
                     'kota_name'                             => $this->input->post('kota_name'),
@@ -392,6 +421,33 @@ class Daily extends CI_Controller
                 // $this->_sendEmail($insert_id, 'order');
                 redirect(base_url('transaksi/sukses/' . md5($insert_id)), 'refresh');
             } else {
+
+                $passenger_phone = $this->input->post('passenger_phone');
+                $phone = str_replace(' ', '', $passenger_phone);
+                $phone = str_replace('-', '', $passenger_phone);
+
+                // Ubah 0 menjadi 62
+                // kadang ada penulisan no hp 0811 239 345
+                $phone = str_replace(" ", "", $phone);
+                // kadang ada penulisan no hp (0274) 778787
+                $phone = str_replace("(", "", $phone);
+                // kadang ada penulisan no hp (0274) 778787
+                $phone = str_replace(")", "", $phone);
+                // kadang ada penulisan no hp 0811.239.345
+                $phone = str_replace(".", "", $phone);
+
+                // cek apakah no hp mengandung karakter + dan 0-9
+                if (!preg_match('/[^+0-9]/', trim($phone))) {
+                    // cek apakah no hp karakter 1-3 adalah +62
+                    if (substr(trim($phone), 0, 3) == '62') {
+                        $hp = trim($phone);
+                    }
+                    // cek apakah no hp karakter 1 adalah 0
+                    elseif (substr(trim($phone), 0, 1) == '0') {
+                        $hp = '62' . substr(trim($phone), 1);
+                    }
+                }
+
                 $order_id = strtoupper(random_string('numeric', 7));
                 $kode_transaksi = strtoupper(random_string('alnum', 7));
                 // $start_price = $this->input->post('start_price');
@@ -417,7 +473,7 @@ class Daily extends CI_Controller
                     'order_point'                           => $this->input->post('order_point'),
                     'kode_transaksi'                        => $kode_transaksi,
                     'passenger_name'                        => $this->input->post('passenger_name'),
-                    'passenger_phone'                       => $this->input->post('passenger_phone'),
+                    'passenger_phone'                       => $hp,
                     'passenger_email'                       => $this->input->post('passenger_email'),
                     'kota_id'                               => $this->input->post('kota_id'),
                     'kota_name'                             => $this->input->post('kota_name'),
