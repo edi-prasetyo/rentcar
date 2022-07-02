@@ -554,7 +554,7 @@ class Airport extends CI_Controller
             Detail Harga
             ----------------------------
             Total Harga     :   $transaksi->total_price 
-            Diskon Point    :  $transaksi->diskon_point 
+            Diskon Point    :   $transaksi->diskon_point 
             Diskon Promo    :   $transaksi->promo_amount 
             Total Harga     :   $transaksi->grand_total 
             ----------------------------
@@ -605,7 +605,6 @@ class Airport extends CI_Controller
               $meta->whatsapp 
             ";
         }
-
 
         $apikey = $whatsapp_key;
         $tujuan = $whatsapp;
