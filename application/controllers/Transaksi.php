@@ -15,7 +15,6 @@ class Transaksi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('transaksi_model');
-        $this->load->model('bank_model');
     }
     public function index()
     {
@@ -32,11 +31,11 @@ class Transaksi extends CI_Controller
                 ]
             );
             $this->form_validation->set_rules(
-                'kode_transaksi',
-                'Kode Transaksi',
+                'order_id',
+                'ID Order',
                 'required',
                 [
-                    'required'         => 'Kode Transaksi',
+                    'required'         => 'ID Order',
                 ]
             );
             if ($this->form_validation->run() == false) {
@@ -55,7 +54,7 @@ class Transaksi extends CI_Controller
                         'title'       => 'Cek Pesanan',
                         'deskripsi'   => 'Cek Pesanan Rental Mobil',
                         'keywords'    => 'Transaksi',
-                        'content'         => 'mobile/transaksi/index'
+                        'content'     => 'mobile/transaksi/index'
                     ];
                     $this->load->view('mobile/layout/wrapp', $data, FALSE);
                 }
@@ -66,15 +65,19 @@ class Transaksi extends CI_Controller
     }
     public function detail()
     {
-        $kode_transaksi             = $this->input->post('kode_transaksi');
+        $order_id                    = $this->input->post('order_id');
         $email                      = $this->input->post('email');
-        $transaksi           = $this->transaksi_model->cek_transaksi($kode_transaksi, $email);
-        $bank                       = $this->bank_model->get_allbank();
+        $detail_transaksi                  = $this->transaksi_model->cek_transaksi($order_id, $email);
 
-        $detail_transaksi = $this->db->get_where('transaksi', ['kode_transaksi' => $kode_transaksi])->row_array();
+
+
+        $transaksi = $this->db->get_where('transaksi', ['order_id' => $order_id])->row_array();
         $transakai_email = $this->db->get_where('transaksi', ['passenger_email' => $email])->row_array();
-        if (empty($detail_transaksi)) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger">Kode Transaksi Tidak ada</div> ');
+        // var_dump($transaksi);
+        // die;
+
+        if (empty($transaksi)) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger">Order ID Tidak ada</div> ');
             redirect('transaksi');
         } elseif (empty($transakai_email)) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger">Email Tidak ada</div> ');
@@ -87,8 +90,7 @@ class Transaksi extends CI_Controller
                     'title'                     => 'Transaksi',
                     'deskripsi'                 => 'Deskripsi',
                     'keywords'                  => 'Transaksi Angelita Rentcar',
-                    'transaksi'          => $transaksi,
-                    'bank'                      => $bank,
+                    'transaksi'                 => $transaksi,
                     'content'                   => 'front/transaksi/detail'
                 );
                 $this->load->view('front/layout/wrapp', $data, FALSE);
@@ -98,8 +100,7 @@ class Transaksi extends CI_Controller
                     'title'                     => 'Transaksi',
                     'deskripsi'                 => 'Deskripsi',
                     'keywords'                  => 'Transaksi Angelita Rentcar',
-                    'transaksi'          => $transaksi,
-                    'bank'                      => $bank,
+                    'transaksi'                 => $transaksi,
                     'content'                   => 'mobile/transaksi/detail'
                 );
                 $this->load->view('mobile/layout/wrapp', $data, FALSE);
