@@ -47,30 +47,8 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function get_allkurir($limit, $start, $search)
-  {
-    $this->db->select('user.*, user_role.role');
-    $this->db->from('user');
-    // join
-    $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
-    // End Join
-    $this->db->like('name', $search);
-    $this->db->where('role_id', 5);
-    $this->db->limit($limit, $start);
-    $this->db->order_by('id', 'DESC');
-    $query = $this->db->get();
-    return $query->result();
-  }
-  public function total_row_allkurir($search)
-  {
-    $this->db->select('*');
-    $this->db->from('user');
-    $this->db->like('name', $search);
-    $this->db->where('role_id', 7);
-    $this->db->order_by('id', 'ASC');
-    $query = $this->db->get();
-    return $query->result();
-  }
+
+
   // Counter
   public function get_allcounter()
   {
@@ -97,21 +75,7 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function get_counter($limit, $start, $search, $search_email, $search_kota)
-  {
-    $this->db->select('user.*, user_role.role');
-    $this->db->from('user');
-    // join
-    $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
-    // End Join
-    $this->db->where('role_id', 4);
-    $this->db->like('name', $search);
-    $this->db->like('email', $search_email);
-    $this->db->limit($limit, $start);
-    $this->db->order_by('user.id', 'DESC');
-    $query = $this->db->get();
-    return $query->result();
-  }
+
   public function get_customer($limit, $start, $search, $search_email, $search_kota)
   {
     $this->db->select('user.*, user_role.role');
@@ -127,20 +91,7 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function total_row_counter($search, $search_email, $search_kota)
-  {
-    $this->db->select('user.*, user_role.role');
-    $this->db->from('user');
-    // join
-    $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
-    // End Join
-    $this->db->where('user.role_id', 5);
-    $this->db->like('name', $search);
-    $this->db->like('email', $search_email);
-    $this->db->order_by('user.id', 'ASC');
-    $query = $this->db->get();
-    return $query->result();
-  }
+
   public function total_row_customer($search, $search_email, $search_kota)
   {
     $this->db->select('user.*, user_role.role');
@@ -155,19 +106,7 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function get_kurir($user_id, $kota_id)
-  {
-    $this->db->select('user.*, user_role.role');
-    $this->db->from('user');
-    // join
-    $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
-    // End Join
-    $this->db->where(['id_agen' => $user_id, 'role_id' => 7, 'kota_id' => $kota_id]);
-    $this->db->or_where('role_id', 6);
-    $this->db->order_by('id', 'DESC');
-    $query = $this->db->get();
-    return $query->result();
-  }
+
   public function user_detail($user_id)
   {
     $this->db->select('user.*, user.name, user_role.role');
@@ -180,6 +119,10 @@ class User_model extends CI_Model
     );
     $query = $this->db->get();
     return $query->row();
+  }
+  public function create($data)
+  {
+    $this->db->insert('user', $data);
   }
   public function update($data)
   {
@@ -211,14 +154,7 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
-  public function detail_counter($counter_id)
-  {
-    $this->db->select('*');
-    $this->db->from('user');
-    $this->db->where('user.id', $counter_id);
-    $query = $this->db->get();
-    return $query->row();
-  }
+
   public function detail_customer($customer_id)
   {
     $this->db->select('*');
