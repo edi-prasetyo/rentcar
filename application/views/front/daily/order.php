@@ -139,7 +139,11 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Nomor Handphone <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo $user->user_phone; ?>">
+                            <?php $hp = $user->user_phone;
+                            $hp0 = substr_replace($hp, '0', 0, 3);
+                            ?>
+
+                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo $hp0; ?>">
                             <div class="invalid-feedback">Nomor Handphone harus di isi.</div>
                         </div>
                     </div>
