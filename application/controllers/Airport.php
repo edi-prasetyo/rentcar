@@ -169,6 +169,7 @@ class Airport extends CI_Controller
         $total_pointku = $this->point_model->total_user_point($user_id);
         $expired = date('Y-m-d');
         $promo = $this->promo_model->get_promo_active($expired);
+        $pembayaran = $this->pengaturan_model->show_payment();
 
         $tanggal_sewa = "";
         if ($this->input->get('tanggal_sewa') != NULL) {
@@ -246,6 +247,8 @@ class Airport extends CI_Controller
         }
 
         $paket = $this->airport_model->airport_detail($airport_id, $kota_tujuan);
+        // var_dump($paket);
+        // die;
 
         $paket_price    = $paket->paket_price;
         $order_point    = $paket->paket_point;
@@ -280,6 +283,7 @@ class Airport extends CI_Controller
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
                     'promo'             => $promo,
+                    'pembayaran'        => $pembayaran,
                     'content'           => 'front/airport/order'
                 ];
                 $this->load->view('front/layout/wrapp', $data);
@@ -300,6 +304,7 @@ class Airport extends CI_Controller
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
                     'promo'             => $promo,
+                    'pembayaran'        => $pembayaran,
                     'content'           => 'mobile/airport/order'
                 ];
                 $this->load->view('mobile/layout/wrapp', $data);
@@ -331,7 +336,7 @@ class Airport extends CI_Controller
                     'mobil_id'                              => $mobil_id,
                     'mobil_name'                            => $this->input->post('mobil_name'),
                     'paket_id'                              => 0,
-                    'paket_name'                            => "airport",
+                    'paket_name'                            => $airport_name . '-' . $kota_name,
                     'alamat_jemput'                         => $this->input->post('alamat_jemput'),
                     'tanggal_jemput'                        => $this->input->post('tanggal_jemput'),
                     'jam_jemput'                            => $this->input->post('jam_jemput'),

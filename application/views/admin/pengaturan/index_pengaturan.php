@@ -1,52 +1,89 @@
-<div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Pengaturan Pembayaran</h3>
-                <div class="card-tools">
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Pengaturan Pembayaran</h3>
+            <div class="card-tools">
 
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th style="width: 40px">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($payment_method as $payment) : ?>
+                        <tr>
+                            <td><?php echo $payment->name; ?> </td>
+                            <td>
+                                <?php if ($payment->is_active == 1) : ?>
+                                    <span class="badge bg-success"> Active </span>
+                                <?php else : ?>
+                                    <span class="badge bg-danger"> Inactive </span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if ($payment->is_active == 1) : ?>
+                                    <a href="<?php echo base_url('admin/pengaturan/inactive_payment/' . $payment->id); ?>" class="btn btn-danger btn-block btn-sm"> Nonaktifkan </a>
+                                <?php else : ?>
+                                    <a href="<?php echo base_url('admin/pengaturan/active_payment/' . $payment->id); ?>" class="btn btn-success btn-block btn-sm"> Aktifkan</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header">
+            Pengaturan Versi
+        </div>
+        <div class="card-body">
+            <?php echo form_open('admin/pengaturan/versi/'); ?>
+
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Name <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="name" value="<?php echo $detail_version->name; ?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label">Version <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="version" value="<?php echo $detail_version->version; ?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label"> <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-6">
+                    <button type="submit" class="btn btn-primary">Update </button>
                 </div>
             </div>
 
-            <div class="card-body p-0">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Payment</th>
-                            <th>Status</th>
-                            <th style="width: 40px">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($payment_method as $payment) : ?>
-                            <tr>
-                                <td><?php echo $payment->name; ?> </td>
-                                <td>
-                                    <?php if ($payment->is_active == 1) : ?>
-                                        <span class="badge bg-success"> Active </span>
-                                    <?php else : ?>
-                                        <span class="badge bg-danger"> Inactive </span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?php if ($payment->is_active == 1) : ?>
-                                        <a href="<?php echo base_url('admin/pengaturan/inactive_payment/' . $payment->id); ?>" class="btn btn-danger btn-block btn-sm"> Nonaktifkan </a>
-                                    <?php else : ?>
-                                        <a href="<?php echo base_url('admin/pengaturan/active_payment/' . $payment->id); ?>" class="btn btn-success btn-block btn-sm"> Aktifkan</a>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+
+
+            <?php echo form_close(); ?>
+
         </div>
     </div>
+</div>
 
 
 
 
-    <div class="col-md-6">
+<!-- <div class="col-md-6">
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title"> <?php echo $email_register->name; ?></h4>
@@ -188,5 +225,4 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
+    </div> -->

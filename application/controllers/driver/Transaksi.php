@@ -72,7 +72,7 @@ class Transaksi extends CI_Controller
         $persentase = $this->persentase_model->get_persentase();
         $pemotongan = $persentase->potong_saldo;
 
-        $potong_saldo = ($pemotongan / 100) * $transaksi->total_price;
+        $potong_saldo = ($pemotongan / 100) * $transaksi->total_price + $transaksi->discount_point + $transaksi->promo_amount;
         $saldo_driver = $user->saldo_driver - $potong_saldo;
 
         $data = [
@@ -91,7 +91,7 @@ class Transaksi extends CI_Controller
     {
         $user_id = $this->session->userdata('id');
         $user = $this->user_model->user_detail($user_id);
-        $penambahan = $transaksi->total_price - $transaksi->diskon_point;
+        $penambahan = $transaksi->total_price + $transaksi->diskon_point + $transaksi->promo_amount;
 
         $saldo_driver = $user->saldo_driver + $penambahan;
 

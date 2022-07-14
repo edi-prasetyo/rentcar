@@ -12,6 +12,9 @@ class Pengaturan extends CI_Controller
     }
     public function index()
     {
+        $id = 1;
+        $detail_version = $this->pengaturan_model->detail_version($id);
+
         $email_register                = $this->pengaturan_model->email_register();
         $email_order                   = $this->pengaturan_model->email_order();
         $payment_method = $this->pengaturan_model->get_payment();
@@ -24,6 +27,7 @@ class Pengaturan extends CI_Controller
             'email_order'              => $email_order,
             'payment_method'            => $payment_method,
             'meta'                      => $meta,
+            'detail_version'        => $detail_version,
             'content'                 => 'admin/pengaturan/index_pengaturan'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
@@ -105,6 +109,42 @@ class Pengaturan extends CI_Controller
                 'whatsapp_api'            => $this->input->post('whatsapp_api'),
             ];
             $this->pengaturan_model->update_whatsapp($data);
+            $this->session->set_flashdata('message', 'Data telah diubah');
+            redirect($_SERVER['HTTP_REFERER']);
+            // redirect(base_url('admin/pengaturan/whatsapp_api/' . $id), 'refresh');
+        }
+    }
+
+    public function versi()
+    {
+
+        $id = 1;
+        $version = $this->pengaturan_model->version();
+        $detail_version = $this->pengaturan_model->detail_version($id);
+
+        $this->form_validation->set_rules(
+            'name',
+            'nama',
+            'required',
+            array('required'            => '%s Harus Diisi')
+        );
+        if ($this->form_validation->run() === FALSE) {
+            $data = [
+                'title'                   => 'Update Pengaturan',
+                'version'                  => $version,
+                'detail_version'        => $detail_version,
+                'content'                 => 'admin/pengaturan/index_pengaturan'
+            ];
+            $this->load->view('admin/layout/wrapp', $data, FALSE);
+        } else {
+
+            $data = [
+                'id'                      => $id,
+                'name'            => $this->input->post('name'),
+                'version'            => $this->input->post('version'),
+                'updated_at'            => date('Y-m-d H:i:s'),
+            ];
+            $this->pengaturan_model->update_version($data);
             $this->session->set_flashdata('message', 'Data telah diubah');
             redirect($_SERVER['HTTP_REFERER']);
             // redirect(base_url('admin/pengaturan/whatsapp_api/' . $id), 'refresh');

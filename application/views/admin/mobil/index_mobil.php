@@ -37,10 +37,10 @@ if ($this->session->flashdata('message')) {
             <td><img src="<?php echo base_url('assets/img/mobil/' . $mobil->mobil_gambar) ?>" width="60" class="img img-thumbnail"></td>
             <td><?php echo $mobil->mobil_name; ?></td>
             <td><?php echo $mobil->mobil_status ?></td>
-            <td> <a href="<?php echo base_url('admin/mobil/airport/' . $mobil->id) ?>" title="Edit Mobil" class="btn btn-info btn-sm"><i class="fa-solid fa-plane-arrival"></i> Paket Bandara</a>
+            <td> <a href="<?php echo base_url('admin/mobil/airport/' . $mobil->id) ?>" title="Edit Mobil" class="btn btn-primary btn-sm"><i class="fa-solid fa-plane-arrival"></i> Paket Bandara</a>
               <a href="<?php echo base_url('admin/mobil/dropoff/' . $mobil->id) ?>" title="Edit Mobil" class="btn btn-info btn-sm"><i class="fa fa-car"></i> Paket Drop Off</a>
-              <a href="<?php echo base_url('admin/mobil/daily/' . $mobil->id) ?>" title="Edit Mobil" class="btn btn-info btn-sm"><i class="far fa-calendar-alt"></i> Paket Harian</a>
-              <a href="<?php echo base_url('admin/mobil/hourly/' . $mobil->id) ?>" title="Edit Mobil" class="btn btn-success btn-sm"><i class="far fa-clock"></i> Paket per Jam</a>
+              <a href="<?php echo base_url('admin/mobil/daily/' . $mobil->id) ?>" title="Edit Mobil" class="btn btn-success btn-sm"><i class="far fa-calendar-alt"></i> Paket Harian</a>
+              <!-- <a href="<?php echo base_url('admin/mobil/hourly/' . $mobil->id) ?>" title="Edit Mobil" class="btn btn-success btn-sm"><i class="far fa-clock"></i> Paket per Jam</a> -->
             </td>
             <td>
 

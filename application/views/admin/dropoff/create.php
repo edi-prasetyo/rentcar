@@ -41,6 +41,15 @@
                 </div>
 
                 <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Nama Paket <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="paket_name" placeholder="Nama Paket" value="<?php echo set_value('paket_name'); ?>">
+                        <?php echo form_error('paket_name', '<small class="text-danger">', '</small>'); ?>
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label class="col-md-3 col-form-label">Ketentuan</label>
                     <div class="col-md-9">
                         <select class="form-control custom-select" name="ketentuan_id" value="" required>
@@ -134,19 +143,19 @@
                         </tr>
                     </thead>
                     <?php $no = 1;
-                    foreach ($dropoff as $data) { ?>
+                    foreach ($dropoff as $paket) { ?>
                         <tr>
                             <td><?php echo $no; ?></td>
-                            <td><?php echo $data->kota_name; ?></td>
-                            <td><?php echo $data->paket_price; ?></td>
-                            <td><?php echo $data->paket_point; ?></td>
+                            <td><?php echo $paket->paket_name; ?></td>
+                            <td><?php echo $paket->paket_price; ?></td>
+                            <td><?php echo $paket->paket_point; ?></td>
                             <td>
-                                <a href="<?php echo base_url('admin/mobil/delete_paket/' . $data->id); ?>" class="text-danger"><i class="far fa-times-circle"></i></a>
+                                <a href="<?php echo base_url('admin/mobil/delete_paket/' . $paket->id); ?>" class="text-danger"><i class="far fa-times-circle"></i></a>
                                 <!-- <a href="<?php //echo base_url('admin/mobil/update_paket/' . $data->id); 
                                                 ?>" class="text-danger"><i class="far fa-times-circle"></i></a> -->
 
-                                <!-- <?php //include "update_paket.php"; 
-                                        ?> -->
+                                <?php include "update_paket.php";
+                                ?>
                             </td>
                         </tr>
 

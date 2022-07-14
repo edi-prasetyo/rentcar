@@ -134,6 +134,16 @@ class Airport_model extends CI_Model
         return $query->row();
     }
 
+    //Detail paket
+    public function detail_paket_airport($airport_id, $kota_tujuan)
+    {
+        $this->db->select('*');
+        $this->db->from('paket_airport');
+        $this->db->where(['airport_id' => $airport_id, 'kota_tujuan' => $kota_tujuan]);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     // Create
     public function create_paket($data)
     {
@@ -156,6 +166,12 @@ class Airport_model extends CI_Model
     {
         $this->db->where('id', $data['id']);
         $this->db->delete('airport', $data);
+    }
+    //Delete Data
+    public function update_paket($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('paket_airport', $data);
     }
     //Delete Data
     public function delete_paket($data)

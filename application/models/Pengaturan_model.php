@@ -64,4 +64,24 @@ class Pengaturan_model extends CI_Model
     $this->db->where('id', $data['id']);
     $this->db->update('payment_method', $data);
   }
+  public function version()
+  {
+    $this->db->select('*');
+    $this->db->from('m_version');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function detail_version($id)
+  {
+    $this->db->select('*');
+    $this->db->from('m_version');
+    $this->db->where('id', $id);
+    $query = $this->db->get();
+    return $query->row();
+  }
+  public function update_version($data)
+  {
+    $this->db->where('id', $data['id']);
+    $this->db->update('m_version', $data);
+  }
 }

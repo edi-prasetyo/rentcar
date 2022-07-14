@@ -14,14 +14,22 @@
             <div class="modal-body">
                 <?php
                 echo validation_errors('<div class="alert alert-warning">', '</div>');
-                echo form_open(base_url('admin/mobil/update_paket/' . $paket->id)); ?>
+                echo form_open(base_url('admin/mobil/update_paket_dropoff/' . $paket->id)); ?>
 
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Nama Paket <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="paket_name" placeholder="Nama Paket" value="<?php echo $paket->paket_name; ?>">
+                        <?php echo form_error('paket_name', '<small class="text-danger">', '</small>'); ?>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label">Harga <span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-9">
                         <input type="text" class="form-control" name="paket_price" placeholder="Harga Paket" value="<?php echo $paket->paket_price; ?>">
-                        <?php echo form_error('product_name', '<small class="text-danger">', '</small>'); ?>
+                        <?php echo form_error('paket_price', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
 
@@ -38,7 +46,7 @@
                     <label class="col-lg-3 col-form-label">Batas Pemakaian <span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-9">
-                        <textarea class="form-control" id="summernote2" name="paket_desc" placeholder="Point"><?php echo $paket->paket_desc; ?></textarea>
+                        <textarea class="form-control" id="summernote" name="paket_desc" placeholder="Desc"><?php echo $paket->paket_desc; ?></textarea>
 
                     </div>
                 </div>
@@ -47,7 +55,7 @@
                     <div class="col-lg-3"></div>
                     <div class="col-lg-9">
                         <button type="submit" class="btn btn-primary btn-block">
-                            Publish
+                            Update
                         </button>
                     </div>
                 </div>

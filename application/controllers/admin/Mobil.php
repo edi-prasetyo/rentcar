@@ -440,6 +440,7 @@ class Mobil extends CI_Controller
     } else {
       $data  = [
         'id'                                  => $id,
+        'paket_name'                         => $this->input->post('paket_name'),
         'paket_price'                         => $this->input->post('paket_price'),
         'paket_point'                         => $this->input->post('paket_point'),
         'paket_desc'                          => $this->input->post('paket_desc'),
@@ -513,6 +514,7 @@ class Mobil extends CI_Controller
         'mobil_id'                            => $mobil->id,
         'kota_asal'                           => $kota_asal,
         'kota_tujuan'                         => $kota_tujuan,
+        'ketentuan_id'                        => $this->input->post('paket_name'),
         'ketentuan_id'                        => $this->input->post('ketentuan_id'),
         'paket_type'                          => 'Drop Off',
         'paket_price'                         => $this->input->post('paket_price'),
@@ -524,7 +526,7 @@ class Mobil extends CI_Controller
       $insert_id = $this->dropoff_model->create($data);
       $this->update_nama_kota($kota_asal, $kota_tujuan, $insert_id);
       $this->session->set_flashdata('message', '<div class="alert alert-success">Data Produk telah ditambahkan</div>');
-      redirect(base_url('admin/mobil/dropoff/' . $mobil_id . '/' . $kota_id), 'refresh');
+      redirect(base_url('admin/mobil/create_dropoff/' . $mobil_id . '/' . $kota_id), 'refresh');
     }
 
     //End Masuk Database
@@ -537,6 +539,44 @@ class Mobil extends CI_Controller
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
+
+  public function update_paket_dropoff($id)
+  {
+    $paket = $this->dropoff_model->detail_paket($id);
+    $this->form_validation->set_rules(
+      'paket_price',
+      'Harga Paket',
+      'required',
+      [
+        'required'                        => 'Nama Paket harus di isi',
+      ]
+    );
+    if ($this->form_validation->run() == false) {
+
+      //End Validasi
+      $data = [
+        'title'                         => 'Update Paket ',
+        'paket'                         => $paket,
+        'content'                       => 'admin/dropoff/update_paket'
+      ];
+      $this->load->view('admin/layout/wrapp', $data, FALSE);
+      //Masuk Database
+    } else {
+      $data  = [
+        'id'                                  => $id,
+        'paket_name'                         => $this->input->post('paket_name'),
+        'paket_price'                         => $this->input->post('paket_price'),
+        'paket_point'                         => $this->input->post('paket_point'),
+        'paket_desc'                          => $this->input->post('paket_desc'),
+        'updated_at'                          => date('Y-m-d H:i:s')
+      ];
+      $this->dropoff_model->update($data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah diubah</div>');
+      redirect($_SERVER['HTTP_REFERER']);
+    }
+  }
+
+
   public function update_nama_kota($kota_asal, $kota_tujuan, $insert_id)
   {
     $kota_asal = $this->kota_model->get_kota_asal($kota_asal);
@@ -546,6 +586,7 @@ class Mobil extends CI_Controller
       'id'                                  => $insert_id,
       'kota_asal_name'                         => $kota_asal->kota_name,
       'kota_tujuan_name'                         => $kota_tujuan->kota_name,
+      'paket_name'                    => $kota_asal->kota_name . '-' . $kota_tujuan->kota_name,
       'updated_at'                          => date('Y-m-d H:i:s')
     ];
     $this->dropoff_model->update($data);
@@ -592,7 +633,7 @@ class Mobil extends CI_Controller
     $paket_airport    = $this->airport_model->airport_mobil($mobil_id, $airport_id);
     $ketentuan        = $this->ketentuan_model->get_ketentuan();
 
-    // var_dump($airport);
+    // var_dump($paket_airport);
     // die;
 
 
@@ -620,25 +661,25 @@ class Mobil extends CI_Controller
       //Masuk Database
     } else {
 
-
+      $kota_tujuan = $this->input->post('kota_tujuan');
 
       $data  = [
         'mobil_id'                            => $mobil->id,
         'kota_id'                           => $this->input->post('kota_id'),
         'airport_id'                           => $airport_id,
-        'kota_tujuan'                             => $this->input->post('kota_tujuan'),
+        'kota_tujuan'                             => $kota_tujuan,
         'ketentuan_id'                        => $this->input->post('ketentuan_id'),
         'paket_type'                          => 'Airport',
+        'paket_name'                          => $this->input->post('paket_name'),
         'paket_price'                         => $this->input->post('paket_price'),
         'paket_point'                         => $this->input->post('paket_point'),
         'paket_status'                        => $this->input->post('paket_status'),
         'paket_desc'                          => $this->input->post('paket_desc'),
         'created_at'                          => date('Y-m-d H:i:s')
       ];
-      $insert_id = $this->airport_model->create_paket($data);
-      // $this->update_nama_kota($kota_asal, $kota_tujuan, $insert_id);
+      $this->airport_model->create_paket($data);
       $this->session->set_flashdata('message', '<div class="alert alert-success">Data Produk telah ditambahkan</div>');
-      redirect(base_url('admin/mobil/airport/' . $mobil_id . '/' . $airport_id), 'refresh');
+      redirect(base_url('admin/mobil/create_airport/' . $mobil_id . '/' . $airport_id), 'refresh');
     }
 
     //End Masuk Database
@@ -650,6 +691,42 @@ class Mobil extends CI_Controller
       'content'                           => 'admin/airport/create_airport'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
+  }
+
+  public function update_paket_airport($id)
+  {
+    $paket = $this->paket_model->detail_paket($id);
+    $this->form_validation->set_rules(
+      'paket_price',
+      'Harga Paket',
+      'required',
+      [
+        'required'                        => 'Nama Paket harus di isi',
+      ]
+    );
+    if ($this->form_validation->run() == false) {
+
+      //End Validasi
+      $data = [
+        'title'                         => 'Update Paket ',
+        'paket'                         => $paket,
+        'content'                       => 'admin/airport/update_paket'
+      ];
+      $this->load->view('admin/layout/wrapp', $data, FALSE);
+      //Masuk Database
+    } else {
+      $data  = [
+        'id'                                  => $id,
+        'paket_name'                         => $this->input->post('paket_name'),
+        'paket_price'                         => $this->input->post('paket_price'),
+        'paket_point'                         => $this->input->post('paket_point'),
+        'paket_desc'                          => $this->input->post('paket_desc'),
+        'updated_at'                          => date('Y-m-d H:i:s')
+      ];
+      $this->airport_model->update_paket($data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah diubah</div>');
+      redirect($_SERVER['HTTP_REFERER']);
+    }
   }
 
   public function delete_airport($id)
