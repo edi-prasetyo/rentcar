@@ -140,7 +140,7 @@ $user           = $this->user_model->user_detail($id);
                         </label>
                         <div class="col-lg-8">
                             <?php $hp = $user->user_phone;
-                            $hp0 = substr_replace($hp, '0', 0, 3);
+                            $hp0 = substr_replace($hp, '0', 0, 2);
                             ?>
 
                             <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo $hp0; ?>">
