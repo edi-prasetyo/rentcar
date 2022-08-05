@@ -519,8 +519,8 @@ class Daily extends CI_Controller
 
                 $result = json_decode($response, true);
 
-                // var_dump($response);
-                // die;
+                var_dump($response);
+                die;
 
                 $insert_id = $result['trx']['data']['id_order'];
                 $this->update_point($insert_id);
