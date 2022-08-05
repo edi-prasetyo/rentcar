@@ -453,8 +453,8 @@ class Daily extends CI_Controller
                 // $start_price = $this->input->post('start_price');
                 $lama_sewa = $this->input->get('lama_sewa');
                 $jumlah_mobil = $this->input->get('jumlah_mobil');
-                $diskon_point = $this->input->get('diskon_point');
-                $promo_amount = $this->input->get('promo_amount');
+                $diskon_point = $this->input->post('diskon_point');
+                $promo_amount = $this->input->post('promo_amount');
                 $total_price = (int) $paket_price * (int) $lama_sewa * (int) $jumlah_mobil;
                 $grand_total = (int) $paket_price * (int) $lama_sewa * (int) $jumlah_mobil - (int) $diskon_point - (int) $promo_amount;
 
@@ -492,8 +492,8 @@ class Daily extends CI_Controller
                     'jarak'                                 => 0,
                     'start_price'                           => $this->input->post('start_price'),
                     'total_price'                           => $total_price,
-                    'diskon_point'                          => $this->input->post('diskon_point'),
-                    'promo_amount'                          => $this->input->post('promo_amount'),
+                    'diskon_point'                          => $diskon_point,
+                    'promo_amount'                          => $promo_amount,
                     'grand_total'                           => $grand_total,
                     'status'                                => 'Pending',
                     'status_read'                           => 0,
