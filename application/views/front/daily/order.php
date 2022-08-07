@@ -77,7 +77,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Discount Point
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" id="myText" class="form-control" name="diskon_point" value="" readonly>
+                            <input type="text" id="myText" class="form-control" name="diskon_point" value="0" readonly>
                             <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
                         </div>
                     </div>

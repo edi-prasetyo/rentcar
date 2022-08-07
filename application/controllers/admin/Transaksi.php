@@ -668,8 +668,8 @@ class transaksi extends CI_Controller
   public function pilih_driver($id)
   {
     $transaksi = $this->transaksi_model->detail($id);
-    $kota_id = $transaksi->kota_id;
-    $driver = $this->user_model->pilih_driver($kota_id);
+    // $kota_id = $transaksi->kota_id;
+    $driver = $this->user_model->pilih_driver();
 
 
 

@@ -231,7 +231,7 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
-  public function pilih_driver($kota_id)
+  public function pilih_driver()
   {
     $this->db->select('*');
     $this->db->from('user');
@@ -239,7 +239,7 @@ class User_model extends CI_Model
       'role_id'     => 5,
       'is_active'   => 1,
       'is_locked'   => 1,
-      'kota_id'     => $kota_id,
+      // 'kota_id'     => $kota_id,
       // 'daily'       => 1,
       // 'dropoff'     => 1,
       // 'airport'     => 1,
