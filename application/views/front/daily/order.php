@@ -91,7 +91,7 @@ $user           = $this->user_model->user_detail($id);
                         </label>
                         <div class="col-lg-8">
                             <select class="form-control form-control-chosen" name="promo_amount">
-                                <option value="">-- Kode Promo --</option>
+                                <option value="0">-- Kode Promo --</option>
                                 <?php foreach ($promo as $promo) : ?>
                                     <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
                                 <?php endforeach; ?>

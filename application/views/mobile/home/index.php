@@ -7,7 +7,7 @@ $user = $this->user_model->user_detail($user_id);
 ?>
 <section class="bg-primary" style="height: 80px;">
     <div class="container">
-        <h5 class="my-auto text-white text-center pt-3 font-weight-bold">Sewamobiloka</h5>
+        <h5 class="my-auto text-white text-center pt-3 font-weight-bold"><?php echo $meta->title; ?></h5>
     </div>
 
 </section>

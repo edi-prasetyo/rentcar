@@ -313,8 +313,8 @@ class Airport extends CI_Controller
 
             $order_id = strtoupper(random_string('numeric', 7));
             $kode_transaksi = strtoupper(random_string('alnum', 7));
-            $diskon_point = $this->input->post('diskon_point');
-            $promo_amount = $this->input->post('promo_amount');
+            $diskon_point = $this->input->get('diskon_point');
+            $promo_amount = $this->input->get('promo_amount');
             $grand_total = (int)$paket_price - (int)$diskon_point - (int) $promo_amount;
             $pembayaran = $this->input->post('pembayaran');
 
@@ -348,8 +348,8 @@ class Airport extends CI_Controller
                     'jarak'                                 => 0,
                     'start_price'                           => $this->input->post('start_price'),
                     'total_price'                           => $paket_price,
-                    'diskon_point'                          => $diskon_point,
-                    'promo_amount'                          => $promo_amount,
+                    'diskon_point'                          => $this->input->post('diskon_point'),
+                    'promo_amount'                          => $this->input->post('promo_amount'),
                     'grand_total'                           => $grand_total,
                     'status'                                => 'Pending',
                     'status_read'                           => 0,

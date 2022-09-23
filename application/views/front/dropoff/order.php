@@ -78,7 +78,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Discount Point<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" id="myText" class="form-control" name="diskon_point" value="" readonly>
+                            <input type="text" id="myText" class="form-control" name="diskon_point" value="0" readonly>
                             <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
                         </div>
                     </div>
@@ -88,15 +88,13 @@ $user           = $this->user_model->user_detail($id);
                         </label>
                         <div class="col-lg-8">
                             <select class="form-control form-control-chosen" name="promo_amount">
-                                <option value="">-- Kode Promo --</option>
+                                <option value="0">-- Kode Promo --</option>
                                 <?php foreach ($promo as $promo) : ?>
                                     <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
-
-
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Nama Lengkap<span class="text-danger">*</span>

@@ -18,9 +18,9 @@
         echo form_open('auth/forgotpassword', $attributes)
         ?>
         <div class="form-group">
-            <label>Masukan Email Anda</label>
-            <input type="text" class="form-control form-control-lg shadow-sm border-0" name="email" id="email" placeholder="Email Address..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase">
-            <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+            <label>Masukan Nomor Whatsapp </label>
+            <input type="text" class="form-control form-control-lg shadow-sm border-0" name="user_phone" id="user_phone" placeholder="No Whatsapp..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase">
+            <?php echo form_error('user_phone', '<small class="text-danger pl-3">', '</small>'); ?>
         </div>
 
 
