@@ -115,7 +115,7 @@
 </section>
 
 <section id="services" class="title text-center my-5">
-    <h2 class="title my-5">Partner <span>Sewamobiloka</span></h2>
+    <h2 class="title my-5">Partner <span><?php echo $meta->title; ?></span></h2>
     <div class="container">
         <div class="col-md-7 mx-auto">
             <div class="row">
@@ -149,9 +149,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-5">
-                <h2 class="title">Mengapa Memilih <span>Sewamobiloka</span>
+                <h2 class="title">Mengapa Memilih <span><?php echo $meta->title; ?></span>
                 </h2>
-                <p class=" mt-3 ">Sewamobiloka merupakan layanan sewa mobil yang bisa anda gunakan di kota yang tersedia di seluruh Indonesia.</p>
+                <p class=" mt-3 "><?php echo $meta->title; ?> merupakan layanan sewa mobil yang bisa anda gunakan di kota yang tersedia di seluruh Indonesia.</p>
                 <p>
                     Kami menyediakan banyak paket sewa harian dan perjam. tersedia juga sewa mobil untuk luar kota. kami hadir untuk sewa mobil di berbagai wilayah kota
                 </p>
