@@ -2,6 +2,8 @@
 
 <section class="pt-4 pb-3 mt-0 align-items-center bg-light" style="background-image: url(<?php
                                                                                             foreach ($featured as $featured) : ?>
+                                                                                            <?php var_dump($featured);
+                                                                                                die; ?>
 <?php echo base_url('assets/img/galery/' . $featured->galery_img); ?>
 <?php endforeach; ?>); background-size: cover; min-height: 50vh;">
     <div class="container">

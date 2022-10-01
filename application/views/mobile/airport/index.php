@@ -14,7 +14,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <label class="form-label">Bandara</label>
-            <select class="form-control form-control-lg" name="airport_id">
+            <select class="form-control form-control-lg" data-live-search="true" name="airport_id">
                 <?php foreach ($airport as $data) : ?>
                     <option value="<?php echo md5($data->id); ?>"><?php echo $data->airport_name; ?> <div class="text-muted"> <?php echo $data->airport_code; ?></div>
                     </option>

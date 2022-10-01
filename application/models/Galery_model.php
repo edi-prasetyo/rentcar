@@ -45,7 +45,6 @@ class Galery_model extends CI_Model
     $this->db->from('galery');
     $this->db->order_by('id', 'DESC');
     $this->db->where(['galery_type' => 'Featured']);
-    $this->db->limit(1);
     $query = $this->db->get();
     return $query->result();
   }

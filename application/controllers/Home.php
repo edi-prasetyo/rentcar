@@ -23,6 +23,7 @@ class Home extends CI_Controller
 
 
         $featured = $this->galery_model->featured();
+
         $kota = $this->kota_model->get_allkota();
         // $my_point = $this->
         if (!$this->agent->is_mobile()) {

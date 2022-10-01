@@ -21,14 +21,19 @@ $user           = $this->user_model->user_detail($id);
             unset($_SESSION['message']);
             ?>
         </div>
-        <div class="card mb-3 shadow border-0">
+        <div class="card mb-3">
+            <div class="card-header">Pesanan</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-7">
-                        <?php echo $airport_name; ?> - <?php echo $kota_name; ?> <br>
-                        <?php echo $mobil_name; ?>
+                        <?php echo $airport_name; ?> - <?php echo $kota_name; ?> <?php echo $mobil_name; ?> <br>
+                        <h3 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h3>
+                        <!-- <input type="text" name="grand_total" id="total" size="7" value="" readonly> -->
+
+                        <!-- <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" value="1" onchange="total()"> -->
                     </div>
                     <div class="col-md-5 text-right">
+                        <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
 
                         <?php if ($this->session->userdata('id')) : ?>
                         <?php else : ?>
@@ -37,25 +42,14 @@ $user           = $this->user_model->user_detail($id);
                     </div>
                 </div>
             </div>
-            <div class="card-footer bg-white">
-                <div class="row">
-                    <div class="col-6">
-                        <h5 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h5>
-                    </div>
-                    <div class="col-6">
-                        <span class="h6"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     <?php if ($this->session->userdata('id')) : ?>
         <div class="col-md-7 mx-auto">
-            <div class="card shadow border-0 mb-5 pb-3">
-                <div class="card-header bg-white">
-                    Form Pesanan
+            <div class="card">
+                <div class="card-header">
+                    Buat Pesanan
                 </div>
 
                 <div class="card-body">
@@ -97,24 +91,24 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Discount Point<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" id="myText" class="form-control" name="diskon_point" value="" readonly>
+                            <input type="text" id="myText" class="form-control" name="diskon_point" value="0" readonly>
                             <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
                         </div>
                     </div>
-
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Kode Promo
                         </label>
                         <div class="col-lg-8">
                             <select class="form-control form-control-chosen" name="promo_amount">
-                                <option value="">-- Kode Promo --</option>
+                                <option value="0">-- Kode Promo --</option>
                                 <?php foreach ($promo as $promo) : ?>
                                     <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
+
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Nama Lengkap<span class="text-danger">*</span>
@@ -138,7 +132,10 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Nomor Handphone <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo $user->user_phone; ?>" required>
+                            <?php $hp = $user->user_phone;
+                            $hp0 = substr_replace($hp, '0', 0, 2);
+                            ?>
+                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo $hp0; ?>" required>
                             <div class="invalid-feedback">Nomor Handphone harus di isi.</div>
                         </div>
                     </div>
@@ -165,6 +162,20 @@ $user           = $this->user_model->user_detail($id);
                             <div class="invalid-feedback">Jam Jemput harus di isi.</div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Metode Pembayaran<span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="pembayaran" required>
+                                <option value="">-- Pembayaran --</option>
+                                <?php foreach ($pembayaran as $pembayaran) : ?>
+                                    <option value='<?php echo $pembayaran->name; ?>'> <?php echo $pembayaran->name; ?></option>
+                                <?php endforeach; ?>
+
+                            </select>
+                            <div class="invalid-feedback">Pilih Lama Sewa.</div>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Permintaan Khusus <span class="text-success">* Optional</span>
@@ -175,41 +186,42 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
-               
 
-                    <a class="btn btn-danger btn-block mb-3" data-toggle="collapse" href="#syaratKetentuan" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Syarat Ketentuan Sewa</a>
 
-                    <div class="collapse multi-collapse" id="syaratKetentuan">
-                        <div class="alert alert-danger">
-                            <?php echo $ketentuan_desc; ?>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label"> Syarat Ketentuan
+                        </label>
+                        <div class="col-lg-8">
+                            <div class="alert alert-success">
+                                <?php echo $ketentuan_desc; ?>
+                            </div>
                         </div>
                     </div>
-
-                    <a class="btn btn-warning btn-block" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Batas Penggunaan</a>
-
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="alert alert-warning">
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label"> Batas Wilayah
+                        </label>
+                        <div class="col-lg-8">
                             <?php echo $paket_desc; ?>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">
                         </label>
                         <div class="col-lg-8">
-                            <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
-                                <button type="submit" name="submit" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Order Sekarang</button>
-                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Order Sekarang</button>
                         </div>
                     </div>
                     <?php echo form_close(); ?>
                 </div>
+
+
 
             </div>
         </div>
     <?php else : ?>
 
     <?php endif; ?>
+
 
 </div>
 

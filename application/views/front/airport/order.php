@@ -2,6 +2,7 @@
 $id             = $this->session->userdata('id');
 $user           = $this->user_model->user_detail($id);
 ?>
+
 <div class="container my-5">
     <div class="col-md-7 mx-auto">
         <div class="text-center">
