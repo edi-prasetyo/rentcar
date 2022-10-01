@@ -159,7 +159,7 @@
                 <p>
                     Kami menyediakan banyak paket sewa harian dan perjam. tersedia juga sewa mobil untuk luar kota. kami hadir untuk sewa mobil di berbagai wilayah kota
                 </p>
-                <a class="btn btn-primary my-5" href="#"><i class="fa fa-phone"></i> Info Selengkapnya </a>
+                <a class="btn btn-primary my-5" href="https://wa.me/<?php echo $meta->whatsapp; ?>"><i class="fa fa-phone"></i> Info Selengkapnya </a>
             </div>
             <div class="col-lg-7">
                 <div class="row card-items">
