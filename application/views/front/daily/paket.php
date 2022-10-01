@@ -29,7 +29,6 @@
 
                                 <input type="hidden" name="paket_id" value="<?php echo $data->id; ?>">
 
-
                                 <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
                                 <input type="hidden" name="jam_sewa" value="<?php echo $jam_sewa; ?>">
                                 <input type="hidden" name="kota_name" value="<?php echo $kota->kota_name; ?>">
