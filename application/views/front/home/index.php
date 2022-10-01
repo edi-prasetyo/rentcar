@@ -1,6 +1,9 @@
 <?php $meta = $this->meta_model->get_meta(); ?>
 
-<section class="pt-4 pb-3 mt-0 align-items-center bg-light" style="background-image: url(<?php echo base_url('assets/img/galery/1.jpg'); ?>); background-size: cover; min-height: 50vh;">
+<section class="pt-4 pb-3 mt-0 align-items-center bg-light" style="background-image: url(<?php
+                                                                                            foreach ($featured as $featured) : ?>
+<?php echo base_url('assets/img/galery/' . $featured->galery_img); ?>
+<?php endforeach; ?>); background-size: cover; min-height: 50vh;">
     <div class="container">
         <div class="container">
             <div class="row mb-md-4">
