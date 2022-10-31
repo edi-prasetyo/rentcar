@@ -1121,3 +1121,6 @@ footer p {
 .section-product{
 	height: -50px;
 }
+.app-footer{
+	margin-top: -80px !important;
+}

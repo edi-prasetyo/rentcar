@@ -21,9 +21,8 @@ class Home extends CI_Controller
     public function index()
     {
 
-
         $featured = $this->galery_model->featured();
-
+        
         $kota = $this->kota_model->get_allkota();
         // $my_point = $this->
         if (!$this->agent->is_mobile()) {
@@ -34,6 +33,7 @@ class Home extends CI_Controller
                 'kota'          => $kota,
                 'product'       => $product,
                 'featured'      => $featured,
+               
                 'content'       => 'front/home/index'
             ];
             $this->load->view('front/layout/wrapp', $data);

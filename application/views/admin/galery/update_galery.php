@@ -42,6 +42,7 @@
                     <option value="Slider">Slider</option>
                     <option value="Halaman">Halaman</option>
                     <option value="Featured">Featured</option>
+                    <option value="Application">Application</option>
                 </select>
             </div>
         </div>

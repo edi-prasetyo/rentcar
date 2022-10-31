@@ -1,7 +1,46 @@
 <?php
 $meta      = $this->meta_model->get_meta();
+$application = $this->galery_model->application();
 ?>
 
+<section class="bg-white shadow mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 app-footer col-3">
+                <?php foreach ($application as $application) : ?>
+                    <img class="img-fluid" src="<?php echo base_url('assets/img/galery/' . $application->galery_img); ?>">
+                <?php endforeach; ?>
+            </div>
+            <div class="col-md-9 col-9">
+                <h1 class="pt-3"><b>Download Aplikasi di Playstore</b></h1>
+                <p>Dapatkan kemudahan bertransaksi dan dapatkan Promo menarik lainnya dengan menggunakan layanan Aplikasi Mobile silahkan Klik di Bawah Ini:</p>
+                <a class="btn btn-dark px-5 py-3 mr-3 rounded-pill" href="<?php echo $application->galery_url; ?>">
+                    <div class="row">
+                        <div class="col-4 text-left">
+                            <i class="fa-brands fa-google-play display-4"></i>
+                        </div>
+                        <div class="col-8 text-left">
+                            <small> Get It On</small><br>
+                            <span class="font-weight-bold">Google Play</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="btn btn-dark px-5 py-3 rounded-pill" href="<?php echo $application->galery_title; ?>">
+                    <div class="row">
+                        <div class="col-4 text-left">
+                            <i class="fa-brands fa-apple display-4"></i>
+                        </div>
+                        <div class="col-8 text-left">
+                            <small> Download On The</small><br>
+                            <span class="font-weight-bold">App Store</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</section>
 <!-- FOOTER -->
 <footer class="footer">
     <div class="container bottom_border">

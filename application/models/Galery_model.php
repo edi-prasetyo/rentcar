@@ -48,6 +48,15 @@ class Galery_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  public function application()
+  {
+    $this->db->select('*');
+    $this->db->from('galery');
+    $this->db->order_by('id', 'DESC');
+    $this->db->where(['galery_type' => 'Application']);
+    $query = $this->db->get();
+    return $query->result();
+  }
 
   //Total Berita Main Page
   public function total_row()

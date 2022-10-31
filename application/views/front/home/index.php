@@ -117,7 +117,7 @@
         </div>
     </div>
 </section>
-
+<!-- 
 <section id="services" class="title text-center my-5">
     <h2 class="title my-5">Partner <span><?php echo $meta->title; ?></span></h2>
     <div class="container">
@@ -147,7 +147,9 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
+
+
 
 <section id="services" class="my-5">
     <div class="container">
