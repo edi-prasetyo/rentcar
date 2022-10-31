@@ -6,7 +6,7 @@ $application = $this->galery_model->application();
 <section class="bg-white shadow mt-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-3 app-footer col-3">
+            <div class="col-md-3 app-footer col-3" style="margin-top: -80px !important;">
                 <?php foreach ($application as $application) : ?>
                     <img class="img-fluid" src="<?php echo base_url('assets/img/galery/' . $application->galery_img); ?>">
                 <?php endforeach; ?>
