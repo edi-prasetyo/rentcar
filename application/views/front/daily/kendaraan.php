@@ -84,9 +84,9 @@
     <div class="row">
 
         <?php foreach ($paket_sewa as $data) : ?>
-            <div class="col-md-3 col-6 my-2">
-                <?php if ($data->mobil_gambar == null) : ?>
-                <?php else : ?>
+            <?php if ($data->mobil_gambar == null) : ?>
+            <?php else : ?>
+                <div class="col-md-3 col-6 my-2">
                     <div class="card">
                         <img src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" class="card-img-top" alt="...">
                         <div class="card-body text-center">
@@ -99,8 +99,9 @@
                             <?php echo form_close(); ?>
                         </div>
                     </div>
-                <?php endif; ?>
-            </div>
+
+                </div>
+            <?php endif; ?>
         <?php endforeach; ?>
     </div> <!-- row.// -->
 </div>
