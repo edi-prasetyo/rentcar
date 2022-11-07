@@ -2,56 +2,15 @@
     <div class="card-header">
 
         <ul class="nav nav-pills ml-auto p-2">
-            <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi'); ?>">Belum di Ambil</a></li>
-            <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi/proses'); ?>">Proses Kirim</a></li>
+            <li class="nav-item"><a class="nav-link " href="<?php echo base_url('admin/transaksi'); ?>">Order Baru</a></li>
+            <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi/proses'); ?>">Dalam Perjalanan</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/selesai'); ?>">Selesai</a></li>
-            <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li> -->
         </ul>
     </div>
 
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <?php echo form_open('admin/transaksi/proses'); ?>
-                <div class="input-group mb-3">
-                    <input type="text" name="resi" class="form-control" placeholder="Masukan Nomor Resi" value="<?php echo set_value('resi'); ?>">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-info" type="submit" id="button-addon2">Cari</button>
-                    </div>
-                </div>
-                <?php echo form_close(); ?>
-            </div>
-            <div class="col-md-4">
-                <?php echo form_open('admin/transaksi/proses'); ?>
-                <div class="input-group mb-3" style="width: 100%;">
-                    <select class="form-control select2bs4" name="kota_asal">
-                        <option>Pilih Kota Asal</option>
-                        <?php foreach ($list_kota_asal as $kota) : ?>
-                            <option value='<?php echo $kota->kota_name; ?>'><?php echo $kota->kota_name; ?> </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <div class="input-group-append">
-                        <input type='submit' name='submit' value='Cari' class="btn btn-info">
-                    </div>
-                </div>
-                <?php echo form_close(); ?>
-            </div>
-            <div class="col-md-4">
-                <?php echo form_open('admin/transaksi/proses'); ?>
-                <div class="input-group mb-3" style="width: 100%;">
-                    <select class="form-control select2bs4" name="kota_tujuan">
-                        <option>Pilih Kota Tujuan</option>
-                        <?php foreach ($list_kota_tujuan as $kota) : ?>
-                            <option value='<?php echo $kota->kota_name; ?>'><?php echo $kota->kota_name; ?> </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <div class="input-group-append">
-                        <input type='submit' name='submit' value='Cari' class="btn btn-info">
-                    </div>
-                </div>
-                <?php echo form_close(); ?>
-            </div>
-        </div>
+
     </div>
 
 
@@ -60,49 +19,66 @@
             <thead class="thead-white">
                 <tr>
                     <th>#</th>
-                    <th>Tanggal</th>
-                    <th>Counter</th>
-                    <th>Main Agen</th>
-                    <th>Resi</th>
+                    <th>Order ID</th>
+                    <th>Mobil</th>
+                    <th>Tanggal Jemput</th>
+                    <th>Customer</th>
+                    <th>Type</th>
+                    <th>Pembayaran</th>
                     <th>Status</th>
-                    <th>Kota Asal</th>
-                    <th>Kota Tujuan</th>
                     <th>Harga</th>
-                    <th width="15%">Action</th>
+                    <th width="20%">Action</th>
                 </tr>
             </thead>
             <?php $no = 1;
             foreach ($transaksi as $transaksi) { ?>
                 <tr>
                     <td><?php echo $no; ?></td>
-                    <td><?php echo date('d/m/Y', strtotime($transaksi->date_created)); ?><br> <?php echo date('H:i:s', strtotime($transaksi->date_created)); ?></td>
-                    <td><?php echo $transaksi->name; ?> <br>
-                        <?php echo $transaksi->kota_from; ?><br>
-                        <b>Code : <?php echo $transaksi->user_code; ?></b>
-                    </td>
-                    <td><?php echo $transaksi->mainagen_name; ?></td>
-                    <td><?php echo $transaksi->nomor_resi; ?></td>
-                    <td>
-                        <?php if ($transaksi->stage == 9) : ?>
-                            <span class="badge badge-success badge-pill">Selesai</span>
-                        <?php elseif ($transaksi->stage == 10) : ?>
-                            <span class="badge badge-danger badge-pill">Dibatalkan Counter</span>
+                    <td><?php echo $transaksi->order_id; ?></td>
+                    <td><?php echo $transaksi->mobil_name; ?></td>
+                    <td><?php echo $transaksi->tanggal_jemput; ?>
+                        <?php if ($transaksi->status_read == 0) : ?>
+                            <span class="right badge badge-danger">New Order</span>
                         <?php else : ?>
-                            <span class="badge badge-pill bg-pink">Proses Kirim</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?php echo $transaksi->passenger_name; ?> </td>
+                    <td><?php echo $transaksi->order_type; ?> </td>
+                    <td>
+                        <?php echo $transaksi->pembayaran; ?><br>
+                        <?php if ($transaksi->status_pembayaran == "Lunas") : ?>
+                            <div class="badge badge-success">Paid</div>
+                        <?php else : ?>
+                            <div class="badge badge-danger">Unpaid</div>
                         <?php endif; ?>
 
                     </td>
-                    <td><?php echo $transaksi->kota_from; ?></td>
-                    <td><?php echo $transaksi->kota_name; ?></td>
-                    <td>Rp. <?php echo number_format($transaksi->total_harga, 0, ",", "."); ?></td>
+                    <td>
+                        <?php if ($transaksi->stage == 1) : ?>
+                            <div class="badge badge-warning">Pending</div>
+                        <?php elseif ($transaksi->stage == 2) : ?>
+                            <div class="badge badge-info">Konfirmasi Driver</div>
+                        <?php elseif ($transaksi->stage == 3) : ?>
+                            <div class="badge badge-primary">Dalam Pengantaran</div>
+                        <?php elseif ($transaksi->stage == 4) : ?>
+                            <div class="badge badge-success">Selesai</div>
+                        <?php elseif ($transaksi->stage == 5) : ?>
+                            <div class="badge badge-danger">Ditolak Driver</div>
+                        <?php else : ?>
+                        <?php endif; ?>
+                    </td>
+
+                    <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
                     <!-- <td><img class="img-fluid" src="<?php echo base_url('assets/img/barcode/' . $transaksi->barcode); ?>"></td> -->
                     <td>
-                        <a href="<?php echo base_url('admin/transaksi/lacak/' . $transaksi->id); ?>" class="btn btn-info btn-sm">
-                            <i class="fas fa-code-branch"></i> Lacak
-                        </a>
                         <a href="<?php echo base_url('admin/transaksi/detail/' . $transaksi->id); ?>" class="btn btn-success btn-sm">
                             <i class="fa fa-eye"></i> Detail
                         </a>
+                        <a href="#" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i> Cancel
+                        </a>
+                        <?php //include "cancel.php"; 
+                        ?>
                     </td>
                 </tr>
             <?php $no++;

@@ -59,11 +59,14 @@ class Transaksi_model extends CI_Model
     // join
     $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
     // End Join
+    $this->db->where('transaksi.stage', 1);
+    $this->db->or_where('transaksi.stage', 2);
     $this->db->order_by('transaksi.id', 'DESC');
     $this->db->limit($limit, $start);
     $query = $this->db->get();
     return $query->result();
   }
+
 
   public function detail_driver($driver_id)
   {
@@ -82,6 +85,65 @@ class Transaksi_model extends CI_Model
     // Join
     $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
     //End Join
+    $this->db->where('transaksi.stage', 1);
+    $this->db->or_where('transaksi.stage', 2);
+    $this->db->order_by('transaksi.id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  // PROSES
+  public function get_transaksi_proses($limit, $start)
+  {
+
+    $this->db->select('transaksi.*, user.name');
+    $this->db->from('transaksi');
+    // join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    // End Join
+    $this->db->order_by('transaksi.id', 'DESC');
+    $this->db->limit($limit, $start);
+    $this->db->where('transaksi.stage', 3);
+    $query = $this->db->get();
+    return $query->result();
+  }
+  //Total Row
+  public function total_row_proses()
+  {
+
+    $this->db->select('transaksi.*, user.name');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    //End Join
+    $this->db->where('transaksi.stage', 3);
+    $this->db->order_by('transaksi.id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  //SELESAI
+  public function get_transaksi_selesai($limit, $start)
+  {
+
+    $this->db->select('transaksi.*, user.name');
+    $this->db->from('transaksi');
+    // join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    // End Join
+    $this->db->order_by('transaksi.id', 'DESC');
+    $this->db->limit($limit, $start);
+    $this->db->where('transaksi.stage', 4);
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function total_row_selesai()
+  {
+
+    $this->db->select('transaksi.*, user.name');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    //End Join
+    $this->db->where('transaksi.stage', 4);
     $this->db->order_by('transaksi.id', 'DESC');
     $query = $this->db->get();
     return $query->result();

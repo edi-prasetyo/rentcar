@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-12">
                             <h4>
-                                <i class="fas fa-globe"></i> <?php echo $meta->title; ?>
+                                <img width="20%" src="<?php echo base_url('assets/img/logo/' . $meta->logo); ?>">
                                 <small class="float-right">INVOICE</small>
                             </h4>
                         </div>
@@ -78,10 +78,12 @@
                             <b>Order ID:</b> <?php echo $transaksi->order_id; ?><br>
                             <b>Tangga Jemput :</b> <?php echo $transaksi->tanggal_jemput; ?><br>
                             <b>Jam Jemput :</b> <?php echo $transaksi->jam_jemput; ?><br>
+                            <b>Pembayaran :</b> <?php echo $transaksi->pembayaran; ?><br>
                             <?php if ($transaksi->driver_id == 0) : ?>
                             <?php else : ?>
-                                <b>Driver :</b> <?php echo $transaksi->driver_name; ?>
+                                <b>Driver :</b> <?php echo $transaksi->driver_name; ?><br>
                             <?php endif; ?>
+                            <b>Status Pembayaran :</b> <?php echo $transaksi->status_pembayaran; ?><br>
 
                         </div>
                         <!-- /.col -->

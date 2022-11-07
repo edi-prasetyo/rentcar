@@ -8,29 +8,27 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
 
 ?>
 <div class="card">
-    <!-- <div class="card-header">
+    <div class="card-header">
         <ul class="nav nav-pills ml-auto p-2">
-            <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi'); ?>">Belum di Ambil</a></li>
-            <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/proses'); ?>">Proses Kirim</a></li>
+            <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi'); ?>">Order Baru</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/proses'); ?>">Dalam Perjalanan</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/selesai'); ?>">Selesai</a></li>
-            <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li> -->
         </ul>
-    </div> -->
+    </div>
     <div class="card-body">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-4">
                 <?php echo form_open('admin/transaksi'); ?>
                 <div class="input-group mb-3">
-                    <input type="text" name="resi" class="form-control" placeholder="Masukan Order ID" value="<?php echo set_value('resi'); ?>">
+                    <input type="text" name="order_id" class="form-control" placeholder="Masukan Order ID" value="<?php echo set_value('order_id'); ?>">
                     <div class="input-group-append">
                         <button class="btn btn-outline-info" type="submit" id="button-addon2">Cari</button>
                     </div>
                 </div>
                 <?php echo form_close(); ?>
             </div>
-
-
-        </div>
+        </div> -->
     </div>
 
     <div class="card-body table-responsive p-0">

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <h4>
-                    <i class="fas fa-globe"></i> <?php echo $meta->title; ?>
+                    <img width="20%" src="<?php echo base_url('assets/img/logo/' . $meta->logo); ?>">
                     <small class="float-right">INVOICE</small>
                 </h4>
             </div>
@@ -126,12 +126,30 @@
         <div class="row no-print">
             <div class="col-12">
                 <a href="<?php echo base_url('admin/transaksi/invoice/' . $transaksi->id); ?>" rel="noopener" class="btn btn-default"><i class="fas fa-print"></i> Print Invoice</a>
+
+
+                <?php if ($transaksi->pembayaran == "Transfer") : ?>
+                <?php else : ?>
+                    <?php if ($transaksi->status_pembayaran == "Belum Dibayar") : ?>
+                        <a href="<?php echo base_url('admin/transaksi/pilih_driver/' . $transaksi->id); ?>" class="btn btn-success float-right" style="margin-right: 5px;">
+                            <i class="fas fa-credit-card"></i> Sudah Di Bayar
+                        </a>
+                    <?php else : ?>
+
+                    <?php endif; ?>
+                <?php endif; ?>
+
+
+
+
+
                 <?php if ($transaksi->driver_id == 0) : ?>
                     <a href="<?php echo base_url('admin/transaksi/pilih_driver/' . $transaksi->id); ?>" class="btn btn-primary float-right" style="margin-right: 5px;">
                         <i class="fas fa-user"></i> Pilih Driver
                     </a>
                 <?php else : ?>
                 <?php endif; ?>
+
             </div>
         </div>
     </div>
@@ -154,7 +172,19 @@
                     <tr>
                         <td><?php echo $transaksi_driver->name; ?></td>
                         <td><?php echo $transaksi_driver->user_phone; ?></td>
-                        <td><?php echo $transaksi->status; ?></td>
+                        <td> <?php if ($transaksi->stage == 1) : ?>
+                                <div class="badge badge-warning">Pending</div>
+                            <?php elseif ($transaksi->stage == 2) : ?>
+                                <div class="badge badge-info">Konfirmasi Driver</div>
+                            <?php elseif ($transaksi->stage == 3) : ?>
+                                <div class="badge badge-primary">Dalam Pengantaran</div>
+                            <?php elseif ($transaksi->stage == 4) : ?>
+                                <div class="badge badge-success">Selesai</div>
+                            <?php elseif ($transaksi->stage == 5) : ?>
+                                <div class="badge badge-danger">Ditolak Driver</div>
+                            <?php else : ?>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <?php if ($transaksi->status == "Selesai") : ?>
                             <?php else : ?>
