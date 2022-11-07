@@ -2,6 +2,7 @@
 $meta = $this->meta_model->get_meta();
 $user_id = $this->session->userdata('id');
 $user = $this->user_model->user_detail($user_id);
+$application = $this->galery_model->application();
 // var_dump($user);
 // die;
 ?>
@@ -99,6 +100,16 @@ $user = $this->user_model->user_detail($user_id);
 
 <div class="container my-3">
     <a class="btn btn-block btn-success" href="https://wa.me/<?php echo $meta->whatsapp; ?>"><i class="fab fa-whatsapp"></i> Hubungi Kami</a>
+</div>
+<div class="container my-3">
+    <?php foreach ($application as $application) : ?>
+        <a class="btn btn-dark btn-block" href="<?php echo $application->galery_url; ?>">
+
+            <i class="fa-brands fa-google-play"></i>
+
+            <span class="ml-3">Download Aplikasi</span>
+        </a>
+    <?php endforeach; ?>
 </div>
 
 <div class="trending-slider mt-3">
