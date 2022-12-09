@@ -55,7 +55,7 @@ class Report extends CI_Controller
         $transaksi = $this->transaksi_model->get_report($start_date, $end_date);
 
         $data = [
-            'title'                 => 'Data Transaksi',
+            'title'                 => 'Data Laporan',
             'transaksi'             => $transaksi,
             'start_date'            => $start_date,
             'end_date'              => $end_date,
