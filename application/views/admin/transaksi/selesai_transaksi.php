@@ -35,7 +35,6 @@
                 <tr>
                     <td><?php echo $no; ?></td>
                     <td>
-                        <?php echo $transaksi->id; ?><br>
                         <?php echo date('d-m-Y', strtotime($transaksi->date_created)); ?><br>
                         <?php echo date('H:i', strtotime($transaksi->date_created)); ?> WIB
                     </td>
