@@ -334,11 +334,12 @@ class transaksi extends CI_Controller
       is_login();
       $data = [
         'id'                        => $id,
-        'stage'                     => 10,
+        'cancel_by'                 => $this->session->userdata('id'),
+        'stage'                     => 6,
       ];
       $this->transaksi_model->update($data);
       $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show" > Data Telah di Batalkan <button class="close" data-dismiss="alert" aria-label="Close">×</button></div>');
-      redirect(base_url('admin/transaksi'), 'refresh');
+      redirect($_SERVER['HTTP_REFERER']);
     } else {
       redirect('admin/404');
     }

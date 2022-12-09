@@ -52,6 +52,15 @@ $transaksi_unread = $this->transaksi_model->transaksi_unread();
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>admin/report" class="nav-link">
+              <i class="nav-icon fas fa-newspaper"></i>
+              <p>
+                Laporan
+
+              </p>
+            </a>
+          </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">

@@ -139,11 +139,7 @@
                     <?php endif; ?>
                 <?php endif; ?>
 
-
-
-
-
-                <?php if ($transaksi->driver_id == 0) : ?>
+                <?php if ($transaksi->driver_id == 0 && $transaksi->stage == 1 || $transaksi->stage == 5) : ?>
                     <a href="<?php echo base_url('admin/transaksi/pilih_driver/' . $transaksi->id); ?>" class="btn btn-primary float-right" style="margin-right: 5px;">
                         <i class="fas fa-user"></i> Pilih Driver
                     </a>

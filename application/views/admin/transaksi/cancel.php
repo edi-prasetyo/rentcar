@@ -12,7 +12,7 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <p class="text-wrap"> Apakah Anda Yakin Ingin Membatalkan Kiriman Nomor Resi : <b><?php echo $transaksi->nomor_resi ?></b></p>
+                <p class="text-wrap"> Apakah Anda Yakin Ingin Membatalkan Transaksi dengan ID : <b><?php echo $transaksi->order_id ?></b></p>
             </div>
             <div class="modal-footer">
                 <a href="<?php echo base_url('admin/transaksi/cancel/' . $transaksi->id) ?>" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i> Ya, Batalkan</a>

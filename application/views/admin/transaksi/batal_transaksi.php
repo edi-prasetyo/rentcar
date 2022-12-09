@@ -5,7 +5,7 @@
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi'); ?>">Order Baru</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/proses'); ?>">Dalam Perjalanan</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/selesai'); ?>">Selesai</a></li>
-            <!-- <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li> -->
+            <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li>
         </ul>
     </div>
     <div class="card-body">
@@ -103,6 +103,8 @@
                             <div class="badge badge-success">Selesai</div>
                         <?php elseif ($transaksi->stage == 5) : ?>
                             <div class="badge badge-danger">Ditolak Driver</div>
+                        <?php elseif ($transaksi->stage == 6) : ?>
+                            <div class="badge badge-danger">batal</div>
                         <?php else : ?>
                         <?php endif; ?>
                     </td>

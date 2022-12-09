@@ -13,7 +13,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
             <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi'); ?>">Order Baru</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/proses'); ?>">Dalam Perjalanan</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/selesai'); ?>">Selesai</a></li>
-            <!-- <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li> -->
+            <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li>
         </ul>
     </div>
     <div class="card-body">
@@ -36,7 +36,8 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
             <thead class="thead-white">
                 <tr>
                     <th>#</th>
-                    <th>Order ID</th>
+                    <th width="8%">Tgl Order</th>
+                    <th> ID</th>
                     <th>Mobil</th>
                     <th>Tanggal Jemput</th>
                     <th>Customer</th>
@@ -44,13 +45,17 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <th>Pembayaran</th>
                     <th>Status</th>
                     <th>Harga</th>
-                    <th width="20%">Action</th>
+                    <th width="15%">Action</th>
                 </tr>
             </thead>
             <?php $no = 1;
             foreach ($transaksi as $transaksi) { ?>
                 <tr>
                     <td><?php echo $no; ?></td>
+                    <td>
+                        <?php echo date('d-m-Y', strtotime($transaksi->date_created)); ?><br>
+                        <?php echo date('H:i', strtotime($transaksi->date_created)); ?> WIB
+                    </td>
                     <td><?php echo $transaksi->order_id; ?></td>
                     <td><?php echo $transaksi->mobil_name; ?></td>
                     <td><?php echo $transaksi->tanggal_jemput; ?>
@@ -91,10 +96,8 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                         <a href="<?php echo base_url('admin/transaksi/detail/' . $transaksi->id); ?>" class="btn btn-success btn-sm">
                             <i class="fa fa-eye"></i> Detail
                         </a>
-                        <a href="#" class="btn btn-danger btn-sm">
-                            <i class="fa fa-trash"></i> Cancel
-                        </a>
-                        <?php //include "cancel.php"; 
+
+                        <?php include "cancel.php";
                         ?>
                     </td>
                 </tr>

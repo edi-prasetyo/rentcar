@@ -5,7 +5,7 @@
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi'); ?>">Order Baru</a></li>
             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/proses'); ?>">Dalam Perjalanan</a></li>
             <li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/transaksi/selesai'); ?>">Selesai</a></li>
-            <!-- <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li> -->
+            <li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/transaksi/batal'); ?>">Batal</a></li>
         </ul>
     </div>
 
@@ -18,7 +18,8 @@
             <thead class="thead-white">
                 <tr>
                     <th>#</th>
-                    <th>Order ID</th>
+                    <th width="8%">Tgl Order</th>
+                    <th> ID</th>
                     <th>Mobil</th>
                     <th>Tanggal Jemput</th>
                     <th>Customer</th>
@@ -33,6 +34,11 @@
             foreach ($transaksi as $transaksi) { ?>
                 <tr>
                     <td><?php echo $no; ?></td>
+                    <td>
+                        <?php echo $transaksi->id; ?><br>
+                        <?php echo date('d-m-Y', strtotime($transaksi->date_created)); ?><br>
+                        <?php echo date('H:i', strtotime($transaksi->date_created)); ?> WIB
+                    </td>
                     <td><?php echo $transaksi->order_id; ?></td>
                     <td><?php echo $transaksi->mobil_name; ?></td>
                     <td><?php echo $transaksi->tanggal_jemput; ?>

@@ -49,7 +49,12 @@ class Transaksi_model extends CI_Model
     return $query->result();
   }
 
-
+  public function total_transaksi()
+  {
+    $this->db->select_sum('total_price');
+    $result = $this->db->get('transaksi')->row();
+    return $result;
+  }
 
   public function get_transaksi($limit, $start)
   {
@@ -65,6 +70,20 @@ class Transaksi_model extends CI_Model
     $this->db->limit($limit, $start);
     $query = $this->db->get();
     return $query->result();
+  }
+  public function get_report($start_date, $end_date)
+  {
+    if ($start_date == null && $end_date == null) {
+    } else {
+      $this->db->select('*');
+      $this->db->from('transaksi');
+      $this->db->where('transaksi.stage', 4);
+      $this->db->where('DATE(date_created) >=', $start_date);
+      $this->db->where('DATE(date_created) <=', $end_date);
+      $this->db->order_by('transaksi.id', 'DESC');
+      $query = $this->db->get();
+      return $query->result();
+    }
   }
 
 
@@ -144,6 +163,35 @@ class Transaksi_model extends CI_Model
     $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
     //End Join
     $this->db->where('transaksi.stage', 4);
+    $this->db->order_by('transaksi.id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  // Cancel
+  public function get_transaksi_batal($limit, $start)
+  {
+
+    $this->db->select('transaksi.*, user.name');
+    $this->db->from('transaksi');
+    // join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    // End Join
+    $this->db->order_by('transaksi.id', 'DESC');
+    $this->db->limit($limit, $start);
+    $this->db->where('transaksi.stage', 6);
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function total_row_batal()
+  {
+
+    $this->db->select('transaksi.*, user.name');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    //End Join
+    $this->db->where('transaksi.stage', 6);
     $this->db->order_by('transaksi.id', 'DESC');
     $query = $this->db->get();
     return $query->result();
@@ -508,5 +556,30 @@ class Transaksi_model extends CI_Model
     // $this->db->where('kode_transaksi',$kode_transaksi);
     $query = $this->db->get();
     return $query->row();
+  }
+
+  // REPORT
+  public function get_report_excel($start_date, $end_date)
+  {
+    if ($start_date == null && $end_date == null) {
+    } else {
+      $this->db->select('*');
+      $this->db->from('transaksi');
+      $this->db->where('transaksi.stage', 4);
+      $this->db->where('DATE(date_created) >=', $start_date);
+      $this->db->where('DATE(date_created) <=', $end_date);
+      $this->db->order_by('transaksi.id', 'DESC');
+      $query = $this->db->get();
+      return $query->result();
+    }
+  }
+  public function total_transaksi_excel($start_date, $end_date)
+  {
+    $this->db->select_sum('total_price');
+    $this->db->where('transaksi.stage', 4);
+    $this->db->where('DATE(date_created) >=', $start_date);
+    $this->db->where('DATE(date_created) <=', $end_date);
+    $result = $this->db->get('transaksi')->row();
+    return $result;
   }
 }
