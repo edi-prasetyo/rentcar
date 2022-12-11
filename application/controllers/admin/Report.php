@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require_once(APPPATH . '../vendor/autoload.php');
 // require '../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -101,7 +102,7 @@ class Report extends CI_Controller
 
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $kolom, $nomor)
-                ->setCellValue('B' . $kolom, date('d-m-Y H:i:s', strtotime($transaksi->date_created)))
+                ->setCellValue('B' . $kolom, date('d-m-Y', strtotime($transaksi->date_created)))
                 ->setCellValue('C' . $kolom, $transaksi->order_id)
                 ->setCellValue('D' . $kolom, $transaksi->passenger_name)
                 ->setCellValue('E' . $kolom, $transaksi->passenger_phone)
