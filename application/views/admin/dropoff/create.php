@@ -2,7 +2,7 @@
     <div class="col-md-7">
         <div class="card mb-4">
             <div class="card-header py-3">
-                <?php echo $title; ?> -
+                <?php echo $title; ?>
 
             </div>
             <div class="card-body">
@@ -150,7 +150,7 @@
                             <td><?php echo $paket->paket_price; ?></td>
                             <td><?php echo $paket->paket_point; ?></td>
                             <td>
-                                <a href="<?php echo base_url('admin/mobil/delete_paket/' . $paket->id); ?>" class="text-danger"><i class="far fa-times-circle"></i></a>
+                                <a href="<?php echo base_url('admin/mobil/delete_dropoff/' . $paket->id); ?>" class="text-danger"><i class="far fa-times-circle"></i></a>
                                 <!-- <a href="<?php //echo base_url('admin/mobil/update_paket/' . $data->id); 
                                                 ?>" class="text-danger"><i class="far fa-times-circle"></i></a> -->
 

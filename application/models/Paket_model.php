@@ -34,7 +34,6 @@ class Paket_model extends CI_Model
     $this->db->select('*');
     $this->db->from('paket');
     $this->db->where('id', $id);
-    $this->db->order_by('id', 'ASC');
     $query = $this->db->get();
     return $query->row();
   }

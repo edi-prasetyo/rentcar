@@ -405,15 +405,16 @@ class Mobil extends CI_Controller
   }
   public function delete_paket($id)
   {
-    //Proteksi delete
-    is_login();
 
     $paket = $this->paket_model->detail_paket($id);
+    var_dump($paket);
+    die;
     //End Hapus Gambar
     $data = array('id'   => $paket->id);
     $this->paket_model->delete($data);
     $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
-    redirect($_SERVER['HTTP_REFERER']);
+
+    // redirect($_SERVER['HTTP_REFERER']);
   }
 
   public function update_paket($id)
@@ -596,10 +597,12 @@ class Mobil extends CI_Controller
     //Proteksi delete
     is_login();
 
-    $paket = $this->paket_model->detail_paket($id);
+    $paket = $this->dropoff_model->detail_paket($id);
+    // var_dump($paket);
+    // die;
     //End Hapus Gambar
     $data = array('id'   => $paket->id);
-    $this->paket_model->delete($data);
+    $this->dropoff_model->delete($data);
     $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect($_SERVER['HTTP_REFERER']);
   }
