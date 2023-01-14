@@ -208,6 +208,149 @@ $user           = $this->user_model->user_detail($id);
             </div>
         </div>
     <?php else : ?>
+        <!-- No Login Required -->
+        <div class="col-md-7 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    Buat Pesanan
+                </div>
+
+                <div class="card-body">
+
+                    <?php echo form_open('airport/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+                    <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
+                    <input type="hidden" name="airpot_name" value="<?php echo $airport_name; ?> - <?php echo $airport_name; ?>">
+                    <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?> - <?php echo $kota_name; ?>">
+
+
+                    <input type="hidden" name="start_price" value="<?php echo $paket_price; ?>">
+                    <input type="hidden" name="order_point" value="<?php echo $order_point; ?>">
+                    <input type="hidden" name="ketentuan_desc" value="<?php echo $ketentuan_desc; ?>">
+                    <input type="hidden" name="paket_desc" value="<?php echo $paket_desc; ?>">
+                    <input type="hidden" name="jumlah_mobil" value="1">
+                    <input type="hidden" name="pembayaran" value="Transfer">
+
+
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Kode Promo
+                        </label>
+                        <div class="col-lg-8">
+                            <select class="form-control form-control-chosen" name="promo_amount">
+                                <option value="0">-- Kode Promo --</option>
+                                <?php foreach ($promo as $promo) : ?>
+                                    <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Nama Lengkap<span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="passenger_name" placeholder="Nama Lengkap" required>
+                            <div class="invalid-feedback">Nama Penumpang harus di isi.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Email <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="passenger_email" placeholder="Email" required>
+                            <div class="invalid-feedback">Email harus di isi.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Nomor Handphone <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" required>
+                            <div class="invalid-feedback">Nomor Handphone harus di isi.</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Alamat Penjemputan <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" name="alamat_jemput" placeholder="Alamat penjemputan" required></textarea>
+                            <div class="invalid-feedback">Silahkan masukan Alamat Penjemputan.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Tanggal Jemput <span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo date('d/m/Y', strtotime($tanggal_sewa)); ?>" id="id_tanggal" readonly>
+                            <div class="invalid-feedback">Tanggal Jemput harus di isi.</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_jemput; ?>" id="id_tanggal" readonly>
+                            <div class="invalid-feedback">Jam Jemput harus di isi.</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Metode Pembayaran<span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="pembayaran" required>
+                                <option value="">-- Pembayaran --</option>
+                                <?php foreach ($pembayaran as $pembayaran) : ?>
+                                    <option value='<?php echo $pembayaran->name; ?>'> <?php echo $pembayaran->name; ?></option>
+                                <?php endforeach; ?>
+
+                            </select>
+                            <div class="invalid-feedback">Pilih Lama Sewa.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Permintaan Khusus <span class="text-success">* Optional</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="permintaan_khusus" placeholder="Permintaan Khusus" value="">
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label"> Syarat Ketentuan
+                        </label>
+                        <div class="col-lg-8">
+                            <div class="alert alert-success">
+                                <?php echo $ketentuan_desc; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label"> Batas Wilayah
+                        </label>
+                        <div class="col-lg-8">
+                            <?php echo $paket_desc; ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">
+                        </label>
+                        <div class="col-lg-8">
+                            <button type="submit" class="btn btn-primary btn-block">Order Sekarang</button>
+                        </div>
+                    </div>
+                    <?php echo form_close(); ?>
+                </div>
+
+
+
+            </div>
+        </div>
 
     <?php endif; ?>
 
