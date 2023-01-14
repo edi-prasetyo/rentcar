@@ -26,7 +26,7 @@ $user           = $this->user_model->user_detail($id);
 
                         <?php if ($this->session->userdata('id')) : ?>
                         <?php else : ?>
-                            <a class="btn btn-primary btn-block my-2" href="#" data-toggle="modal" data-target="#loginModal"><i class="ti ti-lock"></i> Login</a>
+                            <a class="btn btn-primary btn-block my-2" href="<?php echo base_url('auth/login');?>"><i class="ti ti-lock"></i> Login</a>
                         <?php endif; ?>
                     </div>
                 </div>

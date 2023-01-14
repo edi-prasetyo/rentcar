@@ -3,7 +3,7 @@
     <div class="col-md-4 mx-auto">
         <div class="card my-5 p-4">
             <div class="card-body">
-                <div class="col-md-6 mx-auto mb-4">
+                <div class="col-md-12 mx-auto mb-4">
                     <img src="<?php echo base_url('assets/img/logo/' . $meta->logo); ?>" class="img-fluid">
                 </div>
 
@@ -36,11 +36,15 @@
                     </div>
                 </div>
 
+
                 <div class="form-group">
 
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Login
                     </button>
+                    <a href="<?php echo base_url('auth/register'); ?>" class="btn btn-success btn-user btn-block">
+                        Register
+                    </a>
 
                 </div>
                 <?php echo form_close() ?>

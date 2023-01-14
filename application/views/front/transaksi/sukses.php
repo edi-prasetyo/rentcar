@@ -84,7 +84,7 @@ $meta           = $this->meta_model->get_meta();
         </ul>
 
         <?php if ($transaksi->pembayaran == "Cash") : ?>
-            <a href="" class="btn btn-success btn-block"> Hubungi Customer Service</a>
+            <a href="https://wa.me/<?php echo $meta->whatsapp; ?>" class="btn btn-success btn-block"> Hubungi Customer Service</a>
         <?php else : ?>
 
             <?php $date = date('Y-m-d H:i');
