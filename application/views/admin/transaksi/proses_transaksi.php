@@ -27,7 +27,7 @@
                     <th>Pembayaran</th>
                     <th>Status</th>
                     <th>Harga</th>
-                    <th width="20%">Action</th>
+                    <th width="10%">Action</th>
                 </tr>
             </thead>
             <?php $no = 1;
@@ -74,9 +74,7 @@
                         <a href="<?php echo base_url('admin/transaksi/detail/' . $transaksi->id); ?>" class="btn btn-success btn-sm">
                             <i class="fa fa-eye"></i> Detail
                         </a>
-                        <a href="#" class="btn btn-danger btn-sm">
-                            <i class="fa fa-trash"></i> Cancel
-                        </a>
+
                         <?php //include "cancel.php"; 
                         ?>
                     </td>

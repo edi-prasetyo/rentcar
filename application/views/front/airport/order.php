@@ -40,10 +40,7 @@ $user           = $this->user_model->user_detail($id);
                 <div class="card-header">
                     Buat Pesanan
                 </div>
-
                 <div class="card-body">
-
-
                     <div class="row mb-3">
                         <label class="col-lg-4">Point Saya </label>
                         <div class="col-lg-8">
