@@ -97,27 +97,30 @@
     <div class="row">
 
         <?php foreach ($paket_airport as $data) : ?>
-            <div class="col-md-3 col-6 my-2">
-                <div class="card">
-                    <img src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" class="card-img-top" alt="...">
-                    <div class="card-body text-center">
-                        <h4><?php echo $data->mobil_name; ?></h4>
-                        <h4><?php echo $data->paket_price; ?></h4>
-                        <i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?>
-                        <?php echo form_open('airport/order/', array('method' => 'get')); ?>
-                        <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
-                        <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
-                        <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
-                        <input type="hidden" name="jam_jemput" value="<?php echo $jam_jemput; ?>">
-                        <input type="hidden" name="airport_id" value="<?php echo $airport_id; ?>">
-                        <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
-                        <input type="hidden" name="airport_name" value="<?php echo $airport_name; ?>">
-                        <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
-                        <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
-                        <?php echo form_close(); ?>
+            <?php if ($data->mobil_gambar == null) : ?>
+            <?php else : ?>
+                <div class="col-md-3 col-6 my-2">
+                    <div class="card">
+                        <img src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" class="card-img-top" alt="...">
+                        <div class="card-body text-center">
+                            <h4><?php echo $data->mobil_name; ?></h4>
+                            <h4><?php echo $data->paket_price; ?></h4>
+                            <i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?>
+                            <?php echo form_open('airport/order/', array('method' => 'get')); ?>
+                            <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
+                            <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
+                            <input type="hidden" name="tanggal_sewa" value="<?php echo $tanggal_sewa; ?>">
+                            <input type="hidden" name="jam_jemput" value="<?php echo $jam_jemput; ?>">
+                            <input type="hidden" name="airport_id" value="<?php echo $airport_id; ?>">
+                            <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
+                            <input type="hidden" name="airport_name" value="<?php echo $airport_name; ?>">
+                            <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
+                            <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
+                            <?php echo form_close(); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         <?php endforeach; ?>
     </div> <!-- row.// -->
 </div>
