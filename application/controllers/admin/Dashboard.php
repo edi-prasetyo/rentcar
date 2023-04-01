@@ -12,10 +12,9 @@ class Dashboard extends CI_Controller
   }
   public function index()
   {
-
-   
-
     $total_topup                  = $this->topup_model->total_topup();
+    // var_dump($total_topup);
+    // die;
     $total_omset_transaksi        = $this->transaksi_model->get_total_omset_transaksi();
 
 

@@ -54,7 +54,7 @@ class User_model extends CI_Model
     // join
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
     // End Join
-    $this->db->like('name', $search);
+    // $this->db->like('name', $search);
     $this->db->where('role_id', 5);
     $this->db->limit($limit, $start);
     $this->db->order_by('id', 'DESC');
@@ -65,7 +65,7 @@ class User_model extends CI_Model
   {
     $this->db->select('*');
     $this->db->from('user');
-    $this->db->like('name', $search);
+    // $this->db->like('name', $search);
     $this->db->where('role_id', 7);
     $this->db->order_by('id', 'ASC');
     $query = $this->db->get();
@@ -105,8 +105,8 @@ class User_model extends CI_Model
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
     // End Join
     $this->db->where('role_id', 4);
-    $this->db->like('name', $search);
-    $this->db->like('email', $search_email);
+    // $this->db->like('name', $search);
+    // $this->db->like('email', $search_email);
     $this->db->limit($limit, $start);
     $this->db->order_by('user.id', 'DESC');
     $query = $this->db->get();
@@ -120,8 +120,8 @@ class User_model extends CI_Model
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
     // End Join
     $this->db->where('role_id', 6);
-    $this->db->like('name', $search);
-    $this->db->like('email', $search_email);
+    // $this->db->like('name', $search);
+    // $this->db->like('email', $search_email);
     $this->db->limit($limit, $start);
     $this->db->order_by('user.id', 'DESC');
     $query = $this->db->get();
@@ -135,8 +135,8 @@ class User_model extends CI_Model
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
     // End Join
     $this->db->where('user.role_id', 5);
-    $this->db->like('name', $search);
-    $this->db->like('email', $search_email);
+    // $this->db->like('name', $search);
+    // $this->db->like('email', $search_email);
     $this->db->order_by('user.id', 'ASC');
     $query = $this->db->get();
     return $query->result();
@@ -149,8 +149,8 @@ class User_model extends CI_Model
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
     // End Join
     $this->db->where('user.role_id', 6);
-    $this->db->like('name', $search);
-    $this->db->like('email', $search_email);
+    // $this->db->like('name', $search);
+    // $this->db->like('email', $search_email);
     $this->db->order_by('user.id', 'ASC');
     $query = $this->db->get();
     return $query->result();

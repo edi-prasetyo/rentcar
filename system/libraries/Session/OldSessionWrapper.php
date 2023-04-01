@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ * Copyright (c) 2022, CodeIgniter Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,70 +28,71 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @copyright	Copyright (c) 2022, CodeIgniter Foundation (https://codeigniter.com/)
  * @license	https://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
- * @since	Version 1.0.0
+ * @since	Version 3.0.0
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Application Controller Class
+ * OldSessionWrapper
  *
- * This class object is the super class that every library in
- * CodeIgniter will be assigned to.
+ * PHP 8 Session handler compatibility wrapper, pre-PHP8 version
  *
- * @package		CodeIgniter
+ * @package	CodeIgniter
  * @subpackage	Libraries
- * @category	Libraries
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/general/controllers.html
+ * @category	Sessions
+ * @author	Andrey Andreev
+ * @link	https://codeigniter.com/userguide3/libraries/sessions.html
  */
- #[\AllowDynamicProperties]
-class CI_Controller {
+class CI_SessionWrapper implements SessionHandlerInterface, SessionUpdateTimestampHandlerInterface {
 
-	/**
-	 * Reference to the CI singleton
-	 *
-	 * @var	object
-	 */
-	private static $instance;
+	protected $driver;
 
-	/**
-	 * Class constructor
-	 *
-	 * @return	void
-	 */
-	public function __construct()
+	public function __construct(CI_Session_driver_interface $driver)
 	{
-		self::$instance =& $this;
-
-		// Assign all the class objects that were instantiated by the
-		// bootstrap file (CodeIgniter.php) to local class variables
-		// so that CI can run as one big super object.
-		foreach (is_loaded() as $var => $class)
-		{
-			$this->$var =& load_class($class);
-		}
-
-		$this->load =& load_class('Loader', 'core');
-		$this->load->initialize();
-		log_message('info', 'Controller Class Initialized');
+		$this->driver = $driver;
 	}
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * Get the CI singleton
-	 *
-	 * @static
-	 * @return	object
-	 */
-	public static function &get_instance()
+	public function open($save_path, $name)
 	{
-		return self::$instance;
+		return $this->driver->open($save_path, $name);
 	}
 
+	public function close()
+	{
+		return $this->driver->close();
+	}
+
+	public function read($id)
+	{
+		return $this->driver->read($id);
+	}
+
+	public function write($id, $data)
+	{
+		return $this->driver->write($id, $data);
+	}
+
+	public function destroy($id)
+	{
+		return $this->driver->destroy($id);
+	}
+
+	public function gc($maxlifetime)
+	{
+		return $this->driver->gc($maxlifetime);
+	}
+
+	public function updateTimestamp($id, $data)
+	{
+		return $this->driver->updateTimestamp($id, $data);
+	}
+
+	public function validateId($id)
+	{
+		return $this->driver->validateId($id);
+	}
 }

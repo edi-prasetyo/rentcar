@@ -407,8 +407,6 @@ class Mobil extends CI_Controller
   {
 
     $paket = $this->paket_model->detail_paket($id);
-    var_dump($paket);
-    die;
     //End Hapus Gambar
     $data = array('id'   => $paket->id);
     $this->paket_model->delete($data);

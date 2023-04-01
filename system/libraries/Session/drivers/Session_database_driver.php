@@ -77,6 +77,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	array	$params	Configuration parameters
 	 * @return	void
 	 */
+	 
 	public function __construct(&$params)
 	{
 		parent::__construct($params);
@@ -126,6 +127,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	string	$name		Session cookie name, unused
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function open($save_path, $name)
 	{
 		if (empty($this->_db->conn_id) && ! $this->_db->db_connect())
@@ -148,6 +150,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	string	$session_id	Session ID
 	 * @return	string	Serialized session data
 	 */
+	 #[\ReturnTypeWillChange]
 	public function read($session_id)
 	{
 		if ($this->_get_lock($session_id) !== FALSE)
@@ -205,6 +208,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	string	$session_data	Serialized session data
 	 * @return	bool
 	 */
+	 #[\ReturnTypeWillChange]
 	public function write($session_id, $session_data)
 	{
 		// Prevent previous QB calls from messing with our queries
@@ -245,7 +249,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 			return $this->_fail();
 		}
 
-		$this->_db->where('id', $session_id);
+		$this->_db->where('id',  $session_id);
 		if ($this->_config['match_ip'])
 		{
 			$this->_db->where('ip_address', $_SERVER['REMOTE_ADDR']);
@@ -277,6 +281,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 *
 	 * @return	bool
 	 */
+	#[\ReturnTypeWillChange]
 	public function close()
 	{
 		return ($this->_lock && ! $this->_release_lock())
@@ -294,6 +299,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	string	$session_id	Session ID
 	 * @return	bool
 	 */
+	 #[\ReturnTypeWillChange]
 	public function destroy($session_id)
 	{
 		if ($this->_lock)
@@ -332,6 +338,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	int 	$maxlifetime	Maximum lifetime of sessions
 	 * @return	bool
 	 */
+	 #[\ReturnTypeWillChange]
 	public function gc($maxlifetime)
 	{
 		// Prevent previous QB calls from messing with our queries
@@ -353,6 +360,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	string	$id
 	 * @return	bool
 	 */
+	 #[\ReturnTypeWillChange]
 	public function validateSessionId($id)
 	{
 		// Prevent previous QB calls from messing with our queries
@@ -376,6 +384,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 * @param	string	$session_id	Session ID
 	 * @return	bool
 	 */
+	 #[\ReturnTypeWillChange]
 	protected function _get_lock($session_id)
 	{
 		if ($this->_platform === 'mysql')
@@ -413,6 +422,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 	 *
 	 * @return	bool
 	 */
+	 #[\ReturnTypeWillChange]
 	protected function _release_lock()
 	{
 		if ( ! $this->_lock)

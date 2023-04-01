@@ -4,8 +4,8 @@
   <div class="col-lg-6">
     <div class="small-box bg-purple">
       <div class="inner">
-        <h3>Rp. <?php echo number_format($total_topup, "0", ",", "."); ?></h3>
-
+        <h3>
+          Rp. <?php echo number_format($total_topup ?? 0); ?></h3>
         <p>Pendapatan Top Up</p>
       </div>
       <div class="icon">
