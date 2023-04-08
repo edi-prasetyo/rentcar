@@ -49,10 +49,12 @@
                     foreach ($kota as $kota) : ?>
                         <tr>
                             <td><?php echo $no; ?></td>
+                            <td><?php echo $kota->id; ?></td>
                             <td><?php echo $kota->kota_name; ?></td>
                             <td>
                                 <?php include "update_kota.php"; ?>
-                                <a href="<?php echo base_url(); ?>" class="btn btn-danger btn-sm">hapus</a>
+                                <?php include "delete_kota.php"; ?>
+                                <!-- <a href="<?php echo base_url(); ?>" class="btn btn-danger btn-sm">hapus</a> -->
                             </td>
                         </tr>
                     <?php $no++;

@@ -217,7 +217,7 @@ class Driver extends CI_Controller
                 'is_locked'     => 1,
                 'date_updated'  => date('Y-m-d H:i:s')
             ];
-            $this->db->update('user', $data);
+            $this->user_model->update($data);
             $this->session->set_flashdata('message', 'Selamat Anda berhasil mendaftar, silahkan Aktivasi akun');
             redirect('admin/driver');
         }

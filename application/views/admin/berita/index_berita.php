@@ -30,8 +30,6 @@
                         <th>Judul Berita</th>
                         <th>Kategori</th>
                         <th>Post by</th>
-                        <th>date Post</th>
-                        <th>date Update</th>
                         <th>Views</th>
                         <th width="25%">Action</th>
                     </tr>
@@ -43,8 +41,6 @@
                         <td><?php echo $berita->berita_title; ?></td>
                         <td><?php echo $berita->category_name; ?></td>
                         <td><?php echo $berita->name; ?></td>
-                        <td><?php echo $berita->date_created; ?></td>
-                        <td><?php echo $berita->date_updated; ?> </td>
                         <td><?php echo $berita->berita_views; ?></td>
                         <td>
                             <a href="<?php echo base_url('admin/berita/create'); ?>" class="btn btn-success"><i class="ti-eye"></i> Lihat</a>

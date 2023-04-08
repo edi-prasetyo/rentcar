@@ -67,7 +67,7 @@
             </label>
             <div class="col-lg-9">
 
-                <textarea class="form-control summernote" name="berita_desc" placeholder="Deskripsi Berita"> <?php echo $berita->berita_desc ?></textarea>
+                <textarea class="form-control" id="summernote" name="berita_desc" placeholder="Deskripsi Berita"> <?php echo $berita->berita_desc ?></textarea>
                 <?php echo form_error('berita_desc', '<small class="text-danger">', '</small>'); ?>
             </div>
         </div>

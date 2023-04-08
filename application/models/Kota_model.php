@@ -141,7 +141,7 @@ class Kota_model extends CI_Model
     }
     public function delete_kota($id)
     {
-        $this->db->where(['provinsi_id' => $id]);
+        $this->db->where('id', $id);
         $this->db->delete(['kota']);
     }
 }

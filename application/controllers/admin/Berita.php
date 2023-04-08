@@ -124,7 +124,7 @@ class Berita extends CI_Controller
           'image_url'           => base_url('assets/img/artikel/' . $upload_data['uploads']['file_name']),
           'berita_status'           => $this->input->post('berita_status'),
           'berita_keywords'         => $this->input->post('berita_keywords'),
-          'date_created'            => time()
+          'date_created'            => date('Y-m-d H:i:s')
         ];
         $this->berita_model->create($data);
         $this->session->set_flashdata('message', 'Data Berita telah ditambahkan');
@@ -215,7 +215,7 @@ class Berita extends CI_Controller
             'image_url'           => base_url('assets/img/artikel/' . $upload_data['uploads']['file_name']),
             'berita_status'           => $this->input->post('berita_status'),
             'berita_keywords'         => $this->input->post('berita_keywords'),
-            'date_updated'            => time()
+            'date_updated'            => date('Y-m-d H:i:s')
           ];
           $this->berita_model->update($data);
           $this->session->set_flashdata('message', 'Data telah di Update');
@@ -235,7 +235,7 @@ class Berita extends CI_Controller
             //'gambar'                  => $upload_data['uploads']['file_name'],
             'berita_status'             => $this->input->post('berita_status'),
             'berita_keywords'           => $this->input->post('berita_keywords'),
-            'date_updated'              => time()
+            'date_updated'              => date('Y-m-d H:i:s')
           ];
         $this->berita_model->update($data);
         $this->session->set_flashdata('message', 'Data telah di Update');

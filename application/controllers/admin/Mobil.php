@@ -412,7 +412,7 @@ class Mobil extends CI_Controller
     $this->paket_model->delete($data);
     $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
 
-    // redirect($_SERVER['HTTP_REFERER']);
+    redirect($_SERVER['HTTP_REFERER']);
   }
 
   public function update_paket($id)

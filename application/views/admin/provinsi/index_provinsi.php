@@ -9,15 +9,12 @@
     <?php
     //Notifikasi
     if ($this->session->flashdata('message')) {
-        echo '<div class="alert alert-success">';
         echo $this->session->flashdata('message');
         unset($_SESSION['message']);
-        echo '</div>';
     }
     echo validation_errors('<div class="alert alert-warning">', '</div>');
 
     ?>
-
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -38,7 +35,8 @@
                         </td>
                         <td>
                             <?php include "update_provinsi.php"; ?>
-                            <?php include "delete_provinsi.php"; ?>
+                            <?php //include "delete_provinsi.php"; 
+                            ?>
                         </td>
                     </tr>
 

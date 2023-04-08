@@ -55,7 +55,7 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-4 col-form-label text-md-right">Nomor Hp</label>
-                <?php $hp = $user->user_whatsapp;
+                <?php $hp = $driver->user_phone;
                 $hp0 = substr_replace($hp, '0', 0, 2);
                 ?>
                 <div class="col-md-8">

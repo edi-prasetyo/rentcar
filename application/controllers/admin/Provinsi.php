@@ -130,6 +130,8 @@ class Provinsi extends CI_Controller
         // var_dump($kota_id);
         // die;
         $this->kota_model->delete_kota($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di Hapus</div>');
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function view($id)
