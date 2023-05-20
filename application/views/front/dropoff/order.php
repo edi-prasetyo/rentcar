@@ -137,14 +137,14 @@ $user           = $this->user_model->user_detail($id);
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Tanggal Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo date('d/m/Y', strtotime($tanggal_sewa)); ?>" id="id_tanggal" readonly>
+                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo $tanggal_sewa; ?>" readonly>
                             <div class="invalid-feedback">Tanggal Jemput harus di isi.</div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" id="id_tanggal" readonly>
+                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" readonly>
                             <div class="invalid-feedback">Jam Jemputharus di isi.</div>
                         </div>
                     </div>
@@ -263,14 +263,14 @@ $user           = $this->user_model->user_detail($id);
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Tanggal Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo date('d/m/Y', strtotime($tanggal_sewa)); ?>" id="id_tanggal" readonly>
+                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo $tanggal_sewa; ?>" readonly>
                             <div class="invalid-feedback">Tanggal Jemput harus di isi.</div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" id="id_tanggal" readonly>
+                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" readonly>
                             <div class="invalid-feedback">Jam Jemputharus di isi.</div>
                         </div>
                     </div>

@@ -14,6 +14,20 @@
                 </div>
             </div>
 
+            <!-- <?php $date = array("2023-05-20", "2023-05-21"); ?>
+            <?php $arrlength = count($date); ?>
+
+            <?php for ($x = 0; $x < $arrlength; $x++) : ?>
+                <a class="btn btn-success" href="<?php echo base_url('sessionset/date/' . $date[$x]); ?>"><?php echo $date[$x]; ?></a>
+            <?php endfor; ?>
+
+
+            <?php if ($this->session->userdata('date') == null) : ?>
+                No Date
+            <?php else : ?>
+                <?php echo $_SESSION['date']; ?>
+            <?php endif; ?> -->
+
             <div class="col-md-3">
                 <label class="form-label text-white">Tanggal Jemput </label>
                 <input type="text" name="tanggal_sewa" class="form-control" placeholder="Tanggal" id="id_tanggal" required>
