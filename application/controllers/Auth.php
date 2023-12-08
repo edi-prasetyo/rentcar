@@ -249,7 +249,7 @@ class Auth extends CI_Controller
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'https://starsender.online/api/sendText?message=' . rawurlencode($pesan) . '&tujuan=' . rawurlencode($tujuan . '@s.whatsapp.net'),
+			CURLOPT_URL => 'https://api.fonnte.com/send',
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
@@ -257,8 +257,15 @@ class Auth extends CI_Controller
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => 'POST',
+
+			CURLOPT_POSTFIELDS => array(
+				'target' => $tujuan,
+				'message' => $pesan,
+				'countryCode' => '62', //optional
+			),
+
 			CURLOPT_HTTPHEADER => array(
-				'apikey: ' . $apikey
+				'Authorization: ' . $apikey //change TOKEN to your actual token
 			),
 		));
 
