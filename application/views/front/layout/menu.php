@@ -16,6 +16,7 @@ $meta           = $this->meta_model->get_meta();
                 <li class="nav-item"><a class="nav-link" href="<?php echo base_url('daily'); ?>"> Sewa Mobil </a></li>
                 <li class="nav-item"><a class="nav-link" href="<?php echo base_url('dropoff'); ?>"> Rental Drop Off </a></li>
                 <li class="nav-item"><a class="nav-link" href="<?php echo base_url('airport'); ?>"> Antar Jemput Bandara </a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo base_url('blog'); ?>"> Blog </a></li>
 
             </ul>
             <ul class="navbar-nav">
