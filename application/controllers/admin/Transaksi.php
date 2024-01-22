@@ -276,6 +276,25 @@ class transaksi extends CI_Controller
     $this->load->view('admin/layout/wrapp', $data, FALSE);
     $this->update_satus_read($id);
   }
+
+  function mypdf($id)
+  {
+    $transaksi = $this->transaksi_model->detail($id);
+    $data = [
+      'transaksi'             => $transaksi
+    ];
+    // $this->load->view('admin/transaksi/mypdf', $data);
+
+    $this->load->library('pdf');
+
+    $this->pdf->load_view('admin/transaksi/mypdf', $data);
+    $this->pdf->render();
+    ob_end_clean();
+    $this->pdf->stream("welcome.pdf");
+    exit;
+  }
+
+
   public function update_satus_read($id)
   {
 
