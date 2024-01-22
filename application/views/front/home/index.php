@@ -1,6 +1,6 @@
 <?php $meta = $this->meta_model->get_meta(); ?>
 
-<section class="pt-4 pb-3 mt-0 align-items-center bg-light" style="background-image: url(<?php
+<section class="pt-4 pb-3 mt-0 align-items-center bg-primary" style="background-image: url(<?php
                                                                                             foreach ($featured as $featured) : ?>
                                                                                          
 <?php echo base_url('assets/img/galery/' . $featured->galery_img); ?>
