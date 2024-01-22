@@ -16,13 +16,13 @@ $user           = $this->user_model->user_detail($id);
                 <div class="row">
                     <div class="col-md-7">
                         <?php echo $airport_name; ?> - <?php echo $kota_name; ?> <?php echo $mobil_name; ?> <br>
-                        <h3 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h3>
+                        <h3 class="font-weight-bold"> Rp <?php echo number_format($paket_price); ?></h3>
                         <!-- <input type="text" name="grand_total" id="total" size="7" value="" readonly> -->
 
                         <!-- <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" value="1" onchange="total()"> -->
                     </div>
                     <div class="col-md-5 text-right">
-                        <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
+                        <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point); ?> </span> Point<br>
 
                         <?php if ($this->session->userdata('id')) : ?>
                         <?php else : ?>
@@ -46,7 +46,7 @@ $user           = $this->user_model->user_detail($id);
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <?php echo number_format($total_pointku->nominal_point, 0, ",", "."); ?>
+                                    <?php echo number_format($total_pointku->nominal_point); ?>
                                 </div>
                                 <div class="col-md-6">
                                     <button class="btn btn-success btn-block" onclick="myFunction()">Gunakan Point</button>
@@ -89,7 +89,7 @@ $user           = $this->user_model->user_detail($id);
                             <select class="form-control form-control-chosen" name="promo_amount">
                                 <option value="0">-- Kode Promo --</option>
                                 <?php foreach ($promo as $promo) : ?>
-                                    <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
+                                    <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price); ?></span></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -236,7 +236,7 @@ $user           = $this->user_model->user_detail($id);
                             <select class="form-control form-control-chosen" name="promo_amount">
                                 <option value="0">-- Kode Promo --</option>
                                 <?php foreach ($promo as $promo) : ?>
-                                    <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price, 0, ",", "."); ?></span></option>
+                                    <option value='<?php echo $promo->price; ?>'><?php echo $promo->name; ?> <span class="text-success"> Rp. <?php echo number_format($promo->price); ?></span></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
