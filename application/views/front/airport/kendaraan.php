@@ -115,6 +115,7 @@
                             <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
                             <input type="hidden" name="airport_name" value="<?php echo $airport_name; ?>">
                             <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
+                            <input type="hidden" name="paket_price" value="<?php echo $data->paket_price; ?>">
                             <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                             <?php echo form_close(); ?>
                         </div>

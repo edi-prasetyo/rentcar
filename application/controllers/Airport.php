@@ -245,15 +245,27 @@ class Airport extends CI_Controller
                 $kota_name = $this->session->userdata('kota_name');
             }
         }
+        $paket_price = "";
+        if ($this->input->get('paket_price') != NULL) {
+            $paket_price = $this->input->get('paket_price');
+            $this->session->set_userdata(array("paket_price" => $paket_price));
+        } else {
+            if ($this->session->userdata('paket_price') != NULL) {
+                $paket_price = $this->session->userdata('paket_price');
+            }
+        }
 
         $paket = $this->airport_model->airport_detail($airport_id, $kota_tujuan);
         // var_dump($paket);
         // die;
 
-        $paket_price    = $paket->paket_price;
+        // $paket_price    = $paket->paket_price;
         $order_point    = $paket->paket_point;
         $ketentuan_desc = $paket->ketentuan_desc;
         $paket_desc     = $paket->paket_desc;
+
+        // var_dump($paket_price);
+        // die;
 
 
 
