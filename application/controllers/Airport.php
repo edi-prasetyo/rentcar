@@ -128,6 +128,10 @@ class Airport extends CI_Controller
         $airport_name = $this->airport_model->airport_encrypt($airport_id);
         $kota_name = $this->kota_model->kota_tujuan_encrypt($kota_id);
 
+
+        // var_dump($paket_airport);
+        // die;
+
         if (!$this->agent->is_mobile()) {
             // Desktop View
             $data = [
@@ -254,13 +258,22 @@ class Airport extends CI_Controller
                 $paket_price = $this->session->userdata('paket_price');
             }
         }
+        $paket_point = "";
+        if ($this->input->get('paket_point') != NULL) {
+            $paket_point = $this->input->get('paket_point');
+            $this->session->set_userdata(array("paket_point" => $paket_point));
+        } else {
+            if ($this->session->userdata('paket_point') != NULL) {
+                $paket_point = $this->session->userdata('paket_point');
+            }
+        }
 
         $paket = $this->airport_model->airport_detail($airport_id, $kota_tujuan);
         // var_dump($paket);
         // die;
 
         // $paket_price    = $paket->paket_price;
-        $order_point    = $paket->paket_point;
+        // $order_point    = $paket->paket_point;
         $ketentuan_desc = $paket->ketentuan_desc;
         $paket_desc     = $paket->paket_desc;
 
@@ -290,7 +303,7 @@ class Airport extends CI_Controller
                     'airport_name'      => $airport_name,
                     'kota_name'         => $kota_name,
                     'paket_price'       => $paket_price,
-                    'order_point'       => $order_point,
+                    'order_point'       => $paket_point,
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
@@ -311,7 +324,7 @@ class Airport extends CI_Controller
                     'airport_name'      => $airport_name,
                     'kota_name'         => $kota_name,
                     'paket_price'       => $paket_price,
-                    'order_point'       => $order_point,
+                    'order_point'       => $paket_point,
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
@@ -337,7 +350,7 @@ class Airport extends CI_Controller
                     // 'driver_name'                           => '',
                     'product_name'                          => 'Airport',
                     'order_id'                              => $order_id,
-                    'order_point'                           => $this->input->post('order_point'),
+                    'order_point'                           => $paket_point,
                     'kode_transaksi'                        => $kode_transaksi,
                     'passenger_name'                        => $this->input->post('passenger_name'),
                     'passenger_phone'                       => $this->input->post('passenger_phone'),

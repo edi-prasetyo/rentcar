@@ -104,7 +104,9 @@
                         <img src="<?php echo base_url('assets/img/mobil/' . $data->mobil_gambar); ?>" class="card-img-top" alt="...">
                         <div class="card-body text-center">
                             <h4><?php echo $data->mobil_name; ?></h4>
-                            <h4><?php echo $data->paket_price; ?></h4>
+                            <h4 class="font-weight-bold">Rp. <?php echo number_format($data->paket_price) ?></h4>
+                            <h6> <i class="fas fa-circle-check text-success"></i> <?php echo number_format($data->paket_point); ?> Point</h6>
+
                             <i class="fa fa-user"></i> <?php echo $data->mobil_penumpang; ?> <i class="fa fa-briefcase ml-3"></i> <?php echo $data->mobil_bagasi; ?>
                             <?php echo form_open('airport/order/', array('method' => 'get')); ?>
                             <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
@@ -116,6 +118,7 @@
                             <input type="hidden" name="airport_name" value="<?php echo $airport_name; ?>">
                             <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
                             <input type="hidden" name="paket_price" value="<?php echo $data->paket_price; ?>">
+                            <input type="hidden" name="paket_point" value="<?php echo $data->paket_point; ?>">
                             <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                             <?php echo form_close(); ?>
                         </div>
