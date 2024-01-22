@@ -116,17 +116,51 @@ class User_model extends CI_Model
   {
     $this->db->select('user.*, user_role.role');
     $this->db->from('user');
-    // join
+
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
-    // End Join
+    // $this->db->join('point', 'user.id = point.user_id');
+
     $this->db->where('role_id', 6);
-    // $this->db->like('name', $search);
-    // $this->db->like('email', $search_email);
     $this->db->limit($limit, $start);
     $this->db->order_by('user.id', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
+
+  public function get_customer_point($limit, $start, $search, $search_email, $search_kota)
+  {
+    $this->db->select('user.*, user.name, user.id,
+    user_role.role,
+    sum(point.nominal_point) as nominal_point');
+    $this->db->from('user');
+    // join
+    $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
+    $this->db->join('point', 'user.id = point.user_id');
+    // $this->db->group_by('user.id');
+    // End Join
+    $this->db->where([
+      'role_id' => 6,
+      'point_status'  => 1,
+      'expired >='    => date('Y-m-d')
+
+    ]);
+    // $this->db->like('name', $search);
+    // $this->db->like('email', $search_email);
+    $this->db->limit($limit, $start);
+    $this->db->group_by('user.id');
+    $this->db->order_by('user.id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  // public function get_customer_point()
+  // {
+  //   $this->db->select('*');
+  //   $this->db->from('point');
+  //   $this->db->where('user_id', $user_id);
+  //   $this->db->order_by('id', 'DESC');
+  //   $query = $this->db->get();
+  //   return $query->result();
+  // }
   public function total_row_counter($search, $search_email, $search_kota)
   {
     $this->db->select('user.*, user_role.role');

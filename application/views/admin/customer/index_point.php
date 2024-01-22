@@ -29,11 +29,6 @@
                     <a href="<?php echo base_url(); ?>admin/customer/create" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Add Customer</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card-tools">
-                    <a href="<?php echo base_url(); ?>admin/customer/index_point" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Point</a>
-                </div>
-            </div>
         </div>
     </div>
     <div class="card-body">
@@ -60,21 +55,21 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Point</th>
                     <th>Status</th>
-
                     <th>Locked</th>
                     <th width="20%">Action</th>
                 </tr>
             </thead>
             <?php $no = 1;
-            foreach ($customer as $customer) { ?>
+            foreach ($customer_point as $customer) { ?>
                 <tr>
                     <td><?php echo $no; ?></td>
                     <td><?php echo $customer->id; ?></td>
                     <td><?php echo $customer->name; ?></td>
                     <td><?php echo $customer->email; ?></td>
                     <td><?php echo $customer->user_phone; ?></td>
-
+                    <td><?php echo $customer->nominal_point; ?></td>
 
                     <td>
                         <?php if ($customer->is_active == 1) : ?>

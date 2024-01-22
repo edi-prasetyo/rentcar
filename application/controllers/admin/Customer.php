@@ -11,9 +11,12 @@ class Customer extends CI_Controller
         $this->load->model('main_model');
         $this->load->model('saldo_model');
         $this->load->model('topup_model');
+        $this->load->model('point_model');
     }
     public function index()
     {
+
+
         $search             = $this->input->post('search');
         $search_email       = $this->input->post('search_email');
         $search_kota        = $this->input->post('search_kota');
@@ -49,17 +52,73 @@ class Customer extends CI_Controller
         //End Limit Start
         $this->pagination->initialize($config);
         $customer = $this->user_model->get_customer($limit, $start, $search, $search_email, $search_kota);
+
         // var_dump($customer);
         // die;
 
         $data = [
             'title'                 => 'Data Customer',
             'customer'               => $customer,
+            // 'user_point'            => $user_point,
             'pagination'            => $this->pagination->create_links(),
             'content'               => 'admin/customer/index'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }
+
+    public function index_point()
+    {
+
+
+        $search             = $this->input->post('search');
+        $search_email       = $this->input->post('search_email');
+        $search_kota        = $this->input->post('search_kota');
+
+
+        $config['base_url']         = base_url('admin/customer/index_point/');
+        $config['total_rows']       = count($this->user_model->total_row_customer($search, $search_email, $search_kota));
+        $config['per_page']         = 10;
+        $config['uri_segment']      = 4;
+
+        //Membuat Style pagination untuk BootStrap v4
+        $config['first_link']       = 'First';
+        $config['last_link']        = 'Last';
+        $config['next_link']        = 'Next';
+        $config['prev_link']        = 'Prev';
+        $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close']   = '</ul></nav></div>';
+        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']    = '</span></li>';
+        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']  = '</span>Next</li>';
+        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']  = '</span></li>';
+        //Limit dan Start
+        $limit                      = $config['per_page'];
+        $start                      = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
+        //End Limit Start
+        $this->pagination->initialize($config);
+        $customer_point = $this->user_model->get_customer_point($limit, $start, $search, $search_email, $search_kota);
+
+        // var_dump($customer);
+        // die;
+
+        $data = [
+            'title'                 => 'Data Customer',
+            'customer_point'               => $customer_point,
+            // 'user_point'            => $user_point,
+            'pagination'            => $this->pagination->create_links(),
+            'content'               => 'admin/customer/index_point'
+        ];
+        $this->load->view('admin/layout/wrapp', $data, FALSE);
+    }
+
     // Create
     public function create()
     {
@@ -194,6 +253,21 @@ class Customer extends CI_Controller
             'title'                 => 'Detail Customer',
             'customer'               => $customer,
             'content'               => 'admin/customer/detail'
+        ];
+        $this->load->view('admin/layout/wrapp', $data, FALSE);
+    }
+    public function point($id)
+    {
+        $customer = $this->user_model->detail($id);
+        $user_id = $customer->id;
+        $customer_point = $this->point_model->total_user_point($user_id);
+        // var_dump($customer_point);
+        // die;
+
+        $data = [
+            'title'                 => 'Point Customer',
+            'customer'        => $customer_point,
+            'content'               => 'admin/customer/point'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }

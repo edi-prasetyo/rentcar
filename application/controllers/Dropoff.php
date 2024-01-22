@@ -233,6 +233,15 @@ class Dropoff extends CI_Controller
                 $kota_tujuan_name = $this->session->userdata('kota_tujuan_name');
             }
         }
+        $order_point = "";
+        if ($this->input->get('order_point') != NULL) {
+            $order_point = $this->input->get('order_point');
+            $this->session->set_userdata(array("order_point" => $order_point));
+        } else {
+            if ($this->session->userdata('order_point') != NULL) {
+                $order_point = $this->session->userdata('order_point');
+            }
+        }
 
 
 
@@ -240,7 +249,7 @@ class Dropoff extends CI_Controller
         $kota_id = $paket->kota_asal;
 
         $paket_price    = $paket->paket_price;
-        $order_point    = $paket->paket_point;
+        // $order_point    = $paket->paket_point;
         $ketentuan_desc = $paket->ketentuan_desc;
         $paket_desc     = $paket->paket_desc;
 
@@ -317,7 +326,7 @@ class Dropoff extends CI_Controller
                     'driver_name'                           => '',
                     'product_name'                          => 'Drop Off',
                     'order_id'                              => $order_id,
-                    'order_point'                           => $this->input->post('order_point'),
+                    'order_point'                           => $order_point,
                     'kode_transaksi'                        => $kode_transaksi,
                     'passenger_name'                        => $this->input->post('passenger_name'),
                     'passenger_phone'                       => $this->input->post('passenger_phone'),
