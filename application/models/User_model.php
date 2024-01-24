@@ -66,7 +66,7 @@ class User_model extends CI_Model
     $this->db->select('*');
     $this->db->from('user');
     // $this->db->like('name', $search);
-    $this->db->where('role_id', 7);
+    $this->db->where('role_id', 5);
     $this->db->order_by('id', 'ASC');
     $query = $this->db->get();
     return $query->result();
