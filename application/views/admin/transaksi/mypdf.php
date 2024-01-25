@@ -1,52 +1,67 @@
 <?php $meta = $this->meta_model->get_meta(); ?>
 
-
 <style>
-    * {
-        box-sizing: border-box;
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
     }
 
-    /* Create two equal columns that floats next to each other */
-    .column {
-        float: left;
-        width: 50%;
-        padding: 10px;
-        /* Should be removed. Only for demonstration */
+    #customers td,
+    #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
     }
 </style>
 
 
 
-<div class="column">
-    From
-    <address>
-        <strong><?php echo $meta->title; ?></strong><br>
-        <?php echo $meta->alamat; ?><br>
-        Phone: <?php echo $meta->telepon; ?><br>
-        Email: <?php echo $meta->email; ?>
-    </address>
-</div>
-<!-- /.col -->
-<div class="column">
-    To
-    <address>
-        <strong><?php echo $transaksi->passenger_name; ?></strong><br>
-        Alamat Jemput : <?php echo $transaksi->alamat_jemput; ?><br>
-        Kota : <?php echo $transaksi->kota_name; ?><br>
-        Phone: <?php echo $transaksi->passenger_phone; ?><br>
-        Email: <?php echo $transaksi->passenger_email; ?>
-    </address>
-</div>
-<!-- /.col -->
+<h2><?php echo $meta->title; ?></h2>
 
-<!-- /.col -->
+<table>
+    <tbody>
+        <tr>
+            <td>
+                From
+                <address>
+                    <strong><?php echo $meta->title; ?></strong><br>
+                    <?php echo $meta->alamat; ?><br>
+                    Phone: <?php echo $meta->telepon; ?><br>
+                    Email: <?php echo $meta->email; ?>
+                </address>
+            </td>
+            <td style="float:right;text-align:right">
+                To
+                <address>
+                    <strong><?php echo $transaksi->passenger_name; ?></strong><br>
+                    Alamat Jemput : <?php echo $transaksi->alamat_jemput; ?><br>
+                    Kota : <?php echo $transaksi->kota_name; ?><br>
+                    Phone: <?php echo $transaksi->passenger_phone; ?><br>
+                    Email: <?php echo $transaksi->passenger_email; ?>
+                </address>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-<!-- /.row -->
-
-<!-- Table row -->
-
-<div class="col-12 table-responsive">
-    <table class="table table-striped" style="border:1px solid grey;width:100%;">
+<div style="margin-top:15px;">
+    <table id="customers">
         <thead>
             <tr>
                 <th>Produk</th>
@@ -55,7 +70,7 @@
                 <th>Subtotal</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="border:1px solid grey;width:100%;">
             <tr>
                 <td>
                     <?php echo $transaksi->mobil_name; ?> <br>
@@ -75,42 +90,44 @@
                 <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
             </tr>
 
-        </tbody>
-    </table>
-</div>
-<!-- /.col -->
-
-<!-- /.row -->
-
-
-<!-- accepted payments column -->
-<div class="col-6">
-
-    <b>Syarat dan Ketentuan:</b><br>
-    <?php echo $transaksi->ketentuan_desc; ?>
-</div>
-<!-- /.col -->
-<div class="col-6">
-
-
-    <div class="table-responsive">
-        <table class="table">
             <tr>
-                <th style="width:50%">Subtotal:</th>
+                <td colspan="2"></td>
+                <td>Subtotal:</td>
                 <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
             </tr>
             <tr>
-                <th>Diskon Point</th>
+                <td colspan="2"></td>
+                <td>Diskon Point</td>
                 <td>- <?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></td>
             </tr>
             <tr>
-                <th>Diskon Promo</th>
+                <td colspan="2"></td>
+                <td>Diskon Promo</td>
                 <td>- <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></td>
             </tr>
             <tr>
-                <th>Total:</th>
+                <td colspan="2"></td>
+                <td>Total:</td>
                 <td>Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></td>
             </tr>
-        </table>
-    </div>
+
+        </tbody>
+    </table>
 </div>
+<br>
+<br>
+<div style="margin-top:10px;"></div>
+<b>Order ID:</b> <?php echo $transaksi->order_id; ?><br>
+<b>Tangga Jemput :</b> <?php echo $transaksi->tanggal_jemput; ?><br>
+<b>Jam Jemput :</b> <?php echo $transaksi->jam_jemput; ?><br>
+<b>Pembayaran :</b> <?php echo $transaksi->pembayaran; ?><br>
+<?php if ($transaksi->driver_id == 0) : ?>
+<?php else : ?>
+    <b>Driver :</b> <?php echo $transaksi->driver_name; ?><br>
+<?php endif; ?>
+<b>Status Pembayaran :</b> <?php echo $transaksi->status_pembayaran; ?>
+<br>
+<br>
+
+<b>Syarat dan Ketentuan:</b><br>
+<?php echo $transaksi->ketentuan_desc; ?>

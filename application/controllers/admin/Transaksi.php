@@ -284,13 +284,14 @@ class transaksi extends CI_Controller
       'transaksi'             => $transaksi
     ];
     // $this->load->view('admin/transaksi/mypdf', $data);
+    $filename = $transaksi->order_id;
 
     $this->load->library('pdf');
 
     $this->pdf->load_view('admin/transaksi/mypdf', $data);
     $this->pdf->render();
     ob_end_clean();
-    $this->pdf->stream("welcome.pdf");
+    $this->pdf->stream($filename . '.pdf');
     exit;
   }
 

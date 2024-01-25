@@ -126,6 +126,7 @@
         <div class="row no-print">
             <div class="col-12">
                 <a href="<?php echo base_url('admin/transaksi/invoice/' . $transaksi->id); ?>" rel="noopener" class="btn btn-default"><i class="fas fa-print"></i> Print Invoice</a>
+                <a href="<?php echo base_url('admin/transaksi/mypdf/' . $transaksi->id); ?>" rel="noopener" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Download PDF</a>
 
 
                 <?php if ($transaksi->pembayaran == "Transfer") : ?>
