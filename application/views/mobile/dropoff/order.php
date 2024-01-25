@@ -32,7 +32,7 @@ $user           = $this->user_model->user_detail($id);
                         <!-- <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" value="1" onchange="total()"> -->
                     </div>
                     <div class="col-md-5 text-right">
-                        <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point); ?> </span> Point<br>
+                        <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo $order_point; ?> </span> Point<br>
 
                         <?php if ($this->session->userdata('id')) : ?>
                         <?php else : ?>
