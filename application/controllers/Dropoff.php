@@ -242,6 +242,15 @@ class Dropoff extends CI_Controller
                 $order_point = $this->session->userdata('order_point');
             }
         }
+        $paket_price = "";
+        if ($this->input->get('paket_price') != NULL) {
+            $paket_price = $this->input->get('paket_price');
+            $this->session->set_userdata(array("paket_price" => $paket_price));
+        } else {
+            if ($this->session->userdata('paket_price') != NULL) {
+                $paket_price = $this->session->userdata('paket_price');
+            }
+        }
 
 
 

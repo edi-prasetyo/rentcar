@@ -38,6 +38,7 @@
                                 <input type="hidden" name="kota_tujuan" value="<?php echo $kota_tujuan; ?>">
                                 <input type="hidden" name="kota_asal_name" value="<?php echo $kota_asal_name; ?>">
                                 <input type="hidden" name="kota_tujuan_name" value="<?php echo $kota_tujuan_name; ?>">
+                                <input type="hidden" name="paket_price" value="<?php echo $paket_price; ?>">
                                 <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                                 <?php echo form_close(); ?>
                             </div>
