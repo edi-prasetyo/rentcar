@@ -59,7 +59,7 @@ $meta           = $this->meta_model->get_meta();
                     <div class="col-md-6">
                         <div class="text-left"> Total Pembayaran</div>
                         <h1>
-                            Rp. <b><?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></b>
+                            Rp. <b><?php echo number_format($transaksi->grand_total); ?></b>
                         </h1>
                     </div>
                 </div>
@@ -88,19 +88,19 @@ $meta           = $this->meta_model->get_meta();
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Total Harga
-                    <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->total_price); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Diskon Point
-                    <span class="font-weight-bold"><?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold"><?php echo number_format($transaksi->diskon_point); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Diskon Promo
-                    <span class="font-weight-bold">- <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">- <?php echo number_format($transaksi->promo_amount); ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Grand Total
-                    <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></span>
+                    <span class="font-weight-bold">Rp. <?php echo number_format($transaksi->grand_total); ?></span>
                 </li>
             </ul>
         </div>
