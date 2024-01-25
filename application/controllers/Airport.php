@@ -258,13 +258,13 @@ class Airport extends CI_Controller
                 $paket_price = $this->session->userdata('paket_price');
             }
         }
-        $paket_point = "";
-        if ($this->input->get('paket_point') != NULL) {
-            $paket_point = $this->input->get('paket_point');
-            $this->session->set_userdata(array("paket_point" => $paket_point));
+        $order_point = "";
+        if ($this->input->get('order_point') != NULL) {
+            $order_point = $this->input->get('order_point');
+            $this->session->set_userdata(array("order_point" => $order_point));
         } else {
-            if ($this->session->userdata('paket_point') != NULL) {
-                $paket_point = $this->session->userdata('paket_point');
+            if ($this->session->userdata('order_point') != NULL) {
+                $order_point = $this->session->userdata('order_point');
             }
         }
 
@@ -303,7 +303,7 @@ class Airport extends CI_Controller
                     'airport_name'      => $airport_name,
                     'kota_name'         => $kota_name,
                     'paket_price'       => $paket_price,
-                    'order_point'       => $paket_point,
+                    'order_point'       => $order_point,
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
@@ -324,7 +324,7 @@ class Airport extends CI_Controller
                     'airport_name'      => $airport_name,
                     'kota_name'         => $kota_name,
                     'paket_price'       => $paket_price,
-                    'order_point'       => $paket_point,
+                    'order_point'       => $order_point,
                     'ketentuan_desc'    => $ketentuan_desc,
                     'paket_desc'        => $paket_desc,
                     'total_pointku'     => $total_pointku,
@@ -344,13 +344,15 @@ class Airport extends CI_Controller
             $pembayaran = $this->input->post('pembayaran');
 
             if ($pembayaran == 'Cash') {
+                $expired_paymant_date = date('Y-m-d  H:i:s', strtotime('+2 days'));
+
                 $data  = [
                     'user_id'                               => $this->session->userdata('id'),
                     'product_id'                            => 2,
                     // 'driver_name'                           => '',
                     'product_name'                          => 'Airport',
                     'order_id'                              => $order_id,
-                    'order_point'                           => $paket_point,
+                    'order_point'                           => $this->input->post('order_point'),
                     'kode_transaksi'                        => $kode_transaksi,
                     'passenger_name'                        => $this->input->post('passenger_name'),
                     'passenger_phone'                       => $this->input->post('passenger_phone'),
@@ -380,7 +382,8 @@ class Airport extends CI_Controller
                     'status_read'                           => 0,
                     'order_type'                            => 'airport',
                     'pembayaran_id'                         => 0,
-                    'pembayaran'                            => $pembayaran,
+                    'pembayaran'                            => $this->input->post('pembayaran'),
+                    'expired_payment_date'                  => $expired_paymant_date,
                     'status_pembayaran'                     => 'Belum Dibayar',
                     'no_va'                                 => '',
                     'payment_channel'                       => 'VIRTUAL_ACCOUNT',
@@ -435,7 +438,7 @@ class Airport extends CI_Controller
                     'status_read'                           => 0,
                     'order_type'                            => 'airport',
                     'pembayaran_id'                         => 0,
-                    'pembayaran'                            => $pembayaran,
+                    'pembayaran'                            => $this->input->post('pembayaran'),
                     'status_pembayaran'                     => 'Belum Dibayar',
                     'no_va'                                 => '',
                     'payment_channel'                       => 'VIRTUAL_ACCOUNT',

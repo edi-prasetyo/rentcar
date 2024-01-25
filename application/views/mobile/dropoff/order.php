@@ -169,6 +169,21 @@ $user           = $this->user_model->user_detail($id);
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Metode Pembayaran<span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="pembayaran" required>
+                                <option value="">-- Pembayaran --</option>
+                                <?php foreach ($pembayaran as $pembayaran) : ?>
+                                    <option value='<?php echo $pembayaran->name; ?>'> <?php echo $pembayaran->name; ?></option>
+                                <?php endforeach; ?>
+
+                            </select>
+                            <div class="invalid-feedback">Pilih Pembayaran.</div>
+                        </div>
+                    </div>
+
 
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label"> Syarat Ketentuan

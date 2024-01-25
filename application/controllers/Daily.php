@@ -194,6 +194,8 @@ class Daily extends CI_Controller
     public function order()
     {
 
+
+
         $user_id = $this->session->userdata('id');
         $total_pointku = $this->point_model->total_user_point($user_id);
         $expired = date('Y-m-d');
@@ -332,6 +334,7 @@ class Daily extends CI_Controller
 
             if ($pembayaran == 'Cash') {
 
+                $expired_paymant_date = date('Y-m-d  H:i:s', strtotime('+2 days'));
 
                 $passenger_phone = $this->input->post('passenger_phone');
                 $phone = str_replace(' ', '', $passenger_phone);
@@ -406,6 +409,7 @@ class Daily extends CI_Controller
                     'order_type'                            => 'daily',
                     'pembayaran_id'                         => 0,
                     'pembayaran'                            => $this->input->post('pembayaran'),
+                    'expired_payment_date'                  => $expired_paymant_date,
                     'status_pembayaran'                     => 'Belum Dibayar',
                     'no_va'                                 => '',
                     'payment_channel'                       => 'VIRTUAL_ACCOUNT',

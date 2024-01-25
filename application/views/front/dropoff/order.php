@@ -169,7 +169,7 @@ $user           = $this->user_model->user_detail($id);
                                 <?php endforeach; ?>
 
                             </select>
-                            <div class="invalid-feedback">Pilih Lama Sewa.</div>
+                            <div class="invalid-feedback">Pilih Pembayaran.</div>
                         </div>
                     </div>
 

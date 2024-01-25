@@ -39,7 +39,7 @@
                             <div class="card-body text-center">
                                 <h6><?php echo $data->mobil_name; ?></h6>
                                 <h4>Rp. <?php echo number_format($data->paket_price, 0, ",", "."); ?></h4>
-                                <small> <i class="fas fa-check-circle text-success"></i> <?php echo $data->paket_point; ?> Point </small>
+                                <small> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($data->paket_point, 0, ",", "."); ?> Point </small>
                                 <?php echo form_open('airport/order/', array('method' => 'get')); ?>
                                 <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
                                 <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
@@ -49,6 +49,7 @@
                                 <input type="hidden" name="kota_id" value="<?php echo $kota_id; ?>">
                                 <input type="hidden" name="airport_name" value="<?php echo $airport_name; ?>">
                                 <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?>">
+                                <input type="hidden" name="order_point" value="<?php echo $data->paket_point; ?>">
                                 <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                                 <?php echo form_close(); ?>
                             </div>

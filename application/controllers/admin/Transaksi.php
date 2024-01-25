@@ -379,7 +379,11 @@ class transaksi extends CI_Controller
     $this->transaksi_model->update($data);
     $this->selesai_order($id);
     $this->update_status_driver($driver_id);
-    $this->add_point_customer($id);
+    if ($transaksi->user_id == null) {
+    } else {
+      $this->add_point_customer($id);
+    }
+
     $this->_sendEmail($id);
     $this->session->set_flashdata('message', 'Anda telah Menyelesaikan Order');
     redirect($_SERVER['HTTP_REFERER']);

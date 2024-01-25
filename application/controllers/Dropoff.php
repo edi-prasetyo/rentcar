@@ -329,6 +329,7 @@ class Dropoff extends CI_Controller
             $pembayaran = $this->input->post('pembayaran');
 
             if ($pembayaran == 'Cash') {
+                $expired_paymant_date = date('Y-m-d  H:i:s', strtotime('+2 days'));
                 $data  = [
                     'user_id'                               => $this->session->userdata('id'),
                     'product_id'                            => 3,
@@ -366,7 +367,8 @@ class Dropoff extends CI_Controller
                     'status_read'                           => 0,
                     'order_type'                            => 'dropoff',
                     'pembayaran_id'                         => 0,
-                    'pembayaran'                            => $pembayaran,
+                    'pembayaran'                            => $this->input->post('pembayaran'),
+                    'expired_payment_date'                  => $expired_paymant_date,
                     'status_pembayaran'                     => 'Belum Dibayar',
                     'no_va'                                 => '',
                     'payment_channel'                       => 'VIRTUAL_ACCOUNT',

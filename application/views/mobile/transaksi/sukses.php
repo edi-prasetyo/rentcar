@@ -79,7 +79,7 @@ $meta           = $this->meta_model->get_meta();
                 </div>
             </div>
         </div>
-        <div class="card shadow border-0">
+        <div class="card shadow border-0 mb-3">
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between align-items-center bg-white">
                     Rincian Pesanan
@@ -104,17 +104,26 @@ $meta           = $this->meta_model->get_meta();
                 </li>
             </ul>
         </div>
-        <?php $date = date('Y-m-d H:i');
-        if ($transaksi->expired_payment_date <= $date) : ?>
-            <div class="alert alert-danger">Pembayaran Telah Expired</div>
-        <?php else : ?>
-            <div class="alert alert-danger">Bayar Sebelum <?php echo date("j F Y", strtotime($transaksi->expired_payment_date)); ?> Jam <?php echo date("H:i", strtotime($transaksi->expired_payment_date)); ?></div>
+
+        <?php if ($transaksi->pembayaran == 'Cash') : ?>
             <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
-                <a href="<?php echo $transaksi->payment_url; ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
+                <a href="<?php echo base_url(); ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Kembali</a>
             </div>
+        <?php else : ?>
+
+            <?php $date = date('Y-m-d H:i');
+            if ($transaksi->expired_payment_date <= $date) : ?>
+                <div class="alert alert-danger">Pembayaran Telah Expired</div>
+            <?php else : ?>
+                <div class="alert alert-danger mb-5">Bayar Sebelum <?php echo date("j F Y", strtotime($transaksi->expired_payment_date)); ?> Jam <?php echo date("H:i", strtotime($transaksi->expired_payment_date)); ?></div>
+                <div style="z-index: 9999;" class="carbook-menu-fotter fixed-bottom bg-white px-3 py-2 text-center shadow">
+                    <a href="<?php echo $transaksi->payment_url; ?>" class="btn-order-block"> <i class="fa-solid fa-arrow-right"></i> Bayar Sekarang</a>
+                </div>
+            <?php endif; ?>
+
         <?php endif; ?>
 
     </div>
 
 
-</div>aa
+</div>
