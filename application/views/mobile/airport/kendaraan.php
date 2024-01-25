@@ -39,6 +39,7 @@
                             <div class="card-body text-center">
                                 <h6><?php echo $data->mobil_name; ?></h6>
                                 <h4>Rp. <?php echo number_format($data->paket_price, 0, ",", "."); ?></h4>
+                                <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo $data->paket_point; ?> Point </span>
                                 <?php echo form_open('airport/order/', array('method' => 'get')); ?>
                                 <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
                                 <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
