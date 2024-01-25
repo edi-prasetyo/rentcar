@@ -257,7 +257,7 @@ class Dropoff extends CI_Controller
         $paket = $this->dropoff_model->dropoff_detail($kota_asal, $kota_tujuan);
         $kota_id = $paket->kota_asal;
 
-        $paket_price    = $paket->paket_price;
+        // $paket_price    = $paket->paket_price;
         // $order_point    = $paket->paket_point;
         $ketentuan_desc = $paket->ketentuan_desc;
         $paket_desc     = $paket->paket_desc;
@@ -335,7 +335,7 @@ class Dropoff extends CI_Controller
                     'driver_name'                           => '',
                     'product_name'                          => 'Drop Off',
                     'order_id'                              => $order_id,
-                    'order_point'                           => $order_point,
+                    'order_point'                           => $this->input->post('order_point'),
                     'kode_transaksi'                        => $kode_transaksi,
                     'passenger_name'                        => $this->input->post('passenger_name'),
                     'passenger_phone'                       => $this->input->post('passenger_phone'),

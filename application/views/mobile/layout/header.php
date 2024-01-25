@@ -10,6 +10,7 @@
 
   <link rel="icon" href="images/favicon.png">
 
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <title><?php echo $title; ?></title>
   <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/'); ?>css/bootstrap.min.css">

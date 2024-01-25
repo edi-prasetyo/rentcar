@@ -14,6 +14,8 @@
     <p><?php echo $tanggal_sewa; ?> <?php echo $jam_sewa; ?> </p>
 
     <div class="mb-5 pb-3">
+
+
         <?php foreach ($paket_dropoff as $data) : ?>
             <?php if ($data->mobil_gambar == null) : ?>
             <?php else : ?>
@@ -29,6 +31,7 @@
                             <div class="card-body text-center">
                                 <h5><?php echo $data->mobil_name; ?></h5>
                                 <h4>Rp. <?php echo number_format($data->paket_price, 0, ",", "."); ?></h4>
+                                <small> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($data->paket_point, 0, ",", "."); ?> Point </small>
                                 <?php echo form_open('dropoff/order/', array('method' => 'get')); ?>
                                 <input type="hidden" name="mobil_name" value="<?php echo $data->mobil_name; ?>">
                                 <input type="hidden" name="mobil_id" value="<?php echo $data->mobil_id; ?>">
@@ -39,6 +42,7 @@
                                 <input type="hidden" name="kota_asal_name" value="<?php echo $kota_asal_name; ?>">
                                 <input type="hidden" name="kota_tujuan_name" value="<?php echo $kota_tujuan_name; ?>">
                                 <input type="hidden" name="paket_price" value="<?php echo $data->paket_price; ?>">
+                                <input type="hidden" name="order_point" value="<?php echo $data->paket_point; ?>">
                                 <button type="submit" class="btn btn-sm btn-primary btn-block">Pilih</button>
                                 <?php echo form_close(); ?>
                             </div>
