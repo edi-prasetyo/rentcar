@@ -33,7 +33,7 @@ if ($this->session->flashdata('message')) {
             <div class="card bg-danger mb-3">
                 <div class="card-body text-white">
                     <h3>Rp. <?php echo number_format($user->saldo_driver, 0, ",", ","); ?></h3>
-                    <a class="text-white" href="<?php echo base_url('driver/topup/riwayat'); ?>">Riwayat Top Up Saldo</a>
+                    <!-- <a class="text-white" href="<?php echo base_url('driver/topup/riwayat'); ?>">Riwayat Top Up Saldo</a> -->
                 </div>
 
             </div>
