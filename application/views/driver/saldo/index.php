@@ -8,14 +8,14 @@
     </div>
 </nav>
 <div class="container my-3 mb-5">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-6">
             <a class="btn btn-success btn-block" href="<?php echo base_url('driver/topup'); ?>">Top Up</a>
         </div>
         <div class="col-6">
             <a class="btn btn-info btn-block" href="<?php echo base_url('driver/withdraw'); ?>">Tarik</a>
         </div>
-    </div>
+    </div> -->
     <?php foreach ($saldo as $saldo) : ?>
         <a class="text-decoration-none text-muted" href="<?php echo base_url('driver/saldo/detail/' . $saldo->id); ?>">
             <div class="card my-2 shadow-sm border-0">

@@ -41,15 +41,15 @@ if ($this->session->flashdata('message')) {
             <div class="card bg-info mb-3">
                 <div class="card-body text-white">
                     <h3>Rp. <?php echo number_format($user->saldo_driver, 0, ",", ","); ?></h3>
-                    <a class="text-white" href="<?php echo base_url('driver/topup/riwayat'); ?>">Riwayat Top Up Saldo</a>
+                    <!-- <a class="text-white" href="<?php echo base_url('driver/topup/riwayat'); ?>">Riwayat Top Up Saldo</a> -->
                 </div>
 
             </div>
         <?php endif; ?>
 
-        <a class="btn btn-info btn-block" href="<?php echo base_url('driver/withdraw'); ?>">Tarik Saldo</a>
+        <!-- <a class="btn btn-info btn-block" href="<?php echo base_url('driver/withdraw'); ?>">Tarik Saldo</a> -->
 
-        <div class="card bg-primary my-3">
+        <!-- <div class="card bg-primary my-3">
             <div class="card-body text-white">
                 <?php foreach ($bank as $bank) : ?>
                     <div class="row border-bottom">
@@ -75,7 +75,7 @@ if ($this->session->flashdata('message')) {
                         <tr>
                             <th>Kode Top Up</th>
                             <th>Nominal</th>
-                            <!-- <th>Barcode</th> -->
+                        
                             <th width="15%">Action</th>
                         </tr>
                     </thead>
@@ -134,7 +134,7 @@ if ($this->session->flashdata('message')) {
             <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h5><i class="icon fas fa-exclamation-triangle"></i> Transaksi Pending!</h5>Maaf Anda tidak dapat melakukan Top Up karena Masih Ada Top Up Pending, silahkan Batalkan Atau Konfirmasi Ke Admin melalui Whatsapp : <?php echo $meta->telepon; ?>
             </div>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
     </div>
 </div>
