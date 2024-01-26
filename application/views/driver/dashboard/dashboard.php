@@ -73,7 +73,9 @@ $user = $this->user_model->user_detail($user_id); ?>
             <div class="card">
                 <div class="card-body text-center">
                     <div class="display-1 text-info">
-                        <i class="ri-cactus-line"></i>
+                        <div class="col-md-3 mx-auto">
+                            <img src="<?php echo base_url('assets/img/logo/' . $meta->favicon); ?>">
+                        </div>
                     </div>
                     <span style="font-weight:bold">Belum dapet Order?</span> <br>
                     Sabar dulu ya.. sales lagi cariin order!

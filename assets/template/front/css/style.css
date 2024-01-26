@@ -27,10 +27,11 @@ h2 a:link {
 	text-decoration: none;
 }
 
-body {
+body, html {
 	background-color: #f5f6fa;
 	color: #5a5a5a;
 	font-family: Open Sans;
+	height:100%;
 }
 
 .form-control:focus {
