@@ -19,9 +19,10 @@ $user           = $this->user_model->user_detail($id);
                         <h3 class="font-weight-bold"> Rp <?php echo number_format($paket_price, 0, ",", "."); ?></h3>
                     </div>
                     <div class="col-md-5 text-right">
-                        <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
 
                         <?php if ($this->session->userdata('id')) : ?>
+                            <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
+
                         <?php else : ?>
                             <a class="btn btn-primary btn-block my-2" href="<?php echo base_url('auth'); ?>"><i class="ti ti-lock"></i> Login</a>
                         <?php endif; ?>
