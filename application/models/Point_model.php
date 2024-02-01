@@ -8,6 +8,23 @@ class Point_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    public function all()
+    {
+        $this->db->select('*');
+        $this->db->from('point');
+        $this->db->where([
+            'point_status'  => 1,
+            'expired >='    => date('Y-m-d')
+
+        ]);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            //record exists - hence fetch the row              
+            return $query->result();
+        } else {
+            //Record do not exists
+        }
+    }
     public function get_all($user_id)
     {
         $this->db->select('*');

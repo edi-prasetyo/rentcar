@@ -126,10 +126,22 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  // public function get_customer($limit, $start, $search, $search_email, $search_kota)
+  // {
+  //   $sql = "SELECT user.name, user.user_phone, user.id, user.email, user.is_active,user.is_locked,
+  //   CASE
+  //     WHEN EXISTS (SELECT *
+  //                     FROM   point
+  //                     WHERE  user.id = point.user_id) THEN 'yes'
+  //     ELSE '0'
+  //   END AS hasB FROM   user";
+  //   $query = $this->db->query($sql);
+  //   return $query->result();
+  // }
 
   public function get_customer_point($limit, $start, $search, $search_email, $search_kota)
   {
-    $this->db->select('user.*, user.name, user.id,
+    $this->db->select('*, user.name, user.id,
     user_role.role,
     sum(point.nominal_point) as nominal_point');
     $this->db->from('user');

@@ -21,9 +21,10 @@ $user           = $this->user_model->user_detail($id);
                         <!-- <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" value="1" onchange="total()"> -->
                     </div>
                     <div class="col-md-5 text-right">
-                        <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
+
 
                         <?php if ($this->session->userdata('id')) : ?>
+                            <span class="h3"> <i class="fas fa-check-circle text-success"></i> <?php echo number_format($order_point, 0, ",", "."); ?> </span> Point<br>
                         <?php else : ?>
                             <a class="btn btn-primary btn-block my-2" href="<?php echo base_url('auth'); ?>"><i class="ti ti-lock"></i> Login</a>
                         <?php endif; ?>

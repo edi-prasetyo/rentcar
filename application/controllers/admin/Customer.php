@@ -52,6 +52,7 @@ class Customer extends CI_Controller
         //End Limit Start
         $this->pagination->initialize($config);
         $customer = $this->user_model->get_customer($limit, $start, $search, $search_email, $search_kota);
+        $point = $this->point_model->all();
 
         // var_dump($customer);
         // die;
@@ -60,6 +61,7 @@ class Customer extends CI_Controller
             'title'                 => 'Data Customer',
             'customer'               => $customer,
             // 'user_point'            => $user_point,
+            'point'                 => $point,
             'pagination'            => $this->pagination->create_links(),
             'content'               => 'admin/customer/index'
         ];

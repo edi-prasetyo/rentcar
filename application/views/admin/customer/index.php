@@ -1,3 +1,4 @@
+<?php ini_set('display_errors', 0); ?>
 <div class="card">
     <div class="card-header">
 
@@ -38,7 +39,7 @@
     </div>
     <div class="card-body">
         <?php
-        //Notifikasi
+
         if ($this->session->flashdata('message')) {
             echo '<div class="alert alert-success alert-dismissable fade show">';
             echo '<button class="close" data-dismiss="alert" aria-label="Close">×</button>';
@@ -60,7 +61,9 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Point</th>
                     <th>Status</th>
+
 
                     <th>Locked</th>
                     <th width="20%">Action</th>
@@ -71,10 +74,16 @@
                 <tr>
                     <td><?php echo $no; ?></td>
                     <td><?php echo $customer->id; ?></td>
-                    <td><?php echo $customer->name; ?></td>
+                    <td><?php echo $customer->name; ?>
+
+
+
+                    </td>
                     <td><?php echo $customer->email; ?></td>
                     <td><?php echo $customer->user_phone; ?></td>
+                    <td>
 
+                    </td>
 
                     <td>
                         <?php if ($customer->is_active == 1) : ?>
@@ -102,8 +111,6 @@
 
                         <?php endif; ?>
                         <a href="<?php echo base_url('admin/customer/detail/' . $customer->id); ?>" class="btn btn-info btn-sm"> <i class="fas fa-eye"></i></a>
-                        <!-- <a href="<?php echo base_url('admin/customer/saldo/' . $customer->id); ?>" class="btn btn-success btn-sm"> <i class="fas fa-wallet"></i></a>
-                        <a href="<?php echo base_url('admin/customer/transaksi/' . $customer->id); ?>" class="btn btn-warning btn-sm"> <i class="fas fa-shopping-bag"></i></a> -->
                     </td>
                 </tr>
 
