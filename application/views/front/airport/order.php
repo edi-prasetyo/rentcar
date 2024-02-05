@@ -60,6 +60,8 @@ $user           = $this->user_model->user_detail($id);
                     </script>
 
                     <?php echo form_open('airport/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+
+                    <input type="hidden" name="order_device" value="<?php echo $order_device; ?>">
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
                     <input type="hidden" name="airpot_name" value="<?php echo $airport_name; ?> - <?php echo $airport_name; ?>">
                     <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?> - <?php echo $kota_name; ?>">
@@ -214,6 +216,8 @@ $user           = $this->user_model->user_detail($id);
                 <div class="card-body">
 
                     <?php echo form_open('airport/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+
+                    <input type="hidden" name="order_device" value="<?php echo $order_device; ?>">
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
                     <input type="hidden" name="airpot_name" value="<?php echo $airport_name; ?> - <?php echo $airport_name; ?>">
                     <input type="hidden" name="kota_name" value="<?php echo $kota_name; ?> - <?php echo $kota_name; ?>">

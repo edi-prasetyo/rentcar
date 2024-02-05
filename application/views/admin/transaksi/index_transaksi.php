@@ -39,6 +39,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <th width="8%">Tgl Order</th>
                     <th> ID</th>
                     <th>Mobil</th>
+                    <th>Order Type</th>
                     <th>Tanggal Jemput</th>
                     <th>Customer</th>
                     <th>Type</th>
@@ -56,8 +57,25 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                         <?php echo date('d-m-Y', strtotime($transaksi->date_created)); ?><br>
                         <?php echo date('H:i', strtotime($transaksi->date_created)); ?> WIB
                     </td>
+
                     <td><?php echo $transaksi->order_id; ?></td>
                     <td><?php echo $transaksi->mobil_name; ?></td>
+                    <td>
+                        <?php if ($transaksi->user_id == null) : ?>
+                            <div class="badge badge-danger">User Unregistered</div>
+                        <?php else : ?>
+                            <div class="badge badge-success">User Registered</div>
+                        <?php endif; ?>
+                        <br>
+                        <?php if ($transaksi->order_device == null) : ?>
+                            <div class="badge badge-info">Order aplikasi</div>
+                        <?php elseif ($transaksi->order_device == 1) : ?>
+                            <div class="badge badge-warning">Order Web Desktop</div>
+                        <?php else : ?>
+                            <div class="badge badge-primary">Order Web Mobile</div>
+                        <?php endif; ?>
+
+                    </td>
                     <td><?php echo $transaksi->tanggal_jemput; ?>
                         <?php if ($transaksi->status_read == 0) : ?>
                             <span class="right badge badge-danger">New Order</span>

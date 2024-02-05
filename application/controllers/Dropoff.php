@@ -276,6 +276,7 @@ class Dropoff extends CI_Controller
 
             if (!$this->agent->is_mobile()) {
                 // Desktop View
+                $order_device = 1;
                 $data = [
                     'title'             => 'Pilih Kendaraan',
                     'tanggal_sewa'      =>  $tanggal_sewa,
@@ -292,11 +293,13 @@ class Dropoff extends CI_Controller
                     'total_pointku'     => $total_pointku,
                     'promo'             => $promo,
                     'pembayaran'        => $pembayaran,
+                    'order_device'      => $order_device,
                     'content'           => 'front/dropoff/order'
                 ];
                 $this->load->view('front/layout/wrapp', $data);
             } else {
                 // Mobile View
+                $order_device = 2;
                 $data = [
                     'title'             => 'Pilih Kendaraan',
                     'tanggal_sewa'      =>  $tanggal_sewa,
@@ -313,6 +316,7 @@ class Dropoff extends CI_Controller
                     'total_pointku'     => $total_pointku,
                     'promo'             => $promo,
                     'pembayaran'        => $pembayaran,
+                    'order_device'      => $order_device,
                     'content'           => 'mobile/dropoff/order'
                 ];
                 $this->load->view('mobile/layout/wrapp', $data);
@@ -332,6 +336,7 @@ class Dropoff extends CI_Controller
                 $expired_paymant_date = date('Y-m-d  H:i:s', strtotime('+2 days'));
                 $data  = [
                     'user_id'                               => $this->session->userdata('id'),
+                    'order_device'                            => $this->input->post('order_device'),
                     'product_id'                            => 3,
                     'driver_name'                           => '',
                     'product_name'                          => 'Drop Off',
@@ -390,6 +395,7 @@ class Dropoff extends CI_Controller
 
                 $data  = [
                     'user_id'                               => $this->session->userdata('id'),
+                    'order_device'                            => $this->input->post('order_device'),
                     'product_id'                            => 3,
                     'driver_name'                           => '',
                     'product_name'                          => 'Drop Off',

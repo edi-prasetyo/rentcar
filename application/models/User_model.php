@@ -47,25 +47,27 @@ class User_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function get_allkurir($limit, $start, $search)
+  public function get_allkurir($limit, $start, $search, $search_email)
   {
     $this->db->select('user.*, user_role.role');
     $this->db->from('user');
     // join
     $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
     // End Join
-    // $this->db->like('name', $search);
+    $this->db->like('name', $search);
+    $this->db->like('email', $search_email);
     $this->db->where('role_id', 5);
     $this->db->limit($limit, $start);
     $this->db->order_by('id', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
-  public function total_row_allkurir($search)
+  public function total_row_allkurir($search, $search_email)
   {
     $this->db->select('*');
     $this->db->from('user');
-    // $this->db->like('name', $search);
+    $this->db->like('name', $search);
+    $this->db->like('email', $search_email);
     $this->db->where('role_id', 5);
     $this->db->order_by('id', 'ASC');
     $query = $this->db->get();

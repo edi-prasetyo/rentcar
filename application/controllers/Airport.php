@@ -293,6 +293,7 @@ class Airport extends CI_Controller
         if ($this->form_validation->run() === FALSE) {
             if (!$this->agent->is_mobile()) {
                 // Desktop View
+                $order_device = 1;
                 $data = [
                     'title'             => 'Pilih Kendaraan',
                     'tanggal_sewa'      =>  $tanggal_sewa,
@@ -309,11 +310,13 @@ class Airport extends CI_Controller
                     'total_pointku'     => $total_pointku,
                     'promo'             => $promo,
                     'pembayaran'        => $pembayaran,
+                    'order_device'      => $order_device,
                     'content'           => 'front/airport/order'
                 ];
                 $this->load->view('front/layout/wrapp', $data);
             } else {
                 // Mobile View
+                $order_device = 2;
                 $data = [
                     'title'             => 'Pilih Kendaraan',
                     'tanggal_sewa'      => $tanggal_sewa,
@@ -330,6 +333,7 @@ class Airport extends CI_Controller
                     'total_pointku'     => $total_pointku,
                     'promo'             => $promo,
                     'pembayaran'        => $pembayaran,
+                    'order_device'      => $order_device,
                     'content'           => 'mobile/airport/order'
                 ];
                 $this->load->view('mobile/layout/wrapp', $data);
@@ -348,6 +352,7 @@ class Airport extends CI_Controller
 
                 $data  = [
                     'user_id'                               => $this->session->userdata('id'),
+                    'order_device'                            => $this->input->post('order_device'),
                     'product_id'                            => 2,
                     // 'driver_name'                           => '',
                     'product_name'                          => 'Airport',
@@ -405,6 +410,7 @@ class Airport extends CI_Controller
 
                 $data  = [
                     'user_id'                               => $this->session->userdata('id'),
+                    'order_device'                            => $this->input->post('order_device'),
                     'product_id'                            => 2,
                     // 'driver_name'                           => '',
                     'product_name'                          => 'Airport',

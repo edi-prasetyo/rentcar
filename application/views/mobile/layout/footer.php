@@ -32,7 +32,7 @@ $meta      = $this->meta_model->get_meta();
 <script>
    $(function() {
       var minDate = new Date();
-      minDate.setDate(minDate.getDate() + 1);
+      minDate.setDate(minDate.getDate() + 0);
 
       $('#id_tanggal').datetimepicker({
          locale: 'id',

@@ -74,6 +74,8 @@ $user           = $this->user_model->user_detail($id);
                     </script>
 
                     <?php echo form_open('dropoff/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+
+                    <input type="hidden" name="order_device" value="<?php echo $order_device; ?>">
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
                     <input type="hidden" name="kota_name" value="<?php echo $kota_asal_name; ?> - <?php echo $kota_tujuan_name; ?>">
 
@@ -120,7 +122,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Email <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="passenger_email" placeholder="Email" value="<?php echo $user->email; ?>" required>
+                            <input type="text" class="form-control" name="passenger_email" placeholder="Email" value="<?php echo $user->email; ?>" required readonly>
                             <div class="invalid-feedback">Email harus di isi.</div>
                         </div>
                     </div>
@@ -132,7 +134,7 @@ $user           = $this->user_model->user_detail($id);
                             <?php $hp = $user->user_phone;
                             $hp0 = substr_replace($hp, '0', 0, 2);
                             ?>
-                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo  $hp0; ?>" required>
+                            <input type="text" class="form-control" name="passenger_phone" placeholder="Nomor Handphone" value="<?php echo  $hp0; ?>" readonly required>
                             <div class="invalid-feedback">Nomor Handphone harus di isi.</div>
                         </div>
                     </div>
@@ -148,14 +150,14 @@ $user           = $this->user_model->user_detail($id);
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Tanggal Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo date('d/m/Y', strtotime($tanggal_sewa)); ?>" id="id_tanggal" readonly>
+                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo $tanggal_sewa; ?>" readonly required>
                             <div class="invalid-feedback">Tanggal Jemput harus di isi.</div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" id="id_tanggal" readonly>
+                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" readonly required>
                             <div class="invalid-feedback">Jam Jemputharus di isi.</div>
                         </div>
                     </div>
@@ -226,6 +228,8 @@ $user           = $this->user_model->user_detail($id);
 
                 <div class="card-body">
                     <?php echo form_open('dropoff/order',  array('class' => 'needs-validation', 'novalidate' => 'novalidate')); ?>
+
+                    <input type="hidden" name="order_device" value="<?php echo $order_device; ?>">
                     <input type="hidden" name="mobil_name" value="<?php echo $mobil_name; ?>">
                     <input type="hidden" name="kota_name" value="<?php echo $kota_asal_name; ?> - <?php echo $kota_tujuan_name; ?>">
                     <input type="hidden" name="start_price" value="<?php echo $paket_price; ?>">
@@ -289,14 +293,14 @@ $user           = $this->user_model->user_detail($id);
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Tanggal Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo date('d/m/Y', strtotime($tanggal_sewa)); ?>" id="id_tanggal" readonly>
+                            <input type="text" name="tanggal_jemput" class="form-control" value="<?php echo $tanggal_sewa; ?>" readonly required>
                             <div class="invalid-feedback">Tanggal Jemput harus di isi.</div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" id="id_tanggal" readonly>
+                            <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" readonly required>
                             <div class="invalid-feedback">Jam Jemputharus di isi.</div>
                         </div>
                     </div>

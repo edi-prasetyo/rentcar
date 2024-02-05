@@ -1,14 +1,30 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            <?php echo form_open('admin/driver'); ?>
-            <div class="input-group mb-3">
-                <input type="text" name="search" class="form-control" placeholder="Masukan Nama" value="<?php echo set_value('search'); ?>">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-info" type="submit" id="button-addon2">Cari</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo form_open('admin/driver'); ?>
+                    <div class="input-group mb-3">
+                        <input type="text" name="search" class="form-control" placeholder="Masukan Nama" value="<?php echo set_value('search'); ?>">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-info" type="submit" id="button-addon2">Cari</button>
+                        </div>
+                    </div>
+                    <?php echo form_close(); ?>
+                </div>
+
+                <div class="col-md-6">
+                    <?php echo form_open('admin/driver'); ?>
+                    <div class="input-group mb-3">
+                        <input type="text" name="search_email" class="form-control" placeholder="Masukan Email" value="<?php echo set_value('search_email'); ?>">
+                        <div class="input-group-append">
+                            <button class="btn btn-info" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                    <?php echo form_close(); ?>
                 </div>
             </div>
-            <?php echo form_close(); ?>
+
         </h3>
         <div class="card-tools">
             <div class="card-tools">
@@ -38,6 +54,7 @@
                     <th>No</th>
                     <th>ID Driver</th>
                     <th>Nama</th>
+                    <th>Email</th>
                     <th>No. Hp</th>
                     <th>Saldo</th>
 
@@ -52,6 +69,7 @@
                     <td><?php echo $no; ?></td>
                     <td><?php echo $data->user_code; ?></td>
                     <td><?php echo $data->name; ?></td>
+                    <td><?php echo $data->email; ?></td>
                     <td><?php echo $data->user_phone; ?></td>
                     <td>Rp. <?php echo number_format($data->saldo_driver, 0, ",", "."); ?></td>
 

@@ -16,9 +16,10 @@ class Driver extends CI_Controller
     public function index()
     {
         $search = $this->input->post('search');
+        $search_email       = $this->input->post('search_email');
 
         $config['base_url']         = base_url('admin/driver/index/');
-        $config['total_rows']       = count($this->user_model->total_row_allkurir($search));
+        $config['total_rows']       = count($this->user_model->total_row_allkurir($search, $search_email));
         $config['per_page']         = 10;
         $config['uri_segment']      = 4;
 
@@ -46,7 +47,7 @@ class Driver extends CI_Controller
         $start                      = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
         //End Limit Start
         $this->pagination->initialize($config);
-        $driver = $this->user_model->get_allkurir($limit, $start, $search);
+        $driver = $this->user_model->get_allkurir($limit, $start, $search, $search_email);
         // var_dump($driver);
         // die;
 
