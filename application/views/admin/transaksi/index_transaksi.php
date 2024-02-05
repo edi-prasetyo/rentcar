@@ -39,7 +39,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <th width="8%">Tgl Order</th>
                     <th> ID</th>
                     <th>Mobil</th>
-                    <th>Order Type</th>
+                    <th>Device Type</th>
                     <th>Tanggal Jemput</th>
                     <th>Customer</th>
                     <th>Type</th>
