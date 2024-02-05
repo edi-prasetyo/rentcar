@@ -161,7 +161,7 @@ $application = $this->galery_model->application();
 <script>
     $(function() {
         var minDate = new Date();
-        minDate.setDate(minDate.getDate() + 1);
+        minDate.setDate(minDate.getDate() + 0);
 
         $('#id_tanggal').datetimepicker({
             locale: 'id',

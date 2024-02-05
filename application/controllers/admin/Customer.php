@@ -19,11 +19,10 @@ class Customer extends CI_Controller
 
         $search             = $this->input->post('search');
         $search_email       = $this->input->post('search_email');
-        $search_kota        = $this->input->post('search_kota');
 
 
         $config['base_url']         = base_url('admin/customer/index/');
-        $config['total_rows']       = count($this->user_model->total_row_customer($search, $search_email, $search_kota));
+        $config['total_rows']       = count($this->user_model->total_row_customer($search, $search_email));
         $config['per_page']         = 10;
         $config['uri_segment']      = 4;
 
@@ -51,7 +50,7 @@ class Customer extends CI_Controller
         $start                      = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
         //End Limit Start
         $this->pagination->initialize($config);
-        $customer = $this->user_model->get_customer($limit, $start, $search, $search_email, $search_kota);
+        $customer = $this->user_model->get_customer($limit, $start, $search, $search_email);
         $point = $this->point_model->all();
 
         // var_dump($customer);
