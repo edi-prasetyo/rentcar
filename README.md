@@ -4,4 +4,4 @@ Rental Mobil
 
 Update :
 
-- Add table "order_device" nullable = true
+- Table transaksi => Add new Field "order_device" nullable = true
