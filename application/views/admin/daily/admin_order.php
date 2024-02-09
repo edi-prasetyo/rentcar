@@ -211,17 +211,15 @@ $user           = $this->user_model->user_detail($id);
 
 
 
-                        <div class="col-lg-4">
-                            <label style="visibility: hidden;">U</label>
-                            <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modal-default">
-                                Syarat Ketentuan
-                            </button>
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <?php echo $ketentuan_desc; ?>
+                            </div>
                         </div>
-                        <div class="col-lg-4">
-                            <label style="visibility: hidden;">U</label>
-                            <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal-default2">
-                                Batas Wilayah
-                            </button>
+                        <div class="col-md-12">
+                            <div class="alert alert-warning">
+                                <?php echo $paket_desc; ?>
+                            </div>
                         </div>
 
                         <div class="form-group col-md-12">
@@ -239,48 +237,5 @@ $user           = $this->user_model->user_detail($id);
         </div>
 
 
-    </div>
-</div>
-
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Syarat ketentuan</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-success">
-                    <?php echo $ketentuan_desc; ?>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal-default2">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Batas Wilayah</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-success">
-                    <?php echo $paket_desc; ?>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
     </div>
 </div>
