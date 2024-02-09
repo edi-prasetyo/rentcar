@@ -61,8 +61,10 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                     <td><?php echo $transaksi->order_id; ?></td>
                     <td><?php echo $transaksi->mobil_name; ?></td>
                     <td>
-                        <?php if ($transaksi->user_id == null) : ?>
-                            <div class="badge badge-danger">User Unregistered</div>
+                        <?php if ($transaksi->user_id == 2) : ?>
+                            <div class="badge badge-danger">User Admin</div>
+                        <?php elseif ($transaksi->user_id == null) : ?>
+                            <div class="badge badge-warning">User Unregistered</div>
                         <?php else : ?>
                             <div class="badge badge-success">User Registered</div>
                         <?php endif; ?>
@@ -71,8 +73,10 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                             <div class="badge badge-info">Order aplikasi</div>
                         <?php elseif ($transaksi->order_device == 1) : ?>
                             <div class="badge badge-warning">Order Web Desktop</div>
-                        <?php else : ?>
+                        <?php elseif ($transaksi->order_device == 2) : ?>
                             <div class="badge badge-primary">Order Web Mobile</div>
+                        <?php else : ?>
+                            <div class="badge badge-danger">Order Marketing</div>
                         <?php endif; ?>
 
                     </td>
@@ -108,7 +112,7 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
                         <?php endif; ?>
                     </td>
 
-                    <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
+                    <td>Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></td>
                     <!-- <td><img class="img-fluid" src="<?php echo base_url('assets/img/barcode/' . $transaksi->barcode); ?>"></td> -->
                     <td>
                         <a href="<?php echo base_url('admin/transaksi/detail/' . $transaksi->id); ?>" class="btn btn-success btn-sm">

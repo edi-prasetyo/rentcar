@@ -13,6 +13,8 @@ class transaksi extends CI_Controller
     $this->load->model('bank_model');
     $this->load->model('meta_model');
     $this->load->model('point_model');
+    $this->load->model('mobil_model');
+    $this->load->model('paket_model');
     $this->load->model('pengaturan_model');
   }
 
@@ -56,6 +58,74 @@ class transaksi extends CI_Controller
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
   //END INDEX TRANSAKSI BELUM DI AMBIL ************************************************************************************/
+
+  //CREATE NEW TRANSAKSI ***********************************************************************************************/
+
+  public function create()
+  {
+    $this->form_validation->set_rules(
+      'name',
+      'Nama',
+      'required|trim',
+      ['required' => 'nama harus di isi']
+    );
+
+    $this->form_validation->set_rules(
+      'email',
+      'Email',
+      'required|trim|valid_email|is_unique[user.email]',
+      [
+        'required'     => 'Email Harus diisi',
+        'valid_email'   => 'Email Harus Valid',
+        'is_unique'    => 'Email Sudah ada, Gunakan Email lain'
+      ]
+    );
+    $this->form_validation->set_rules(
+      'password1',
+      'Password',
+      'required|trim|min_length[3]|matches[password2]',
+      [
+        'matches'     => 'Password tidak sama',
+        'min_length'   => 'Password Min 3 karakter'
+      ]
+    );
+    $this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
+
+    $mobil = $this->mobil_model->get_all();
+    $paket = $this->paket_model->get_paket();
+
+
+    if ($this->form_validation->run() == false) {
+      $data = [
+        'title'         => 'Add Transaksi',
+        'mobil'         => $mobil,
+        'paket'         => $paket,
+        'content'       => 'admin/transaksi/create_transaksi'
+      ];
+      $this->load->view('admin/layout/wrapp', $data, FALSE);
+    } else {
+
+      $email = $this->input->post('email', true);
+      $user_code = random_int(1000, 9999);
+      $data = [
+        'user_create'   => $this->session->userdata('id'),
+        'user_title'    => $this->input->post('user_title'),
+        'name'          => htmlspecialchars($this->input->post('name', true)),
+        'email'         => htmlspecialchars($email),
+        'user_code'     => $user_code,
+        'user_phone'    => $this->input->post('user_phone'),
+        'user_address'  => $this->input->post('user_address'),
+        'password'      => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+        'role_id'       => 6,
+        'is_active'     => 0,
+        'is_locked'     => 0,
+        'date_created'  => date('Y-m-d H:i:s')
+      ];
+      $this->db->insert('user', $data);
+      $this->session->set_flashdata('message', 'Selamat Anda berhasil mendaftar, silahkan Aktivasi akun');
+      redirect('admin/customer');
+    }
+  }
 
   //INDEX TRANSAKSI PROSES ***********************************************************************************************/
   public function proses()

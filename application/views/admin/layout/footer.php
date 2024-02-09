@@ -224,7 +224,7 @@ foreach ($alltransaksi as $data) {
 <script>
   $(function() {
     $('#reservationdate').datetimepicker({
-      format: 'L',
+      format: 'D MMMM YYYY'
 
 
     });

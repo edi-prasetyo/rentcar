@@ -93,26 +93,119 @@
                     <!-- Table row -->
                     <div class="row">
                         <div class="col-12 table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Produk</th>
+                                        <th>Layanan</th>
                                         <th>Lama Sewa</th>
+                                        <th>Jml Mobil</th>
                                         <th>Harga</th>
                                         <th>Subtotal</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody style="border:1px solid grey;width:100%;">
                                     <tr>
                                         <td>
-                                            <?php echo $transaksi->mobil_name; ?><br>
-                                            <?php echo $transaksi->paket_name; ?>
+                                            <?php echo $transaksi->mobil_name; ?> <br>
+                                            <?php if ($transaksi->order_type == 'daily') : ?>
+                                                <?php echo $transaksi->paket_name; ?> - <?php echo $transaksi->kota_name; ?>
+                                            <?php elseif ($transaksi->order_type == 'airport') : ?>
+                                                <?php echo $transaksi->origin; ?> - <?php echo $transaksi->destination; ?>
+                                            <?php elseif ($transaksi->product_id == 'dropoff') : ?>
+                                                <?php echo $transaksi->origin; ?> - <?php echo $transaksi->destination; ?>
+                                            <?php endif; ?>
                                         </td>
                                         <td><?php echo $transaksi->lama_sewa; ?> Hari<br>
-                                            <?php echo $transaksi->kota_name; ?>
+                                        <td><?php echo $transaksi->jumlah_mobil; ?> Mobil<br>
+
+
                                         </td>
                                         <td>Rp. <?php echo number_format($transaksi->start_price, 0, ",", "."); ?></td>
                                         <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
+                                    </tr>
+
+                                    <!-- Additional Charge -->
+                                    <?php if ($transaksi->order_device == 3) : ?>
+                                        <?php if ($transaksi->fuel_money == 0) : ?>
+                                        <?php else : ?>
+                                            <tr>
+
+                                                <td>BBM </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Rp. <?php echo number_format($transaksi->fuel_money, 0, ",", "."); ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+
+                                    <?php if ($transaksi->order_device == 3) : ?>
+                                        <?php if ($transaksi->meal_allowance == 0) : ?>
+                                        <?php else : ?>
+                                            <tr>
+
+                                                <td>Uang Makan </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Rp. <?php echo number_format($transaksi->meal_allowance, 0, ",", "."); ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+
+                                    <?php if ($transaksi->order_device == 3) : ?>
+                                        <?php if ($transaksi->accommodation_fee == 0) : ?>
+                                        <?php else : ?>
+                                            <tr>
+
+                                                <td>Uang Inap </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Rp. <?php echo number_format($transaksi->accommodation_fee, 0, ",", "."); ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+
+
+                                    <!-- End Additional Charge -->
+
+                                    <tr>
+                                        <td colspan="3" style="border-bottom: solid white !important; border-left:solid white !important"></td>
+                                        <td class="text-danger"><b>Subtotal:</b></td>
+                                        <?php
+                                        $total_price = $transaksi->total_price + $transaksi->fuel_money + $transaksi->meal_allowance + $transaksi->accommodation_fee; ?>
+
+                                        <td class="text-danger"><b> Rp. <?php echo number_format($total_price, 0, ",", "."); ?></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="border-bottom: solid white !important; border-left:solid white !important"></td>
+                                        <td>Diskon Point</td>
+                                        <td>- <?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="border-bottom: solid white !important; border-left:solid white !important"></td>
+                                        <td>Diskon Promo</td>
+                                        <td>- Rp. <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></td>
+                                    </tr>
+
+                                    <!-- Down Payment -->
+                                    <?php if ($transaksi->order_device == 3) : ?>
+                                        <?php if ($transaksi->down_payment == 0) : ?>
+                                        <?php else : ?>
+                                            <tr>
+                                                <td colspan="3" style="border-bottom: solid white !important; border-left:solid white !important"></td>
+                                                <td>Uang Muka :</td>
+                                                <td>- Rp. <?php echo number_format($transaksi->down_payment, 0, ",", "."); ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+
+                                    <!-- End Down Payment -->
+                                    <tr>
+                                        <td colspan="3" style="border-bottom: solid white !important; border-left: solid white !important;"></td>
+                                        <td class="text-success"><b>Grand Total:</b></td>
+                                        <td class="text-success"><b>Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></b></td>
                                     </tr>
 
                                 </tbody>
@@ -133,30 +226,7 @@
                             <?php echo $transaksi->ketentuan_desc; ?>
                         </div>
                         <!-- /.col -->
-                        <div class="col-6">
 
-
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tr>
-                                        <th style="width:50%">Subtotal:</th>
-                                        <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Point</th>
-                                        <td>-<?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Diskon</th>
-                                        <td>Rp. 0</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Total:</th>
-                                        <td>Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->

@@ -14,11 +14,11 @@
     }
 
     #customers tr:nth-child(even) {
-        background-color: #f2f2f2;
+        /* background-color: #f2f2f2; */
     }
 
     #customers tr:hover {
-        background-color: #ddd;
+        /* background-color: #ddd; */
     }
 
     #customers th {
@@ -31,8 +31,8 @@
 </style>
 
 
-
 <h2><?php echo $meta->title; ?></h2>
+
 
 <table>
     <tbody>
@@ -61,6 +61,9 @@
 </table>
 
 <div style="margin-top:15px;">
+
+
+
     <table id="customers">
         <thead>
             <tr>
@@ -70,7 +73,7 @@
                 <th>Subtotal</th>
             </tr>
         </thead>
-        <tbody style="border:1px solid grey;width:100%;">
+        <tbody>
             <tr>
                 <td>
                     <?php echo $transaksi->mobil_name; ?> <br>
@@ -90,24 +93,81 @@
                 <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
             </tr>
 
+            <!-- Additional Charge -->
+            <?php if ($transaksi->order_device == 3) : ?>
+                <?php if ($transaksi->fuel_money == 0) : ?>
+                <?php else : ?>
+                    <tr>
+
+                        <td>BBM </td>
+                        <td></td>
+                        <td></td>
+                        <td>Rp. <?php echo number_format($transaksi->fuel_money, 0, ",", "."); ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <?php if ($transaksi->order_device == 3) : ?>
+                <?php if ($transaksi->meal_allowance == 0) : ?>
+                <?php else : ?>
+                    <tr>
+
+                        <td>Uang Makan </td>
+                        <td></td>
+                        <td></td>
+                        <td>Rp. <?php echo number_format($transaksi->meal_allowance, 0, ",", "."); ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <?php if ($transaksi->order_device == 3) : ?>
+                <?php if ($transaksi->accommodation_fee == 0) : ?>
+                <?php else : ?>
+                    <tr>
+
+                        <td>Uang Inap </td>
+                        <td></td>
+                        <td></td>
+                        <td>Rp. <?php echo number_format($transaksi->accommodation_fee, 0, ",", "."); ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endif; ?>
+
+
+            <!-- End Additional Charge -->
+
             <tr>
-                <td colspan="2"></td>
+                <td colspan="2" style="border-bottom: hidden; border-left:hidden"></td>
                 <td>Subtotal:</td>
                 <td>Rp. <?php echo number_format($transaksi->total_price, 0, ",", "."); ?></td>
             </tr>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="2" style="border-bottom: hidden; border-top: hidden; border-left:hidden"></td>
                 <td>Diskon Point</td>
                 <td>- <?php echo number_format($transaksi->diskon_point, 0, ",", "."); ?></td>
             </tr>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="2" style="border-bottom: hidden; border-top: hidden; border-left:hidden"></td>
                 <td>Diskon Promo</td>
                 <td>- <?php echo number_format($transaksi->promo_amount, 0, ",", "."); ?></td>
             </tr>
+
+            <!-- Down Payment -->
+            <?php if ($transaksi->order_device == 3) : ?>
+                <?php if ($transaksi->down_payment == 0) : ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="2" style="border-bottom: hidden; border-top: hidden; border-left:hidden"></td>
+                        <td>Uang Muka :</td>
+                        <td>Rp. <?php echo number_format($transaksi->down_payment, 0, ",", "."); ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <!-- End Down Payment -->
             <tr>
-                <td colspan="2"></td>
-                <td>Total:</td>
+                <td colspan="2" style="border-bottom: hidden; border-top: hidden; border-left:hidden"></td>
+                <td>Grand Total:</td>
                 <td>Rp. <?php echo number_format($transaksi->grand_total, 0, ",", "."); ?></td>
             </tr>
 
@@ -130,4 +190,5 @@
 <br>
 
 <b>Syarat dan Ketentuan:</b><br>
-<?php echo $transaksi->ketentuan_desc; ?>
+<small>
+    <?php echo $transaksi->ketentuan_desc; ?></small>

@@ -10,6 +10,14 @@ class Paket_model extends CI_Model
     $this->load->database();
   }
   //listing Paket
+  public function get_paket_jakarta()
+  {
+    $this->db->select('*');
+    $this->db->from('paket');
+    $this->db->order_by('paket_name', 'ASC');
+    $query = $this->db->get();
+    return $query->result();
+  }
   public function get_paket()
   {
     $this->db->select('*');
