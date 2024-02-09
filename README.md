@@ -8,6 +8,8 @@ Log Update :
 
 - Table transaksi => Add new Field "order_device" nullable = true
 
+2/9/2024
+
 - Table transaksi => Add new Field "meal_allowance" nullable = true
 - Table transaksi => Add new Field "fuel_money" nullable = true
 - Table transaksi => Add new Field "down_payment" nullable = true
