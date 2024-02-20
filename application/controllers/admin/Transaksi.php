@@ -419,7 +419,7 @@ class transaksi extends CI_Controller
   {
     // $user = $this->session->userdata('id');
     $transaksi = $this->transaksi_model->detail($id);
-    if ($transaksi->stage == 1) {
+    if ($transaksi->stage == 1 || $transaksi->stage == 2) {
       //Proteksi delete
       is_login();
       $data = [
@@ -428,7 +428,7 @@ class transaksi extends CI_Controller
         'stage'                     => 6,
       ];
       $this->transaksi_model->update($data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show" > Data Telah di Batalkan <button class="close" data-dismiss="alert" aria-label="Close">×</button></div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"> Data Telah di Batalkan <button class="close" data-dismiss="alert" aria-label="Close">×</button></div>');
       redirect($_SERVER['HTTP_REFERER']);
     } else {
       redirect('admin/404');

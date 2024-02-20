@@ -15,7 +15,7 @@
             <?php echo form_open('admin/transaksi/pilih_driver/' . $transaksi->id); ?>
             <div class="form-group">
                 <label>Pilih Driver</label>
-                <select name="driver_id" class="form-control custom-select" required>
+                <select name="driver_id" class="form-control select2bs4" required>
                     <option value="">--Pilih Driver-</option>
                     <?php foreach ($driver as $data) : ?>
                         <option value="<?php echo $data->id; ?>"><?php echo $data->name; ?></option>
