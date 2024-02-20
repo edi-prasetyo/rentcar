@@ -564,74 +564,29 @@ class Dropoff extends CI_Controller
 
         if ($transaksi->pembayaran == "Transfer") {
             $message = "          
-            Terima Kasih Atas Pesanan Anda 
-            Berikut rincian Pesanan anda
-            ----------------------------
-            Detail Customer
-            ----------------------------
-            Nama            :  $transaksi->passenger_name  
-            email           :  $transaksi->passenger_email 
-            ----------------------------
-            Detail Pesanan
-            ----------------------------
-            Mobil           :   $transaksi->mobil_name 
-            Paket           :   $transaksi->paket_name  
-            Tgl jemput      :   $transaksi->tanggal_jemput 
-            Jam jemput      :   $transaksi->jam_jemput 
-            Alamat jemput   :   $transaksi->alamat_jemput 
-            ----------------------------
-            Detail Harga
-            ----------------------------
-            Total Harga     :   $transaksi->total_price 
-            Diskon Point    :  $transaksi->diskon_point 
-            Diskon Promo    :   $transaksi->promo_amount 
-            Total Harga     :   $transaksi->grand_total 
-            ----------------------------
-            Pembayaran
-            ----------------------------
-            Silahkan Klik Link di bawah ini untuk 
-            melakukan Pembayaran
-             $url_payment 
-            Terima Kasih Atas Pesanan Anda.
-            Jika butuh bantuan silahkan menghubungi
-              $meta->whatsapp 
+            Order Anda telah dibuat Berikut data pesanan anda :%0a
+            Nama:  . $transaksi->passenger_name . %0a
+            Whatsapp:  . $transaksi->passenger_phone .%0a
+            Mobil:  . $transaksi->mobil_name . %0a
+            Paket:  . $transaksi->paket_name . %0a
+            Tgl jemput:  . $transaksi->tanggal_jemput . %0a
+            Jam jemput:  . $transaksi->jam_jemput . %0a
+            Alamat jemput:  . $transaksi->alamat_jemput . %0a
+            Terima Kasih Telah Menggunakan Jasa Layanan Agelita Rentcar
             
             ";
         } else {
             $message = "
 
-            Terima Kasih Atas Pesanan Anda 
-            Berikut rincian Pesanan anda
-            ----------------------------
-            Detail Customer
-            ----------------------------
-            Nama            :   $transaksi->passenger_name 
-            email           :   $transaksi->passenger_email 
-            ----------------------------
-            Detail Pesanan
-            ----------------------------
-            Mobil           :   $transaksi->mobil_name 
-            Paket           :   $transaksi->paket_name 
-            Tgl jemput      :   $transaksi->tanggal_jemput 
-            Jam jemput      :   $transaksi->jam_jemput 
-            Alamat jemput   :   $transaksi->alamat_jemput 
-            ----------------------------
-            Detail Harga
-            ----------------------------
-            Total Harga     :   $transaksi->total_price 
-            Diskon Point    :   $transaksi->diskon_point 
-            Diskon Promo    :   $transaksi->promo_amount 
-            Total Harga     :   $transaksi->grand_total 
-            ----------------------------
-            Pembayaran
-            ----------------------------
-            Silahkan melakukan Pembayaran 
-            Melalui Driver Saat Penjemputan
-
-            Terima Kasih Atas Pesanan Anda.
-            Jika butuh bantuan silahkan 
-            menghubungi.
-              $meta->whatsapp 
+            Order Anda telah dibuat Berikut data pesanan anda :%0a
+            Nama:  . $transaksi->passenger_name . %0a
+            Whatsapp:  . $transaksi->passenger_phone .%0a
+            Mobil:  . $transaksi->mobil_name . %0a
+            Paket:  . $transaksi->paket_name . %0a
+            Tgl jemput:  . $transaksi->tanggal_jemput . %0a
+            Jam jemput:  . $transaksi->jam_jemput . %0a
+            Alamat jemput:  . $transaksi->alamat_jemput . %0a
+            Terima Kasih Telah Menggunakan Jasa Layanan Agelita Rentcar
             ";
         }
 
