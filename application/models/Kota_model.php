@@ -16,7 +16,7 @@ class Kota_model extends CI_Model
         // join
         $this->db->join('provinsi', 'provinsi.id = kota.provinsi_id', 'LEFT');
         // End Join
-        $this->db->order_by('provinsi.provinsi_name', 'ASC');
+        $this->db->order_by('kota.id', 'ASC');
         $query = $this->db->get();
         return $query->result();
     }
