@@ -1,7 +1,9 @@
 <?php
 $meta      = $this->meta_model->get_meta();
+$page      = $this->page_model->get_page();
 $application = $this->galery_model->application();
 ?>
+
 
 <section class="bg-white py-5">
     <div class="container">
@@ -93,12 +95,18 @@ $application = $this->galery_model->application();
             <div class="col-md-2">
                 <h5 class="headin5_amrc col_white_amrc pt2">Perusahaan</h5>
                 <!--headin5_amrc-->
+
                 <ul class="footer_ul_amrc">
-                    <li><a href="<?php echo base_url(); ?>">Tentang Kami</a></li>
+                    <!-- <li><a href="<?php echo base_url(); ?>">Tentang Kami</a></li>
                     <li><a href="<?php echo base_url(); ?>">Hubungi Kami</a></li>
                     <li><a href="<?php echo base_url(); ?>">Syarat dan ketentuan</a></li>
                     <li><a href="<?php echo base_url(); ?>">Kebijakan Privasi</a></li>
-                    <li><a href="<?php echo base_url(); ?>">FAQ</a></li>
+                    <li><a href="<?php echo base_url(); ?>">FAQ</a></li> -->
+
+                    <?php foreach ($page as $page) : ?>
+                        <li><a href="<?php echo base_url('page/detail/' . $page->page_slug); ?>"><?php echo $page->page_title; ?></a></li>
+                    <?php endforeach; ?>
+
                 </ul>
                 <!--footer_ul_amrc ends here-->
             </div>
