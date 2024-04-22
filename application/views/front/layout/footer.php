@@ -3,7 +3,7 @@ $meta      = $this->meta_model->get_meta();
 $application = $this->galery_model->application();
 ?>
 
-<section class="bg-white shadow mt-5">
+<section class="bg-white py-5">
     <div class="container">
         <div class="row">
             <div class="col-md-3 app-footer col-3" style="margin-top: -80px !important;">
@@ -42,8 +42,8 @@ $application = $this->galery_model->application();
     </div>
 </section>
 <!-- FOOTER -->
-<footer class="footer">
-    <div class="container bottom_border">
+<footer class="footer pb-5">
+    <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <h5 class="headin5_amrc col_white_amrc pt2">Customer Service</h5>
@@ -103,35 +103,21 @@ $application = $this->galery_model->application();
                 <!--footer_ul_amrc ends here-->
             </div>
 
-
-
-
-
         </div>
     </div>
 
-    <div class="container">
-        <p style="color:ddd;text-align:center;" class="pt-5"><?php echo $meta->description; ?></p>
-    </div>
+
 
 </footer>
-<section class="disclaimer bg-light border">
-    <div class="container">
-        <div class="row ">
-            <div class="col-md-12 ">
-                <small>
-                </small>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="copyright">
+
+<section class="copyright bg-dark">
     <div class="container">
         <div class="row text-center">
             <div class="col-md-12 pt-3">
                 <p class="text-muted">Copyright © 2021 <?php echo $meta->title; ?> - <?php echo $meta->tagline; ?></p>
             </div>
         </div>
+        <p class="text-muted"><?php echo $meta->description; ?></p>
     </div>
 </section>
 

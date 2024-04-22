@@ -117,7 +117,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Lama Sewa<span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <select class="form-control form-control-chosen" name="lama_sewa" id="lama_sewa" value="" onchange="total()">
+                            <select class="form-control" name="lama_sewa" id="lama_sewa" value="" onchange="total()" required>
                                 <option value="">-- Lama Sewa --</option>
                                 <option value='1'> 1 hari</option>
                                 <option value='2'> 2 Hari</option>
@@ -165,7 +165,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Alamat Penjemputan <span class="text-danger">*</span>
                         </label>
                         <div class="col-lg-8">
-                            <textarea class="form-control" name="alamat_jemput" placeholder="Alamat penjemputan"></textarea>
+                            <textarea class="form-control" name="alamat_jemput" placeholder="Alamat penjemputan" required></textarea>
                             <div class="invalid-feedback">Silahkan masukan Alamat Penjemputan.</div>
                         </div>
                     </div>
@@ -181,7 +181,7 @@ $user           = $this->user_model->user_detail($id);
                         <label class="col-lg-4 col-form-label">Jam Jemput <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
                             <input type="text" name="jam_jemput" class="form-control" value="<?php echo $jam_sewa; ?>" readonly required>
-                            <div class="invalid-feedback">Jam Jemputharus di isi.</div>
+                            <div class="invalid-feedback">Jam Jemput harus di isi.</div>
                         </div>
                     </div>
 
@@ -205,7 +205,7 @@ $user           = $this->user_model->user_detail($id);
                                 <?php endforeach; ?>
 
                             </select>
-                            <div class="invalid-feedback">Pilih Lama Sewa.</div>
+                            <div class="invalid-feedback">Pilih Pembayaran.</div>
                         </div>
                     </div>
 

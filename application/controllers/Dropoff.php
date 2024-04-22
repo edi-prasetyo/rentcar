@@ -565,27 +565,26 @@ class Dropoff extends CI_Controller
         if ($transaksi->pembayaran == "Transfer") {
             $message = "          
             Order Anda telah dibuat Berikut data pesanan anda :%0a
-            Nama:  . $transaksi->passenger_name . %0a
-            Whatsapp:  . $transaksi->passenger_phone .%0a
-            Mobil:  . $transaksi->mobil_name . %0a
-            Paket:  . $transaksi->paket_name . %0a
-            Tgl jemput:  . $transaksi->tanggal_jemput . %0a
-            Jam jemput:  . $transaksi->jam_jemput . %0a
-            Alamat jemput:  . $transaksi->alamat_jemput . %0a
+            Nama:   $transaksi->passenger_name %0a
+            Whatsapp:  $transaksi->passenger_phone %0a
+            Mobil:  $transaksi->mobil_name  %0a
+            Paket:  $transaksi->paket_name %0a
+            Tgl jemput:   $transaksi->tanggal_jemput  %0a
+            Jam jemput:   $transaksi->jam_jemput  %0a
+            Alamat jemput:   $transaksi->alamat_jemput  %0a
             Terima Kasih Telah Menggunakan Jasa Layanan Agelita Rentcar
             
             ";
         } else {
             $message = "
-
             Order Anda telah dibuat Berikut data pesanan anda :%0a
-            Nama:  . $transaksi->passenger_name . %0a
-            Whatsapp:  . $transaksi->passenger_phone .%0a
-            Mobil:  . $transaksi->mobil_name . %0a
-            Paket:  . $transaksi->paket_name . %0a
-            Tgl jemput:  . $transaksi->tanggal_jemput . %0a
-            Jam jemput:  . $transaksi->jam_jemput . %0a
-            Alamat jemput:  . $transaksi->alamat_jemput . %0a
+            Nama:  $transaksi->passenger_name %0a
+            Whatsapp:  $transaksi->passenger_phone %0a
+            Mobil:  $transaksi->mobil_name %0a
+            Paket:  $transaksi->paket_name  %0a
+            Tgl jemput:  $transaksi->tanggal_jemput  %0a
+            Jam jemput:  $transaksi->jam_jemput  %0a
+            Alamat jemput:  $transaksi->alamat_jemput %0a
             Terima Kasih Telah Menggunakan Jasa Layanan Agelita Rentcar
             ";
         }
